@@ -78,3 +78,9 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+# Runtime Metadata Policy (Mandatory)
+- `started_at` and `finished_at` must be real runtime timestamps in ISO8601 with timezone offset.
+- Never use hard-coded or placeholder timestamps.
+- If execution status is terminal (`completed|completed_with_risk|blocked`), include `duration_ms` computed from timestamps.
+- If status is `not_started`, use `null` for `started_at`, `finished_at`, `duration_ms`.
