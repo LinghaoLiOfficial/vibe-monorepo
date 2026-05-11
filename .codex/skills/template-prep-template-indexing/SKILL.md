@@ -1,6 +1,6 @@
 ---
 name: template-prep-template-indexing
-version: 1.0.0
+version: 1.2.0
 kind: atomic
 output_format: markdown
 description: Index template prep artifacts into searchable template metadata for matching and composition.
@@ -24,10 +24,12 @@ triggers:
 - `## Retrieval Tags`
 - `## Matching Signals`
 - `## Must Preserve / Can Replace / Can Extend`
+- `## Responsive Coverage`
 - `## Reuse Recommendation`
 
 # Failure Policy
 - Fewer than 3 artifacts: allow low-confidence index with explicit blockers.
+- If mobile evidence is hypothesis-only, keep indexing allowed but mark low-confidence responsive tags.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

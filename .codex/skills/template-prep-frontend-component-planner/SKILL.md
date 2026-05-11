@@ -1,6 +1,6 @@
 ---
 name: template-prep-frontend-component-planner
-version: 1.0.0
+version: 1.2.0
 kind: atomic
 output_format: markdown
 description: Plan component architecture, boundaries, props contracts, states, and replaceable regions for a template page.
@@ -23,10 +23,12 @@ triggers:
 - `## Component Contracts`
 - `## State And Interaction Rules`
 - `## Responsive Behavior`
+- `## Mobile Degradation Rules`
 - `## Replaceable Regions`
 
 # Failure Policy
 - If no upstream artifacts: stop, do not generate from scratch.
+- If no mobile screenshot evidence exists, infer mobile behavior from desktop structure and mark `completed_with_risk`.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

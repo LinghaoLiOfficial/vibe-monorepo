@@ -1,6 +1,6 @@
 ---
 name: user-generation-nextjs-react-code-generation
-version: 1.0.0
+version: 1.1.0
 kind: atomic
 output_format: markdown
 description: Generate/modify Next.js + React code according to blueprint and template composition outputs.
@@ -23,11 +23,21 @@ triggers:
 - Implement shared layout/components first.
 - Add/modify routes and pages per composition plan.
 - Run available validations.
+- Implement responsive behavior for desktop + mobile by default unless user explicitly requests desktop-only.
+- Use explicit breakpoint behavior for shell, page grids, and data-heavy components.
 
 # Report Must Include
 - Changed files
 - Validation commands run
 - Failures and unresolved risks
+- Responsive implementation summary by route/component
+- Breakpoints tested (at minimum one desktop width and one mobile width)
+
+# Responsive Implementation Minimum
+- Navigation shell adapts across breakpoints (for example sidebar -> drawer/sheet on mobile).
+- Data tables provide mobile fallback (horizontal scroll, cardified rows, or prioritized columns).
+- Charts remain legible on mobile (resized, simplified labels, or alternate summary views).
+- Touch targets and spacing are adjusted for mobile usability.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

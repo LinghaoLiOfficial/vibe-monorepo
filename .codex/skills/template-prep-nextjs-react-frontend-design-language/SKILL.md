@@ -1,6 +1,6 @@
 ---
 name: template-prep-nextjs-react-frontend-design-language
-version: 1.0.0
+version: 1.2.0
 kind: atomic
 output_format: markdown
 description: Produce implementation-oriented Next.js + React frontend language spec from template prep artifacts.
@@ -22,10 +22,12 @@ triggers:
 - `## Server Client Component Boundaries`
 - `## Props And Data Contracts`
 - `## Tailwind Token Mapping`
+- `## Responsive Implementation Notes`
 - `## Adaptation Constraints`
 
 # Failure Policy
 - If component plan missing: stop.
+- If responsive assumptions are based on desktop-only evidence, mark `completed_with_risk` and enumerate verification gaps.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

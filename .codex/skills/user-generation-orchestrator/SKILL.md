@@ -1,6 +1,6 @@
 ---
 name: user-generation-orchestrator
-version: 1.0.0
+version: 1.1.0
 kind: orchestrator
 output_format: markdown
 description: Orchestrate user-generation atomic skills with stage gates, resume support, and final delivery report.
@@ -18,10 +18,17 @@ triggers:
 # Output
 - `docs/12-user-generation-orchestration-report.md`
 
+# Default Delivery Mode
+- Deliver responsive web by default for both:
+- PC desktop baseline (`>=1200px`)
+- Mobile baseline (`<=767px`)
+- Recommended additional checkpoint: tablet (`768-1199px`)
+
 # Gate Rules
 - Validate each stage artifact before moving on.
 - Stop and report blockers if required artifact/check fails.
 - Support `resume_from` with prior artifact validation.
+- Treat missing mobile adaptation evidence as gate failure (P1), unless user explicitly requests desktop-only.
 
 # Orchestration State Schema
 Track each stage with:

@@ -1,6 +1,6 @@
 ---
 name: template-prep-design-system-structurizer
-version: 1.0.0
+version: 1.2.0
 kind: atomic
 output_format: markdown
 description: Convert visual parse + UI/UX abstraction into template-level design system tokens and style rules.
@@ -22,6 +22,7 @@ triggers:
 - `## Typography System`
 - `## Spacing Radius Shadow Border`
 - `## Component Style Baselines`
+- `## Responsive Token Considerations`
 - `## Reuse Constraints`
 
 # Validation
@@ -30,6 +31,7 @@ triggers:
 
 # Failure Policy
 - Missing one upstream file: allow degraded output with explicit risk note.
+- Missing mobile evidence upstream: allow responsive token assumptions with `completed_with_risk`.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

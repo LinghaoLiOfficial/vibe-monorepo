@@ -1,6 +1,6 @@
 ---
 name: template-prep-uiux-design-language-abstractor
-version: 1.0.0
+version: 1.2.0
 kind: atomic
 output_format: markdown
 description: Abstract UI/UX design language from visual-parse markdown into reusable UX intent and interaction principles.
@@ -25,11 +25,13 @@ triggers:
 - `## UX Intent`
 - `## Information Architecture Signals`
 - `## Interaction Principles`
+- `## Responsive Intent (Desktop + Mobile)`
 - `## Assumptions And Uncertainties`
 
 # Failure Policy
 - If upstream file missing: stop.
 - If evidence insufficient: mark low confidence explicitly.
+- If mobile evidence is absent upstream, produce hypothesis-based responsive intent and mark `completed_with_risk`.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

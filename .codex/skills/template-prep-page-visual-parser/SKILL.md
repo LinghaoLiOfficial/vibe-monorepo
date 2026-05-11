@@ -1,6 +1,6 @@
 ---
 name: template-prep-page-visual-parser
-version: 1.0.0
+version: 1.2.0
 kind: atomic
 output_format: markdown
 description: Parse webpage screenshot(s) into a structured visual analysis markdown for downstream template-preparation skills.
@@ -17,6 +17,7 @@ Convert screenshot evidence into a reusable page-level visual parse document, an
 - Primary: `template-preparation/inputs/screenshots/<template-id>.(png|jpg|webp)`
 - External input accepted: user-provided screenshot path(s) or image attachment(s) from the current task
 - Optional metadata: `templates/<template-id>/metadata.yaml`, `README.md`
+- Optional mobile screenshot(s): `template-preparation/inputs/screenshots/<template-id>-mobile[-<index>].(png|jpg|webp)`
 
 # Output
 - `templates/<template-id>/01-page-visual-parse.md`
@@ -27,11 +28,13 @@ Convert screenshot evidence into a reusable page-level visual parse document, an
 1. Resolve `template-id` and screenshot source path(s).
 2. If screenshot source is outside `template-preparation/inputs/screenshots/`, copy and persist it into `template-preparation/inputs/screenshots/` with canonical naming `<template-id>[-<index>]`.
 3. Inspect the persisted screenshot(s) and extract structure, hierarchy, layout, visual tokens, interaction cues.
-4. Write markdown with stable sections: Summary, Page Type, Region Breakdown, Visual Signals, Interaction Signals, Uncertainties.
+4. Write markdown with stable sections: Summary, Page Type, Desktop Evidence, Mobile Evidence Or Hypothesis, Region Breakdown, Visual Signals, Interaction Signals, Uncertainties.
 5. Validate parse file exists, non-empty, and required headings present; also validate persisted screenshot file(s) exist.
 
 # Validation Checklist
 - File written
+- Contains `## Desktop Evidence`
+- Contains `## Mobile Evidence Or Hypothesis`
 - Contains `## Region Breakdown`
 - Contains `## Visual Signals`
 - Contains `## Uncertainties`
@@ -41,6 +44,7 @@ Convert screenshot evidence into a reusable page-level visual parse document, an
 - If no screenshot is available: stop and request input path.
 - If screenshot cannot be persisted: stop and report the blocking path/permission issue.
 - If uncertain (font/size/motion): record as uncertainty, do not fabricate.
+- If mobile screenshot is missing: continue with hypothesis mode and mark `completed_with_risk`.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

@@ -1,6 +1,6 @@
 ---
 name: user-generation-system-blueprint
-version: 1.0.0
+version: 1.1.0
 kind: atomic
 output_format: markdown
 description: Convert user requirements into a system blueprint for multi-page app generation.
@@ -23,7 +23,18 @@ triggers:
 - `## Route Map`
 - `## Core Flows`
 - `## Cross-page Consistency Rules`
+- `## Responsive Strategy`
 - `## Assumptions`
+
+# Responsive Defaults
+- Unless explicitly overridden by user requirement, define dual-target delivery:
+- Desktop: `>=1200px`
+- Mobile: `<=767px`
+- Optional but recommended: tablet `768-1199px`
+- In `## Responsive Strategy`, include at least:
+- Navigation behavior across breakpoints
+- Layout stacking/reflow rules per page type
+- Data-dense component degradation rules (tables/charts/cards/forms)
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

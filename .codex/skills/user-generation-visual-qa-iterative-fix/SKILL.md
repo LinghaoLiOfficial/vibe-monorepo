@@ -1,6 +1,6 @@
 ---
 name: user-generation-visual-qa-iterative-fix
-version: 1.0.0
+version: 1.1.0
 kind: atomic
 output_format: markdown
 description: Run visual/code QA on generated multi-page app and iteratively apply minimal fixes.
@@ -25,11 +25,20 @@ triggers:
 3. Re-run available checks.
 4. Repeat until pass or blocker.
 
+# Required QA Coverage
+- Validate both desktop and mobile by default (unless explicitly desktop-only requirement).
+- Minimum viewport checks:
+- Desktop: one representative width `>=1200px`
+- Mobile: one representative width `<=767px`
+- Recommended: tablet check `768-1199px`
+- Responsive regressions are at least P1 severity when they break task-critical flow.
+
 # Report
 - Issue list by severity
 - Fixes applied
 - Validation results
 - Remaining risks
+- Viewports checked and per-viewport pass/fail summary
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

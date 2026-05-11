@@ -1,6 +1,6 @@
 ---
 name: template-preparation-orchestrator
-version: 1.1.0
+version: 1.2.0
 kind: orchestrator
 output_format: markdown
 description: Orchestrate template-preparation atomic skills (01-05 + indexing) with stage gates and resumable execution.
@@ -25,10 +25,18 @@ Coordinate atomic skills only; do not replace their detailed logic.
 - `templates/<template-id>/orchestration-state.json`
 - Optional aggregate: `templates/catalog.md`
 
+# Default Delivery Mode
+- Default to dual-target preparation:
+- Desktop Evidence (`>=1200px`)
+- Mobile Hypothesis (`<=767px`) when mobile screenshot evidence is missing
+- If mobile screenshot evidence is provided, produce Mobile Evidence instead of hypothesis.
+
 # Gate Rules
 - Each stage must produce its expected file and required headings.
 - Stop on P0 failure; record blocker.
 - Support `resume_from` stage.
+- Missing mobile screenshot is not a hard blocker by itself; continue with explicit assumptions and set run/status to `completed_with_risk`.
+- If mobile-required sections are missing from stage artifacts, treat as gate failure (P1) unless user explicitly requested desktop-only preparation.
 
 # Orchestration State Schema
 Track each stage with:

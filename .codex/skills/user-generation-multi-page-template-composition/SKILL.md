@@ -1,6 +1,6 @@
 ---
 name: user-generation-multi-page-template-composition
-version: 1.0.0
+version: 1.1.0
 kind: atomic
 output_format: markdown
 description: Compose a multi-page template plan from blueprint + template index with explainable matching.
@@ -21,7 +21,16 @@ triggers:
 - `## Route To Template Mapping`
 - `## Matching Scores`
 - `## Adaptation Plan`
+- `## Responsive Adaptation Matrix`
 - `## Risks And Fallbacks`
+
+# Responsive Adaptation Matrix Contract
+- Must map each route to desktop/mobile adaptation decisions.
+- Per route, include:
+- Shell behavior (sidebar/header/tabs/drawer)
+- Layout transform (columns to stacked flow)
+- High-density widget strategy (table/chart/list fallback pattern)
+- Interaction adjustments (touch targets, gesture/scroll constraints)
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
