@@ -43,6 +43,15 @@
 
 编排 Skill 负责阶段顺序、门禁、恢复与报告，不替代原子 Skill 内部逻辑。
 
+### 3.3 默认前端交付基线
+- 面向生成链路的默认前端技术栈：
+- Next.js + React + TypeScript + Tailwind CSS + shadcn/ui
+- 默认响应式交付目标：
+- Desktop 基线（`>=1200px`）
+- Mobile 基线（`<=767px`）
+- 建议补充检查：Tablet（`768-1199px`）
+- 仅当用户需求明确要求 desktop-only 时，才可不交付移动端。
+
 ## 4. 标准 SKILL.md 结构
 每个 SKILL.md 建议包含：
 
@@ -147,6 +156,13 @@
 截图处理要求：
 - 视觉解析阶段必须将输入截图落盘到 `template-preparation/inputs/screenshots/` 并使用规范命名。
 
+响应式证据要求：
+- 模板准备默认输出双目标内容：
+- Desktop Evidence
+- Mobile Evidence 或 Mobile Hypothesis
+- 若缺少移动端截图证据，可继续执行，但必须显式记录假设，并在适用阶段使用 `completed_with_risk`。
+- 若产物缺少移动端必需章节（且用户未明确 desktop-only），应判定门禁失败。
+
 ### 8.2 用户生成流程
 阶段顺序：
 1. `user-generation-system-blueprint`
@@ -164,6 +180,11 @@
 - `docs/visual-qa-iterative-fix-report.md`
 - 编排报告产物
 
+技术栈与响应式交付要求：
+- 默认实现栈：Next.js + React + TypeScript + Tailwind CSS + shadcn/ui。
+- 用户生成流程默认需要同时验证 desktop 与 mobile，除非用户明确要求 desktop-only。
+- 代码生成与 QA 报告应包含响应式覆盖与技术栈合规说明。
+
 ## 9. 各 Skill 边界摘要
 - `template-prep-page-visual-parser`：只做视觉结构解析与截图持久化。
 - `template-prep-uiux-design-language-abstractor`：只做 UX/交互抽象。
@@ -177,6 +198,21 @@
 - `user-generation-nextjs-react-code-generation`：只做代码生成与修改。
 - `user-generation-visual-qa-iterative-fix`：只做视觉 QA 与最小修复。
 - `user-generation-orchestrator`：只做用户生成流程编排。
+
+## 9.1 当前必需章节增量
+- `user-generation-system-blueprint` 新增：
+- `## Responsive Strategy`
+- `## Frontend Stack Contract`
+- `user-generation-nextjs-react-code-generation` 新增技术栈合规报告要求：
+- TypeScript 使用约束
+- Tailwind token 化样式约束
+- shadcn/ui 采用情况摘要
+- `template-prep-nextjs-react-frontend-design-language` 新增：
+- `## TypeScript Contract`
+- `## shadcn/ui Adoption Plan`
+- `template-prep-page-visual-parser` 新增：
+- `## Desktop Evidence`
+- `## Mobile Evidence Or Hypothesis`
 
 ## 10. 变更维护规则
 更新 Skill 时：

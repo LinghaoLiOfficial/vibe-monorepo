@@ -43,6 +43,15 @@ Atomic skills must define input, output, validation, failure policy, and produce
 
 Orchestrators coordinate sequencing, gate checks, resume, and reporting. They do not replace atomic internals.
 
+## 3.3 Default Frontend Delivery Baseline
+- Default frontend stack for generation-oriented flow:
+- Next.js + React + TypeScript + Tailwind CSS + shadcn/ui
+- Default responsive delivery target:
+- Desktop baseline (`>=1200px`)
+- Mobile baseline (`<=767px`)
+- Recommended checkpoint: tablet (`768-1199px`)
+- Desktop-only delivery is allowed only when explicitly requested by the user requirement.
+
 ## 4. Standard SKILL.md Structure
 Each SKILL.md should include:
 
@@ -147,6 +156,13 @@ Typical outputs:
 Screenshot handling requirement:
 - Visual parser must persist input screenshot(s) into `template-preparation/inputs/screenshots/` with canonical naming.
 
+Responsive evidence requirement:
+- Template preparation defaults to dual-target output:
+- Desktop Evidence
+- Mobile Evidence or Mobile Hypothesis
+- If mobile screenshot evidence is missing, pipeline can continue with explicit assumptions and should use `completed_with_risk` where applicable.
+- If mobile-required sections are missing from artifacts (and user did not request desktop-only), gate should fail.
+
 ### 8.2 User Generation pipeline
 Stage order:
 1. `user-generation-system-blueprint`
@@ -164,6 +180,11 @@ Typical outputs:
 - `docs/visual-qa-iterative-fix-report.md`
 - orchestration report artifact
 
+Stack and responsive delivery requirement:
+- Default implementation stack: Next.js + React + TypeScript + Tailwind CSS + shadcn/ui.
+- User-generation flow must validate both desktop and mobile by default unless desktop-only is explicitly required.
+- Code-generation and QA reports should include responsive coverage and stack-compliance notes.
+
 ## 9. Operational Boundaries by Skill
 - `template-prep-page-visual-parser`: visual structure extraction + screenshot persistence only.
 - `template-prep-uiux-design-language-abstractor`: UX/interaction abstraction only.
@@ -177,6 +198,21 @@ Typical outputs:
 - `user-generation-nextjs-react-code-generation`: code generation/modification only.
 - `user-generation-visual-qa-iterative-fix`: visual QA and minimal iterative fix only.
 - `user-generation-orchestrator`: user-generation flow orchestration only.
+
+## 9.1 Required Section Deltas (Current)
+- `user-generation-system-blueprint` now includes:
+- `## Responsive Strategy`
+- `## Frontend Stack Contract`
+- `user-generation-nextjs-react-code-generation` now requires stack-compliance reporting:
+- TypeScript usage constraints
+- Tailwind tokenized styling constraints
+- shadcn/ui adoption summary
+- `template-prep-nextjs-react-frontend-design-language` now includes:
+- `## TypeScript Contract`
+- `## shadcn/ui Adoption Plan`
+- `template-prep-page-visual-parser` now includes:
+- `## Desktop Evidence`
+- `## Mobile Evidence Or Hypothesis`
 
 ## 10. Change Management
 When updating skills:
