@@ -16,7 +16,13 @@ triggers:
 4. visual-qa-iterative-fix
 
 # Output
-- `docs/12-user-generation-orchestration-report.md`
+- `/user-requirements/12-user-generation-orchestration-report.md`
+
+# Global Path Contract
+- Frontend code outputs from this orchestrator pipeline must be generated under `frontend/` only.
+- User-requirement artifacts (input requirement docs, blueprint/composition/reports) must be generated under a fixed requirements folder:
+- Fixed requirements folder: `/user-requirements/`
+- Gate failure: any artifact path violating this contract is `P1` and blocks stage completion.
 
 # Default Delivery Mode
 - Deliver responsive web by default for both:
@@ -31,6 +37,8 @@ triggers:
 - Stop and report blockers if required artifact/check fails.
 - Support `resume_from` with prior artifact validation.
 - Treat missing mobile adaptation evidence as gate failure (P1), unless user explicitly requests desktop-only.
+- Treat desktop non-full-width shell/layout (visible left-right blank gutters caused by fixed/max container constraints) as gate failure (P1), unless user explicitly requires centered narrow layout.
+- Treat missing explicit final-template disclosure to user as gate failure (P1).
 
 # Orchestration State Schema
 Track each stage with:
@@ -69,10 +77,17 @@ Track each stage with:
 - report_path:
 - produced_artifacts:
 
-## 5. Risks
+## 5. Final Template Disclosure (User-Facing)
+- selected_template_id:
+- selected_template_name:
+- source_artifact: `/user-requirements/multi-page-template-composition.md`
+- concise_reason:
+- alternatives_considered:
+
+## 6. Risks
 - unresolved_risks:
 - fallback_actions:
 
-## 6. Recommended Next Step
+## 7. Recommended Next Step
 - next_command_or_skill:
 ```

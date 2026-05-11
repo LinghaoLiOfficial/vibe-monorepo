@@ -3,81 +3,53 @@
 ## Component Tree
 - `DashboardPage`
 - `AppShell`
-- `BrowserFrameMock`
-- `TopHeader`
-- `BrandBlock`
-- `SearchBar`
-- `TopActions`
-- `UserProfileMini`
 - `SidebarNav`
-- `NavSection`
-- `NavItem`
-- `TeamSwitcherCard`
-- `UpgradePlanButton`
-- `DashboardContent`
-- `DashboardToolbar`
-- `DateRangeControl`
-- `PeriodSelect`
-- `ActionButton`
-- `KpiRow`
+- `TopBar`
+- `PageHeaderControls`
+- `KpiCardsRow`
 - `KpiCard`
-- `PrimaryPanels`
-- `SalesOverviewPanel`
-- `SubscribersPanel`
-- `SecondaryPanels`
-- `SalesDistributionPanel`
-- `IntegrationsTablePanel`
+- `SalesOverviewCard`
+- `SubscriberCard`
+- `SalesDistributionCard`
+- `IntegrationListCard`
+- `IntegrationTable`
 
 ## Layering And Boundaries
-- Shell boundary
-- `AppShell` owns global layout regions: sidebar, top header, content.
-
-- Route boundary
-- `DashboardPage` composes route-specific widgets and data mappings.
-
-- Widget boundary
-- Each analytics panel is self-contained and receives normalized data props.
-
-- Visual boundary
-- Card shell treatment centralized in reusable `PanelCard`/`Card` primitive.
+- `AppShell` 管理全局布局与响应式断点切换。
+- `SidebarNav` 与 `TopBar` 为跨页面可复用框架层。
+- 各数据卡片为页面域组件，接受数据与配置，不耦合获取逻辑。
+- 图表实现封装在卡片内部子组件，外层只传入序列数据。
 
 ## Component Contracts
-- `KpiCard`
-- Props: `title`, `value`, `delta`, `trend`, `icon`, `infoAction`.
-
-- `SalesOverviewPanel`
-- Props: `title`, `series`, `legendItems`, `period`, `controls`.
-
-- `SubscribersPanel`
-- Props: `title`, `value`, `delta`, `bars`, `activeIndex`, `period`.
-
-- `IntegrationsTablePanel`
-- Props: `rows[{appName, appIcon, type, rate, profit}]`, `onSelectRow`, `onViewAll`.
-
-- `SidebarNav`
-- Props: `sections[]`, `activeRoute`, `onNavigate`, `badges`.
+- `KpiCard(props)`: `title`, `value`, `delta`, `trend`, `icon`。
+- `SalesOverviewCard(props)`: `total`, `delta`, `seriesByMonth`, `legend`。
+- `SubscriberCard(props)`: `total`, `delta`, `weeklyBars`。
+- `IntegrationTable(props)`: `rows[{app,type,rate,profit}]`, `sortable`, `onSort`。
+- `PageHeaderControls(props)`: `dateRange`, `period`, `onFilter`, `onExport`。
 
 ## State And Interaction Rules
-- Global dashboard state
-- `dateRange`, `period`, `globalFilter` shared across widgets.
-
-- Local panel state
-- Sort/filter/menu states remain local to each panel unless explicitly synchronized.
-
-- Interaction rules
-- Active nav item reflects route.
-- Trend chips map to semantic status colors.
-- Chart highlight state can be derived from hover/focus or selected datapoint.
+- 页面级状态: `dateRange`, `period`, `filters`, `sortKey`。
+- 卡片局部状态: hover 高亮、图表 tooltip 显示。
+- 交互优先级: 时间范围变更 > 筛选 > 排序。
+- 导出动作为幂等触发，不应破坏当前筛选上下文。
 
 ## Responsive Behavior
-- Desktop (`>=1200`): fixed sidebar + multi-column analytic layout.
-- Tablet (`768-1199`): compress spacing, keep two-column where possible, optionally collapse sidebar width.
-- Mobile (`<768`): stack panels vertically, convert sidebar to drawer, maintain KPI readability with 1-column cards.
-- Keep action controls accessible via wrapping rows and icon+text fallbacks.
+- >=1200px: 侧栏固定，主内容双列/三列卡片布局。
+- 768-1199px: 缩窄侧栏，图表卡片优先全宽展示。
+- <=767px: 侧栏抽屉化，主内容单列流。
+
+## Mobile Degradation Rules
+- KPI 卡片纵向堆叠，保留指标值与趋势标签。
+- `SalesOverview` 图表可裁剪为关键两个月或切换简版图。
+- `IntegrationTable` 默认展示 2-3 核心列，其余列折叠或横滑。
+- 顶栏次级图标（如礼物）可折叠进更多菜单。
 
 ## Replaceable Regions
-- Brand assets (`logo`, `product name`, avatar identity).
-- Navigation labels and section taxonomy.
-- Widget data providers and chart rendering implementation.
-- Table row schema can be extended with status/actions.
-- Visual accent palette can be re-skinned if semantic token roles are preserved.
+- 可替换区域:
+  - 品牌区（Logo + 名称）
+  - KPI 指标定义
+  - 图表组件实现库（Recharts/ECharts）
+  - 集成列表数据源与字段映射
+- 不建议替换区域:
+  - 整体信息层级顺序
+  - 卡片化布局的主骨架

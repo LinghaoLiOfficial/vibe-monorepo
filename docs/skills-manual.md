@@ -173,17 +173,20 @@ Stage order:
 Coordinator: `user-generation-orchestrator`
 
 Typical outputs:
-- `docs/system-blueprint.md`
-- `docs/multi-page-template-composition.md`
-- Generated application code files
-- `docs/code-generation-report.md`
-- `docs/visual-qa-iterative-fix-report.md`
-- orchestration report artifact
+- `/user-requirements/system-blueprint.md`
+- `/user-requirements/multi-page-template-composition.md`
+- Generated frontend code files under `frontend/` only
+- `/user-requirements/code-generation-report.md`
+- `/user-requirements/visual-qa-iterative-fix-report.md`
+- `/user-requirements/12-user-generation-orchestration-report.md`
 
 Stack and responsive delivery requirement:
 - Default implementation stack: Next.js + React + TypeScript + Tailwind CSS + shadcn/ui.
 - User-generation flow must validate both desktop and mobile by default unless desktop-only is explicitly required.
 - Code-generation and QA reports should include responsive coverage and stack-compliance notes.
+- User-requirement artifacts must be written under `/user-requirements/`.
+- Desktop output should be full-width by default; left-right blank gutters caused by root-level fixed/max container constraints should be treated as P1 unless explicitly required.
+- Final best-fit template must be explicitly disclosed to the user.
 
 ## 9. Operational Boundaries by Skill
 - `template-prep-page-visual-parser`: visual structure extraction + screenshot persistence only.
@@ -203,10 +206,22 @@ Stack and responsive delivery requirement:
 - `user-generation-system-blueprint` now includes:
 - `## Responsive Strategy`
 - `## Frontend Stack Contract`
+- fixed requirement artifact path under `/user-requirements/`
+- `user-generation-multi-page-template-composition` now includes:
+- `## Final Selected Template` (must include `template_id`, `template_name`, concise selection reason, and considered alternatives)
 - `user-generation-nextjs-react-code-generation` now requires stack-compliance reporting:
 - TypeScript usage constraints
 - Tailwind tokenized styling constraints
 - shadcn/ui adoption summary
+- frontend code output path constraint under `frontend/` only
+- explicit use/reporting of the final selected template (`template_id` + `template_name`)
+- desktop full-width default (no root-level fixed/max-width shell unless explicitly required)
+- `user-generation-visual-qa-iterative-fix` now includes:
+- desktop full-width QA gate (left-right blank gutters as P1 unless explicitly required)
+- final-template user-facing disclosure QA check (missing disclosure is P1)
+- `user-generation-orchestrator` now includes:
+- user-facing final template disclosure fields in orchestration report
+- gate failure when final-template disclosure is missing
 - `template-prep-nextjs-react-frontend-design-language` now includes:
 - `## TypeScript Contract`
 - `## shadcn/ui Adoption Plan`

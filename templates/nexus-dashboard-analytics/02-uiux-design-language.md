@@ -1,32 +1,29 @@
-# UI/UX Design Language
+# UIUX Design Language
 
 ## UX Intent
-- Enable fast executive scanning before deep analysis.
-- Maintain a calm, low-cognitive-load environment for dense data review.
-- Prioritize confidence and controllability through visible filters, date scope, and panel-level actions.
-- Support routine operations (check trends, export, monitor alerts) with minimal navigation friction.
+- 以“高频扫描 + 低学习成本”为第一目标。
+- 通过卡片化布局将复杂数据拆解为可快速消费的信息块。
+- 让用户在 5-10 秒内完成核心业务健康度判断。
 
 ## Information Architecture Signals
-- IA pattern is `Global shell + Left route nav + Utility top bar + Dashboard content canvas`.
-- Route-level grouping (`GENERAL`, `TOOLS`, `SUPPORT`) communicates mental model by task domain.
-- Dashboard content uses layered disclosure:
-- Layer 1: KPI summary cards.
-- Layer 2: primary trend/comparison charts.
-- Layer 3: detailed operational widgets (distribution, integrations).
-- Context controls (date range, period, filter/export) sit above all widgets, implying shared query scope.
+- 全局层: 左侧导航承载主模块切换，顶部承载跨模块工具。
+- 页面层: 标题 + 筛选控制定义当前分析上下文。
+- 内容层: `KPI -> 趋势图 -> 结构分布 -> 明细表`，符合由概览到细节的阅读路径。
+- 功能层: 同类操作聚合（Filter/Sort/Export）减少操作跳跃。
 
 ## Interaction Principles
-- Scan-first hierarchy: large numbers and clear section headings before micro-details.
-- Progressive control granularity:
-- Global controls at page header.
-- Local controls per card/panel.
-- Strong active-state signaling on nav and selected chart bars.
-- Use of compact status chips (percent + arrow) to communicate directional change without extra text.
-- Predictable card behavior: each analytic module is independently actionable and visually bounded.
+- 默认状态克制，交互状态清晰（hover/active/focus）。
+- 优先“就地操作”：每个卡片内部提供独立筛选或周期切换。
+- 关键数值使用视觉锚点（字号、色块、涨跌标签）提高可发现性。
+- 风险信息（下跌）与正向信息（增长）采用明确语义色区分。
+
+## Responsive Intent (Desktop + Mobile)
+- Desktop Evidence: 保持双列与多列并排，优先密度和对比浏览。
+- Mobile Hypothesis: 转为单列流，保证触达与可读，减少并排比较。
+- 图表在移动端优先保留趋势含义，弱化装饰细节。
+- 表格卡片移动端应优先呈现关键列并允许横滑查看次要列。
 
 ## Assumptions And Uncertainties
-- Assumption: target users are business operators/analysts on desktop during working hours.
-- Assumption: data refresh cadence is periodic (daily/weekly/monthly) with export/reporting workflows.
-- Uncertainty: exact accessibility posture (focus order, keyboard navigation depth, ARIA usage) is not visible.
-- Uncertainty: error/loading/empty states are absent in screenshot evidence.
-- Uncertainty: mobile IA collapse behavior and breakpoint strategy are not directly observable.
+- 假设用户主要在桌面端进行分析操作，移动端以“查看”为主。
+- 未见移动端证据，断点和组件重排策略为推断。
+- 无法从截图确认键盘可达性与焦点环样式。

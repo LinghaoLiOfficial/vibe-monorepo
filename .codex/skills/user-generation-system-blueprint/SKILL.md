@@ -10,11 +10,16 @@ triggers:
 ---
 
 # Inputs
-- `inputs/user-requirement.md` (or equivalent requirement doc)
+- `/user-requirements/user-requirement.md` (or equivalent requirement doc)
 - Optional: template library context
 
 # Output
-- `docs/system-blueprint.md`
+- `/user-requirements/system-blueprint.md`
+
+# Path Contract
+- Requirement-related artifacts must be written under a fixed requirements folder.
+- Fixed requirements folder: `/user-requirements/`
+- Do not write this skill output to `docs/` by default.
 
 # Required Sections
 - `## Scope`

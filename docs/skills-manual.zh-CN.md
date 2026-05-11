@@ -173,17 +173,20 @@
 编排器：`user-generation-orchestrator`
 
 常见产物：
-- `docs/system-blueprint.md`
-- `docs/multi-page-template-composition.md`
-- 应用代码文件
-- `docs/code-generation-report.md`
-- `docs/visual-qa-iterative-fix-report.md`
-- 编排报告产物
+- `/user-requirements/system-blueprint.md`
+- `/user-requirements/multi-page-template-composition.md`
+- 仅位于 `frontend/` 下的前端代码文件
+- `/user-requirements/code-generation-report.md`
+- `/user-requirements/visual-qa-iterative-fix-report.md`
+- `/user-requirements/12-user-generation-orchestration-report.md`
 
 技术栈与响应式交付要求：
 - 默认实现栈：Next.js + React + TypeScript + Tailwind CSS + shadcn/ui。
 - 用户生成流程默认需要同时验证 desktop 与 mobile，除非用户明确要求 desktop-only。
 - 代码生成与 QA 报告应包含响应式覆盖与技术栈合规说明。
+- 用户需求相关产物必须统一写入 `/user-requirements/`。
+- PC 端默认应全宽铺满；若因根级固定/最大宽度容器导致左右留白，且需求未明确要求居中窄版，应判定为 P1。
+- 必须向用户显式披露最终选取的最合适模板。
 
 ## 9. 各 Skill 边界摘要
 - `template-prep-page-visual-parser`：只做视觉结构解析与截图持久化。
@@ -203,10 +206,22 @@
 - `user-generation-system-blueprint` 新增：
 - `## Responsive Strategy`
 - `## Frontend Stack Contract`
+- 固定需求产物路径约束：`/user-requirements/`
+- `user-generation-multi-page-template-composition` 新增：
+- `## Final Selected Template`（必须包含 `template_id`、`template_name`、选择理由、候选模板权衡）
 - `user-generation-nextjs-react-code-generation` 新增技术栈合规报告要求：
 - TypeScript 使用约束
 - Tailwind token 化样式约束
 - shadcn/ui 采用情况摘要
+- 前端代码输出路径约束：仅 `frontend/`
+- 必须基于并报告最终选定模板（`template_id` + `template_name`）
+- PC 端默认全宽（非需求明确时，禁止根级固定/最大宽度壳层容器）
+- `user-generation-visual-qa-iterative-fix` 新增：
+- PC 全宽验收门禁（左右留白问题在非明确需求下为 P1）
+- 最终模板用户披露校验（缺失为 P1）
+- `user-generation-orchestrator` 新增：
+- 编排报告中的用户可见最终模板披露字段
+- 未披露最终模板时门禁失败
 - `template-prep-nextjs-react-frontend-design-language` 新增：
 - `## TypeScript Contract`
 - `## shadcn/ui Adoption Plan`

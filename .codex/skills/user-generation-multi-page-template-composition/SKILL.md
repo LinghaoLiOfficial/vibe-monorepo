@@ -10,19 +10,34 @@ triggers:
 ---
 
 # Inputs
-- `docs/system-blueprint.md`
+- `/user-requirements/system-blueprint.md`
 - template index files under `templates/*/template-index.md`
 
 # Output
-- `docs/multi-page-template-composition.md`
+- `/user-requirements/multi-page-template-composition.md`
+
+# Path Contract
+- Requirement-related artifacts must be written under a fixed requirements folder.
+- Fixed requirements folder: `/user-requirements/`
+- Do not write this skill output to `docs/` by default.
 
 # Required Sections
+- `## Final Selected Template`
 - `## Visual Anchor`
 - `## Route To Template Mapping`
 - `## Matching Scores`
 - `## Adaptation Plan`
 - `## Responsive Adaptation Matrix`
 - `## Risks And Fallbacks`
+
+# Final Template Disclosure Contract
+- Must explicitly identify the final best-fit template for this run.
+- In `## Final Selected Template`, include at least:
+- `template_id`
+- `template_name`
+- `selection_reason` (why this is the best fit for current user requirements)
+- `alternative_templates_considered` (with concise tradeoffs)
+- This section is mandatory and user-facing; do not hide final selection only in internal notes.
 
 # Responsive Adaptation Matrix Contract
 - Must map each route to desktop/mobile adaptation decisions.

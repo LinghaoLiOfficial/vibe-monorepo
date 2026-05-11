@@ -10,14 +10,19 @@ triggers:
 ---
 
 # Inputs
-- `docs/system-blueprint.md`
-- `docs/multi-page-template-composition.md`
-- `docs/code-generation-report.md`
+- `/user-requirements/system-blueprint.md`
+- `/user-requirements/multi-page-template-composition.md`
+- `/user-requirements/code-generation-report.md`
 - Project codebase
 
 # Outputs
 - Code fixes
-- `docs/visual-qa-iterative-fix-report.md`
+- `/user-requirements/visual-qa-iterative-fix-report.md`
+
+# Path Contract
+- Frontend code fixes must be applied under `frontend/` only.
+- Requirement/report artifacts for this skill must be written under a fixed requirements folder.
+- Fixed requirements folder: `/user-requirements/`
 
 # Loop
 1. Detect issues (P0/P1/P2).
@@ -32,6 +37,8 @@ triggers:
 - Mobile: one representative width `<=767px`
 - Recommended: tablet check `768-1199px`
 - Responsive regressions are at least P1 severity when they break task-critical flow.
+- Desktop root/shell must visually fill viewport width by default; left-right blank gutters caused by fixed/max container constraints are at least `P1` unless requirement explicitly mandates centered constrained layout.
+- Validate that final user-facing reports explicitly disclose the selected best-fit template (`template_id` + `template_name` + concise reason); missing disclosure is at least `P1`.
 
 # Report
 - Issue list by severity

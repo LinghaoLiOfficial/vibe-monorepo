@@ -10,19 +10,26 @@ triggers:
 ---
 
 # Inputs
-- `docs/system-blueprint.md`
-- `docs/multi-page-template-composition.md`
+- `/user-requirements/system-blueprint.md`
+- `/user-requirements/multi-page-template-composition.md`
 - Optional template artifacts
 
 # Outputs
-- Code files under project source directories
-- `docs/code-generation-report.md`
+- Code files under `frontend/` only
+- `/user-requirements/code-generation-report.md`
+
+# Path Contract
+- All generated or modified frontend-related files must be placed under `frontend/`.
+- Requirement/report artifacts for this skill must be written under a fixed requirements folder.
+- Fixed requirements folder: `/user-requirements/`
+- Writing frontend code outside `frontend/` is a contract violation.
 
 # Execution Rules
 - Reuse existing project conventions.
 - Implement shared layout/components first.
 - Add/modify routes and pages per composition plan.
 - Run available validations.
+- Use the final best-fit template explicitly selected in `/user-requirements/multi-page-template-composition.md` as implementation baseline.
 - Implement responsive behavior for desktop + mobile by default unless user explicitly requests desktop-only.
 - Use explicit breakpoint behavior for shell, page grids, and data-heavy components.
 - Default implementation stack is Next.js + React + TypeScript + Tailwind CSS + shadcn/ui unless user explicitly overrides.
@@ -34,6 +41,7 @@ triggers:
 - Changed files
 - Validation commands run
 - Failures and unresolved risks
+- Final selected template used for implementation (`template_id` + `template_name`)
 - Responsive implementation summary by route/component
 - Breakpoints tested (at minimum one desktop width and one mobile width)
 - TypeScript coverage summary for newly introduced modules/components
@@ -44,6 +52,8 @@ triggers:
 - Data tables provide mobile fallback (horizontal scroll, cardified rows, or prioritized columns).
 - Charts remain legible on mobile (resized, simplified labels, or alternate summary views).
 - Touch targets and spacing are adjusted for mobile usability.
+- Desktop (`>=1200px`) shell/page root should be full-width by default (fill viewport width).
+- Do not keep fixed `max-width` or centered container constraints at app shell/root level unless requirement explicitly asks for a constrained centered layout.
 
 # Stack Compliance Minimum
 - TypeScript is enabled for new/modified React modules; avoid `any` unless justified in report.
