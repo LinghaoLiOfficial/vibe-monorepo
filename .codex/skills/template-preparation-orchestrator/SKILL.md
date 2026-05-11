@@ -12,6 +12,12 @@ triggers:
 # Scope
 Coordinate atomic skills only; do not replace their detailed logic.
 
+# Naming Convention (Mandatory)
+- Use `<template-name-slug>` for all paths and identifiers in this pipeline.
+- `<template-name-slug>` must be human-readable kebab-case (example: `clinicgo-dashboard`).
+- Do not use hash/code-like IDs (example: `0b07bf359d8fa5eb208cd0d5bcab6c87`) as template naming.
+- If the input source filename is hash/code-like, the orchestrator must resolve or request a template name slug, then persist outputs using the slug.
+
 # Pipeline
 1. page-visual-parser
 2. uiux-design-language-abstractor
@@ -21,8 +27,8 @@ Coordinate atomic skills only; do not replace their detailed logic.
 6. template-indexing
 
 # Output
-- `templates/<template-id>/preparation-report.md`
-- `templates/<template-id>/orchestration-state.json`
+- `templates/<template-name-slug>/preparation-report.md`
+- `templates/<template-name-slug>/orchestration-state.json`
 - Optional aggregate: `templates/catalog.md`
 
 # Default Delivery Mode
@@ -37,6 +43,7 @@ Coordinate atomic skills only; do not replace their detailed logic.
 - Support `resume_from` stage.
 - Missing mobile screenshot is not a hard blocker by itself; continue with explicit assumptions and set run/status to `completed_with_risk`.
 - If mobile-required sections are missing from stage artifacts, treat as gate failure (P1) unless user explicitly requested desktop-only preparation.
+- All stage artifacts and screenshot paths must use `<template-name-slug>` naming consistently; any hash/code-like naming is a gate failure (P1).
 
 # Orchestration State Schema
 Track each stage with:
@@ -89,7 +96,7 @@ Run-level fields required in `orchestration-state.json`:
 
 ## 4. Outputs
 - report_path:
-- state_path: templates/<template-id>/orchestration-state.json
+- state_path: templates/<template-name-slug>/orchestration-state.json
 - produced_artifacts:
 
 ## 5. Risks

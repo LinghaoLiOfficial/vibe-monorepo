@@ -1,0 +1,56 @@
+{
+  "orchestrator": "template-preparation-orchestrator",
+  "run_mode": "fresh",
+  "resume_from": "",
+  "final_status": "completed_with_risk",
+  "stages": [
+    {
+      "stage_name": "page-visual-parser",
+      "status": "completed",
+      "artifact_path": "templates/donezo-project-dashboard/01-page-visual-parse.md",
+      "artifact_validated": true,
+      "blocking_reason": "",
+      "next_action": "Done"
+    },
+    {
+      "stage_name": "uiux-design-language-abstractor",
+      "status": "completed",
+      "artifact_path": "templates/donezo-project-dashboard/02-uiux-design-language.md",
+      "artifact_validated": true,
+      "blocking_reason": "",
+      "next_action": "Done"
+    },
+    {
+      "stage_name": "design-system-structurizer",
+      "status": "completed",
+      "artifact_path": "templates/donezo-project-dashboard/03-design-system.md",
+      "artifact_validated": true,
+      "blocking_reason": "",
+      "next_action": "Done"
+    },
+    {
+      "stage_name": "frontend-component-planner",
+      "status": "completed",
+      "artifact_path": "templates/donezo-project-dashboard/04-frontend-component-plan.md",
+      "artifact_validated": true,
+      "blocking_reason": "",
+      "next_action": "Done"
+    },
+    {
+      "stage_name": "nextjs-react-frontend-design-language",
+      "status": "completed",
+      "artifact_path": "templates/donezo-project-dashboard/05-nextjs-react-frontend-language.md",
+      "artifact_validated": true,
+      "blocking_reason": "",
+      "next_action": "Done"
+    },
+    {
+      "stage_name": "template-indexing",
+      "status": "completed",
+      "artifact_path": "templates/donezo-project-dashboard/template-index.md",
+      "artifact_validated": true,
+      "blocking_reason": "",
+      "next_action": "Done"
+    }
+  ]
+}

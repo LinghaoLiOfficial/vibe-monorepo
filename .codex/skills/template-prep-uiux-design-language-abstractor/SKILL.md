@@ -10,10 +10,16 @@ triggers:
 ---
 
 # Inputs
-- `templates/<template-id>/01-page-visual-parse.md`
+
+# Naming Convention (Mandatory)
+- Use <template-name-slug> (human-readable kebab-case) for all paths and identifiers.
+- Do not use hash/code-like IDs as template naming.
+- If upstream artifacts use hash/code-like naming, stop and request normalization to <template-name-slug> before continuing.
+
+- `templates/<template-name-slug>/01-page-visual-parse.md`
 
 # Output
-- `templates/<template-id>/02-uiux-design-language.md`
+- `templates/<template-name-slug>/02-uiux-design-language.md`
 
 # Steps
 1. Read visual parse.
@@ -29,6 +35,7 @@ triggers:
 - `## Assumptions And Uncertainties`
 
 # Failure Policy
+- If template naming is not <template-name-slug> consistent across required inputs/outputs: stop and request rename normalization.
 - If upstream file missing: stop.
 - If evidence insufficient: mark low confidence explicitly.
 - If mobile evidence is absent upstream, produce hypothesis-based responsive intent and mark `completed_with_risk`.
@@ -55,7 +62,7 @@ Use these statuses in run logs or reports:
 
 ## 1. Run Metadata
 - skill_name:
-- template_id_or_task_id:
+- template_name_slug:
 - status:
 
 ## 2. Inputs

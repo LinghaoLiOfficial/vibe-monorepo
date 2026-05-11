@@ -10,12 +10,18 @@ triggers:
 ---
 
 # Inputs
-- `templates/<template-id>/03-design-system.md`
-- `templates/<template-id>/04-frontend-component-plan.md`
+
+# Naming Convention (Mandatory)
+- Use <template-name-slug> (human-readable kebab-case) for all paths and identifiers.
+- Do not use hash/code-like IDs as template naming.
+- If upstream artifacts use hash/code-like naming, stop and request normalization to <template-name-slug> before continuing.
+
+- `templates/<template-name-slug>/03-design-system.md`
+- `templates/<template-name-slug>/04-frontend-component-plan.md`
 - Optional: `02-uiux-design-language.md`, `01-page-visual-parse.md`
 
 # Output
-- `templates/<template-id>/05-nextjs-react-frontend-language.md`
+- `templates/<template-name-slug>/05-nextjs-react-frontend-language.md`
 
 # Required Sections
 - `## App Router Structure Suggestion`
@@ -28,6 +34,7 @@ triggers:
 - `## Adaptation Constraints`
 
 # Failure Policy
+- If template naming is not <template-name-slug> consistent across required inputs/outputs: stop and request rename normalization.
 - If component plan missing: stop.
 - If responsive assumptions are based on desktop-only evidence, mark `completed_with_risk` and enumerate verification gaps.
 - If Tailwind mapping, TypeScript contract, or shadcn/ui plan is missing, fail required-sections validation.
@@ -54,7 +61,7 @@ Use these statuses in run logs or reports:
 
 ## 1. Run Metadata
 - skill_name:
-- template_id_or_task_id:
+- template_name_slug:
 - status:
 
 ## 2. Inputs

@@ -10,11 +10,17 @@ triggers:
 ---
 
 # Inputs
-- `templates/<template-id>/01-page-visual-parse.md`
-- `templates/<template-id>/02-uiux-design-language.md`
+
+# Naming Convention (Mandatory)
+- Use <template-name-slug> (human-readable kebab-case) for all paths and identifiers.
+- Do not use hash/code-like IDs as template naming.
+- If upstream artifacts use hash/code-like naming, stop and request normalization to <template-name-slug> before continuing.
+
+- `templates/<template-name-slug>/01-page-visual-parse.md`
+- `templates/<template-name-slug>/02-uiux-design-language.md`
 
 # Output
-- `templates/<template-id>/03-design-system.md`
+- `templates/<template-name-slug>/03-design-system.md`
 
 # Required Sections
 - `## Token Taxonomy`
@@ -30,6 +36,7 @@ triggers:
 - All required sections present
 
 # Failure Policy
+- If template naming is not <template-name-slug> consistent across required inputs/outputs: stop and request rename normalization.
 - Missing one upstream file: allow degraded output with explicit risk note.
 - Missing mobile evidence upstream: allow responsive token assumptions with `completed_with_risk`.
 
@@ -55,7 +62,7 @@ Use these statuses in run logs or reports:
 
 ## 1. Run Metadata
 - skill_name:
-- template_id_or_task_id:
+- template_name_slug:
 - status:
 
 ## 2. Inputs
