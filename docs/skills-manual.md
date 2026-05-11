@@ -1,85 +1,52 @@
 # Skills System Manual
 
-## 1. Document Positioning
-This document is the internal operational manual for the project skill system. It is not a newcomer-facing README. It defines how all current skills are structured, executed, validated, orchestrated, and maintained.
+## 1. Purpose
+This is the operational manual for the current project skill system. It defines the execution source of truth, role boundaries, contracts, stage gates, and maintenance rules for all production skills.
 
-Scope of this manual:
-- The 12 production skills under `skills/professional/*/SKILL.md`
-- Skill role boundaries (`atomic` vs `orchestrator`)
-- Artifact contracts, validation contracts, state schemas, and report templates
-- End-to-end pipeline behavior for template preparation and user generation
+## 2. Source of Truth
+Canonical production skills are under `.codex/skills`:
 
-Out of scope:
-- Marketing-style project introduction
-- Generic prompt engineering tutorials
-- Unrelated codebase architecture outside skill execution
+1. `.codex/skills/template-prep-page-visual-parser/SKILL.md`
+2. `.codex/skills/template-prep-uiux-design-language-abstractor/SKILL.md`
+3. `.codex/skills/template-prep-design-system-structurizer/SKILL.md`
+4. `.codex/skills/template-prep-frontend-component-planner/SKILL.md`
+5. `.codex/skills/template-prep-nextjs-react-frontend-design-language/SKILL.md`
+6. `.codex/skills/template-prep-template-indexing/SKILL.md`
+7. `.codex/skills/template-preparation-orchestrator/SKILL.md`
+8. `.codex/skills/user-generation-system-blueprint/SKILL.md`
+9. `.codex/skills/user-generation-multi-page-template-composition/SKILL.md`
+10. `.codex/skills/user-generation-nextjs-react-code-generation/SKILL.md`
+11. `.codex/skills/user-generation-visual-qa-iterative-fix/SKILL.md`
+12. `.codex/skills/user-generation-orchestrator/SKILL.md`
 
----
-
-## 2. Canonical Skill Location
-Canonical skills are located at:
-
-- `skills/professional/template-prep-page-visual-parser/SKILL.md`
-- `skills/professional/template-prep-uiux-design-language-abstractor/SKILL.md`
-- `skills/professional/template-prep-design-system-structurizer/SKILL.md`
-- `skills/professional/template-prep-frontend-component-planner/SKILL.md`
-- `skills/professional/template-prep-nextjs-react-frontend-design-language/SKILL.md`
-- `skills/professional/template-prep-template-indexing/SKILL.md`
-- `skills/professional/template-preparation-orchestrator/SKILL.md`
-- `skills/professional/user-generation-system-blueprint/SKILL.md`
-- `skills/professional/user-generation-multi-page-template-composition/SKILL.md`
-- `skills/professional/user-generation-nextjs-react-code-generation/SKILL.md`
-- `skills/professional/user-generation-visual-qa-iterative-fix/SKILL.md`
-- `skills/professional/user-generation-orchestrator/SKILL.md`
-
-Legacy markdown skill drafts under `skills/*.md` are historical assets and should not be treated as execution source of truth.
-
----
+Any historical drafts outside `.codex/skills/*/SKILL.md` are reference-only and must not be treated as execution truth.
 
 ## 3. Skill Taxonomy
 
-### 3.1 Atomic Skills
-Atomic skills perform one bounded production task and must output verifiable artifacts.
+### 3.1 Atomic skills (10)
+- `template-prep-page-visual-parser`
+- `template-prep-uiux-design-language-abstractor`
+- `template-prep-design-system-structurizer`
+- `template-prep-frontend-component-planner`
+- `template-prep-nextjs-react-frontend-design-language`
+- `template-prep-template-indexing`
+- `user-generation-system-blueprint`
+- `user-generation-multi-page-template-composition`
+- `user-generation-nextjs-react-code-generation`
+- `user-generation-visual-qa-iterative-fix`
 
-Current atomic skills:
-1. `template-prep-page-visual-parser`
-2. `template-prep-uiux-design-language-abstractor`
-3. `template-prep-design-system-structurizer`
-4. `template-prep-frontend-component-planner`
-5. `template-prep-nextjs-react-frontend-design-language`
-6. `template-prep-template-indexing`
-7. `user-generation-system-blueprint`
-8. `user-generation-multi-page-template-composition`
-9. `user-generation-nextjs-react-code-generation`
-10. `user-generation-visual-qa-iterative-fix`
+Atomic skills must define input, output, validation, failure policy, and produce verifiable artifacts.
 
-Atomic skill contract principle:
-- Must define inputs
-- Must define outputs
-- Must define validation checkpoints
-- Must define failure policy
-- Must produce file-level artifacts (`.md` and/or code files)
+### 3.2 Orchestrator skills (2)
+- `template-preparation-orchestrator`
+- `user-generation-orchestrator`
 
-### 3.2 Orchestrator Skills
-Orchestrator skills coordinate stage order, gate checks, resume semantics, and final reporting. They do not replace atomic skill internals.
-
-Current orchestrator skills:
-1. `template-preparation-orchestrator`
-2. `user-generation-orchestrator`
-
-Orchestrator contract principle:
-- Must track per-stage status
-- Must enforce stage gates
-- Must support resume mode
-- Must emit orchestration report
-- Must stop on blocking failures
-
----
+Orchestrators coordinate sequencing, gate checks, resume, and reporting. They do not replace atomic internals.
 
 ## 4. Standard SKILL.md Structure
-All production skills should follow this high-level structure:
+Each SKILL.md should include:
 
-1. Frontmatter
+1. Frontmatter:
 - `name`
 - `version`
 - `kind` (`atomic` or `orchestrator`)
@@ -87,45 +54,41 @@ All production skills should follow this high-level structure:
 - `description`
 - `triggers`
 
-2. Runtime sections
-- Purpose or Scope
+2. Runtime contract:
+- Purpose/Scope
 - Inputs
 - Outputs
-- Steps or Pipeline
-- Required sections / gate rules
+- Steps/Pipeline
+- Validation checklist or gate rules
 - Failure policy
 
-3. Execution schema sections
+3. Execution schema:
 - Atomic: `Execution Status Schema`, `Artifact Contract`, `Standard Report Template`
 - Orchestrator: `Orchestration State Schema`, `Resume Contract`, `Standard Orchestration Report Template`
 
----
+## 5. Status Conventions
 
-## 5. Execution Status Standards
-
-### 5.1 Atomic Status Values
+### 5.1 Atomic status values
 - `not_started`
 - `in_progress`
 - `blocked`
 - `completed`
 - `completed_with_risk`
 
-### 5.2 Orchestrator Stage Status Values
+### 5.2 Orchestrator stage values
 - `not_started`
 - `in_progress`
 - `blocked`
 - `completed`
 - `skipped`
 
-Status usage rules:
-1. Use `blocked` only when downstream progress is impossible without intervention.
-2. Use `completed_with_risk` (atomic) when artifact exists but confidence/risk is not ideal.
-3. Never mark `completed` when required validation has not run.
+Rules:
+1. Use `blocked` only when forward progress is impossible.
+2. Use `completed_with_risk` when output exists but uncertainty remains.
+3. Never mark `completed` without running required validation.
 
----
-
-## 6. Artifact Contract Standards (Atomic)
-Every atomic execution should capture:
+## 6. Artifact Contract Baseline (Atomic)
+Recommended baseline fields:
 - `artifact_path`
 - `artifact_exists`
 - `artifact_non_empty`
@@ -133,38 +96,35 @@ Every atomic execution should capture:
 - `confidence` (`high|medium|low`)
 - `blocking_reason`
 
-Interpretation rules:
-1. `artifact_exists=false` means stage not delivered.
-2. `artifact_non_empty=false` is equivalent to failed output.
-3. `required_sections_ok=false` means contract violation even if file exists.
-4. `confidence=low` must be accompanied by explicit uncertainties.
+Skill-specific fields are allowed and should be documented in each SKILL.md.
 
----
+Example now in production:
+- `template-prep-page-visual-parser` additionally tracks:
+- `saved_screenshot_paths`
+- `saved_screenshots_exist`
 
 ## 7. Resume and Gate Rules
 
-### 7.1 Resume (`resume_from`)
-- `resume_from` must match a known stage name in the orchestrator.
-- All previous stages must have validated artifacts.
-- If any previous stage is invalid, resume point must roll back to earliest invalid stage.
+### 7.1 Resume
+- `resume_from` must match a known stage name.
+- Prior stages must have valid artifacts.
+- If prior artifacts are invalid, rollback to earliest invalid stage.
 
-### 7.2 Gate enforcement
-A stage gate passes only when:
-1. Expected artifact path is present.
+### 7.2 Gate pass conditions
+A stage passes when all are true:
+1. Expected artifact path exists.
 2. Artifact is non-empty.
 3. Required sections/checkpoints are satisfied.
-4. No unresolved P0 blocker remains.
+4. No unresolved blocking issue remains.
 
-Gate failure behavior:
-- Stop forward execution.
+On gate failure:
+- Stop downstream execution.
 - Record blocker and recovery action.
-- Emit report with next action recommendation.
-
----
+- Emit report with next recommended step.
 
 ## 8. End-to-End Pipelines
 
-### 8.1 Template Preparation Pipeline
+### 8.1 Template Preparation pipeline
 Stage order:
 1. `template-prep-page-visual-parser`
 2. `template-prep-uiux-design-language-abstractor`
@@ -173,10 +133,9 @@ Stage order:
 5. `template-prep-nextjs-react-frontend-design-language`
 6. `template-prep-template-indexing`
 
-Coordinator:
-- `template-preparation-orchestrator`
+Coordinator: `template-preparation-orchestrator`
 
-Primary artifacts (default template-level):
+Typical outputs:
 - `01-page-visual-parse.md`
 - `02-uiux-design-language.md`
 - `03-design-system.md`
@@ -185,198 +144,43 @@ Primary artifacts (default template-level):
 - `template-index.md`
 - `preparation-report.md`
 
-### 8.2 User Generation Pipeline
+Screenshot handling requirement:
+- Visual parser must persist input screenshot(s) into `template-preparation/inputs/screenshots/` with canonical naming.
+
+### 8.2 User Generation pipeline
 Stage order:
 1. `user-generation-system-blueprint`
 2. `user-generation-multi-page-template-composition`
 3. `user-generation-nextjs-react-code-generation`
 4. `user-generation-visual-qa-iterative-fix`
 
-Coordinator:
-- `user-generation-orchestrator`
+Coordinator: `user-generation-orchestrator`
 
-Primary artifacts:
+Typical outputs:
 - `docs/system-blueprint.md`
 - `docs/multi-page-template-composition.md`
-- code artifacts in app source directories
+- Generated application code files
 - `docs/code-generation-report.md`
 - `docs/visual-qa-iterative-fix-report.md`
-- `docs/12-user-generation-orchestration-report.md`
+- orchestration report artifact
 
----
+## 9. Operational Boundaries by Skill
+- `template-prep-page-visual-parser`: visual structure extraction + screenshot persistence only.
+- `template-prep-uiux-design-language-abstractor`: UX/interaction abstraction only.
+- `template-prep-design-system-structurizer`: design tokens/system rules only.
+- `template-prep-frontend-component-planner`: component planning/contracts only.
+- `template-prep-nextjs-react-frontend-design-language`: implementation-oriented frontend language spec only.
+- `template-prep-template-indexing`: indexing metadata only.
+- `template-preparation-orchestrator`: stage sequencing/gates/resume only.
+- `user-generation-system-blueprint`: system requirement blueprinting only.
+- `user-generation-multi-page-template-composition`: template matching/composition planning only.
+- `user-generation-nextjs-react-code-generation`: code generation/modification only.
+- `user-generation-visual-qa-iterative-fix`: visual QA and minimal iterative fix only.
+- `user-generation-orchestrator`: user-generation flow orchestration only.
 
-## 9. Skill-by-Skill Operational Notes
-
-### 9.1 template-prep-page-visual-parser (Atomic)
-Mission:
-- Convert screenshot evidence into structured visual parse markdown.
-
-Hard boundaries:
-- No design system output in this stage.
-- No component planning in this stage.
-
-Failure trigger examples:
-- Missing screenshot input.
-- Non-interpretable source image.
-
-### 9.2 template-prep-uiux-design-language-abstractor (Atomic)
-Mission:
-- Convert visual parse into UX intent and interaction-language abstraction.
-
-Hard boundaries:
-- No raw screenshot parsing here.
-- No tokenization or code generation.
-
-### 9.3 template-prep-design-system-structurizer (Atomic)
-Mission:
-- Produce template-level design system markdown.
-
-Hard boundaries:
-- No React code implementation.
-- No route/system blueprinting.
-
-### 9.4 template-prep-frontend-component-planner (Atomic)
-Mission:
-- Define component hierarchy, boundaries, and contracts.
-
-Hard boundaries:
-- Planning only, no `.tsx` generation.
-
-### 9.5 template-prep-nextjs-react-frontend-design-language (Atomic)
-Mission:
-- Produce implementation guidance for future Next.js + React realization.
-
-Hard boundaries:
-- Specification artifact only.
-- No direct code synthesis in this stage.
-
-### 9.6 template-prep-template-indexing (Atomic)
-Mission:
-- Convert prep artifacts into retrieval/matching index metadata.
-
-Hard boundaries:
-- No template composition and no app code generation.
-
-### 9.7 template-preparation-orchestrator (Orchestrator)
-Mission:
-- Execute and gate the full template-preparation lifecycle with resumability.
-
-Hard boundaries:
-- Must not replace atomic logic.
-
-### 9.8 user-generation-system-blueprint (Atomic)
-Mission:
-- Transform requirement intent into system-level blueprint.
-
-Hard boundaries:
-- No template selection and no code generation.
-
-### 9.9 user-generation-multi-page-template-composition (Atomic)
-Mission:
-- Map routes/pages to template choices with explainable scoring.
-
-Hard boundaries:
-- No repo code edits in this stage.
-
-### 9.10 user-generation-nextjs-react-code-generation (Atomic)
-Mission:
-- Create/modify real project code according to upstream plans.
-
-Hard boundaries:
-- Must not claim validations that were not executed.
-
-### 9.11 user-generation-visual-qa-iterative-fix (Atomic)
-Mission:
-- Run QA loops, apply minimal fixes, and re-validate.
-
-Hard boundaries:
-- No full system replanning in QA stage.
-
-### 9.12 user-generation-orchestrator (Orchestrator)
-Mission:
-- Coordinate user-generation lifecycle from blueprint to QA closure.
-
-Hard boundaries:
-- Must enforce stage gates and blocker reporting.
-
----
-
-## 10. Reporting Standards
-
-### 10.1 Atomic report requirements
-Every atomic run report should include:
-1. Run metadata
-2. Inputs and missing inputs
-3. Output artifact checks
-4. Validation result summary
-5. Risks and assumptions
-6. Downstream handoff
-
-### 10.2 Orchestration report requirements
-Every orchestration report should include:
-1. Run mode and timing
-2. Stage status table
-3. Gate summary
-4. Produced artifacts
-5. Blockers/risks
-6. Recommended next action
-
----
-
-## 11. Quality and Governance Rules
-1. No fabricated validation results.
-2. No fabricated input evidence.
-3. Stage boundaries are strict; avoid role leakage.
-4. Prefer deterministic output paths.
-5. Use explicit uncertainty markers instead of silent guessing.
-6. Keep artifacts version-controllable and reviewable.
-
----
-
-## 12. Migration and Maintenance Policy
-
-### 12.1 Legacy cleanup recommendation
-- Keep `skills/professional/*/SKILL.md` as sole active source.
-- Remove or archive old `skills/*.md` legacy drafts only after confirming no references remain.
-
-### 12.2 Versioning
-- Bump `version` in frontmatter on behavioral changes.
-- Patch-level bump for wording/clarity updates.
-- Minor-level bump for contract changes.
-
-### 12.3 Change checklist
-Before accepting a skill update:
-1. Frontmatter remains valid.
-2. `kind` is correct.
-3. Inputs/outputs are explicit.
-4. Validation and failure policy are explicit.
-5. Status/report schema sections are preserved.
-
----
-
-## 13. Suggested Operational Conventions
-1. Keep one template/app task per run identifier.
-2. Persist run reports near artifacts.
-3. Prefer resume over full rerun when upstream artifacts are valid.
-4. Escalate blockers early with actionable next step.
-5. Keep orchestrators thin and atomic skills deep.
-
----
-
-## 14. Quick Reference Table
-
-| Skill | Kind | Core Output |
-|---|---|---|
-| template-prep-page-visual-parser | atomic | `01-page-visual-parse.md` |
-| template-prep-uiux-design-language-abstractor | atomic | `02-uiux-design-language.md` |
-| template-prep-design-system-structurizer | atomic | `03-design-system.md` |
-| template-prep-frontend-component-planner | atomic | `04-frontend-component-plan.md` |
-| template-prep-nextjs-react-frontend-design-language | atomic | `05-nextjs-react-frontend-language.md` |
-| template-prep-template-indexing | atomic | `template-index.md` |
-| template-preparation-orchestrator | orchestrator | `preparation-report.md` |
-| user-generation-system-blueprint | atomic | `docs/system-blueprint.md` |
-| user-generation-multi-page-template-composition | atomic | `docs/multi-page-template-composition.md` |
-| user-generation-nextjs-react-code-generation | atomic | code + `docs/code-generation-report.md` |
-| user-generation-visual-qa-iterative-fix | atomic | code fixes + `docs/visual-qa-iterative-fix-report.md` |
-| user-generation-orchestrator | orchestrator | `docs/12-user-generation-orchestration-report.md` |
-
+## 10. Change Management
+When updating skills:
+1. Update the target `SKILL.md` first.
+2. Sync this manual (EN + zh-CN) if contracts, paths, statuses, or stage responsibilities changed.
+3. Keep wording deterministic and verifiable.
+4. Prefer additive changes to preserve backward compatibility unless deprecation is explicit.
