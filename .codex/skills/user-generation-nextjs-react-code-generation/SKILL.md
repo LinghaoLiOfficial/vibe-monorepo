@@ -1,9 +1,9 @@
 ---
 name: user-generation-nextjs-react-code-generation
-version: 1.1.0
+version: 1.2.0
 kind: atomic
 output_format: markdown
-description: Generate/modify Next.js + React code according to blueprint and template composition outputs.
+description: Generate/modify Next.js + React + TypeScript + Tailwind CSS + shadcn/ui code according to blueprint and template composition outputs.
 triggers:
   - nextjs react code generation
   - 代码生成
@@ -25,6 +25,10 @@ triggers:
 - Run available validations.
 - Implement responsive behavior for desktop + mobile by default unless user explicitly requests desktop-only.
 - Use explicit breakpoint behavior for shell, page grids, and data-heavy components.
+- Default implementation stack is Next.js + React + TypeScript + Tailwind CSS + shadcn/ui unless user explicitly overrides.
+- Prefer TypeScript-first component and data contracts; avoid introducing untyped API surfaces.
+- Prefer shadcn/ui primitives before custom base components when requirements are compatible.
+- Use Tailwind utility + token mapping from design artifacts; avoid hardcoded visual values when token exists.
 
 # Report Must Include
 - Changed files
@@ -32,12 +36,19 @@ triggers:
 - Failures and unresolved risks
 - Responsive implementation summary by route/component
 - Breakpoints tested (at minimum one desktop width and one mobile width)
+- TypeScript coverage summary for newly introduced modules/components
+- shadcn/ui usage summary (new primitives added or reused)
 
 # Responsive Implementation Minimum
 - Navigation shell adapts across breakpoints (for example sidebar -> drawer/sheet on mobile).
 - Data tables provide mobile fallback (horizontal scroll, cardified rows, or prioritized columns).
 - Charts remain legible on mobile (resized, simplified labels, or alternate summary views).
 - Touch targets and spacing are adjusted for mobile usability.
+
+# Stack Compliance Minimum
+- TypeScript is enabled for new/modified React modules; avoid `any` unless justified in report.
+- Tailwind CSS drives layout/spacing/typography/color decisions aligned to tokens.
+- shadcn/ui components are used for common primitives (button, input, dialog/sheet, table, select) unless existing design system requires alternatives.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

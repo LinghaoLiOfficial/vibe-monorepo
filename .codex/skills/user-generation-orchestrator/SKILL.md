@@ -1,6 +1,6 @@
 ---
 name: user-generation-orchestrator
-version: 1.1.0
+version: 1.2.0
 kind: orchestrator
 output_format: markdown
 description: Orchestrate user-generation atomic skills with stage gates, resume support, and final delivery report.
@@ -23,6 +23,8 @@ triggers:
 - PC desktop baseline (`>=1200px`)
 - Mobile baseline (`<=767px`)
 - Recommended additional checkpoint: tablet (`768-1199px`)
+- Default frontend stack:
+- Next.js + React + TypeScript + Tailwind CSS + shadcn/ui
 
 # Gate Rules
 - Validate each stage artifact before moving on.

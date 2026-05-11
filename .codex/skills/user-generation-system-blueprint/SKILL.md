@@ -1,6 +1,6 @@
 ---
 name: user-generation-system-blueprint
-version: 1.1.0
+version: 1.2.0
 kind: atomic
 output_format: markdown
 description: Convert user requirements into a system blueprint for multi-page app generation.
@@ -24,6 +24,7 @@ triggers:
 - `## Core Flows`
 - `## Cross-page Consistency Rules`
 - `## Responsive Strategy`
+- `## Frontend Stack Contract`
 - `## Assumptions`
 
 # Responsive Defaults
@@ -35,6 +36,14 @@ triggers:
 - Navigation behavior across breakpoints
 - Layout stacking/reflow rules per page type
 - Data-dense component degradation rules (tables/charts/cards/forms)
+
+# Frontend Stack Contract Defaults
+- Unless explicitly overridden by user requirement, define implementation baseline:
+- Next.js + React + TypeScript + Tailwind CSS + shadcn/ui
+- In `## Frontend Stack Contract`, include at least:
+- TypeScript strictness policy and shared type ownership boundaries
+- Tailwind token usage constraints (design tokens -> utility mapping)
+- shadcn/ui adoption policy (preferred primitives and customization boundaries)
 
 # Execution Status Schema
 Use these statuses in run logs or reports:

@@ -1,9 +1,9 @@
 ---
 name: template-prep-nextjs-react-frontend-design-language
-version: 1.2.0
+version: 1.3.0
 kind: atomic
 output_format: markdown
-description: Produce implementation-oriented Next.js + React frontend language spec from template prep artifacts.
+description: Produce implementation-oriented Next.js + React + TypeScript + Tailwind CSS + shadcn/ui frontend language spec from template prep artifacts.
 triggers:
   - template nextjs react frontend spec
   - 模板前端实现规范
@@ -22,12 +22,15 @@ triggers:
 - `## Server Client Component Boundaries`
 - `## Props And Data Contracts`
 - `## Tailwind Token Mapping`
+- `## TypeScript Contract`
+- `## shadcn/ui Adoption Plan`
 - `## Responsive Implementation Notes`
 - `## Adaptation Constraints`
 
 # Failure Policy
 - If component plan missing: stop.
 - If responsive assumptions are based on desktop-only evidence, mark `completed_with_risk` and enumerate verification gaps.
+- If Tailwind mapping, TypeScript contract, or shadcn/ui plan is missing, fail required-sections validation.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
