@@ -45,8 +45,6 @@ Track each stage with:
 - orchestrator:
 - run_mode: fresh|resume
 - resume_from:
-- started_at:
-- finished_at:
 - final_status:
 
 ## 2. Stage Status Table

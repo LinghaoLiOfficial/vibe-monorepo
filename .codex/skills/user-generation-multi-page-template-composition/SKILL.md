@@ -46,8 +46,6 @@ Use these statuses in run logs or reports:
 ## 1. Run Metadata
 - skill_name:
 - template_id_or_task_id:
-- started_at:
-- finished_at:
 - status:
 
 ## 2. Inputs
