@@ -39,6 +39,13 @@ triggers:
 - Responsive regressions are at least P1 severity when they break task-critical flow.
 - Desktop root/shell must visually fill viewport width by default; left-right blank gutters caused by fixed/max container constraints are at least `P1` unless requirement explicitly mandates centered constrained layout.
 - Validate that final user-facing reports explicitly disclose the selected best-fit template (`template_id` + `template_name` + concise reason); missing disclosure is at least `P1`.
+- Validate shadcn/ui adoption evidence against composition and code-generation reports; missing or unverifiable evidence is at least `P1` unless user explicitly opts out.
+- Validate per-route shadcn/ui evaluation first; then ensure suitable interactive components use shadcn/ui. If route has no suitable interactive components, verify documented exemption.
+- Validate that all required output markdown artifacts explicitly include per-page component layout details and a global hex color palette; missing either is at least `P1`.
+- Validate required detail-depth fields exist in layout/palette sections:
+- layout: `region_partition`, `component_tree`, `breakpoint_changes`, `interaction_states`
+- palette: `semantic_tokens`, `hex_values`, `usage_rules`, `contrast_notes`
+- Validate one-step theme switching: global palette changes should be achievable via one primary theme file without multi-file edits.
 
 # Report
 - Issue list by severity
@@ -46,6 +53,11 @@ triggers:
 - Validation results
 - Remaining risks
 - Viewports checked and per-viewport pass/fail summary
+- shadcn/ui verification summary (pass/fail + evidence)
+- per-route shadcn/ui evaluation and exemption verification table
+- markdown artifact structure verification (component layout + hex palette pass/fail)
+- markdown detail-depth verification (field-level pass/fail per artifact)
+- one-step theme switching verification (primary file path + pass/fail + evidence)
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
