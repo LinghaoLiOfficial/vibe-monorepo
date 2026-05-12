@@ -1,6 +1,6 @@
 ---
 name: template-prep-uiux-design-language-abstractor
-description: Abstract UI/UX design language from visual-parse markdown into reusable UX intent and interaction principles.
+description: Abstract UX intent and interaction principles from visual-parse artifacts into reusable UI/UX design language. Use when a template needs product-level design rationale (IA, interaction rules, accessibility and responsive intent) derived from observed evidence rather than arbitrary invention. 适用于从视觉解析结果抽象可复用 UI/UX 设计语言。
 ---
 
 
@@ -84,3 +84,23 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Abstract UX intent and interaction language from upstream visual evidence.
+- Do not rewrite visual parse facts, do not generate component code.
+
+### Execution Workflow
+1. Normalize upstream observations into intent, IA signals, interaction priorities.
+2. Produce adaptation boundaries (`must_preserve`, `can_replace`, `can_extend`, `avoid`).
+3. Add reusable tags for template indexing and downstream design-system consumption.
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

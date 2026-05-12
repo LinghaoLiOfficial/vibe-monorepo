@@ -1,6 +1,6 @@
 ---
 name: template-prep-nextjs-react-frontend-design-language
-description: Produce implementation-oriented Next.js + React + TypeScript + Tailwind CSS + shadcn/ui frontend language spec from template prep artifacts.
+description: Produce implementation-oriented Next.js + React + TypeScript + Tailwind + shadcn/ui frontend language specs from template prep outputs. Use when engineering teams need explicit app-router structure, server/client boundaries, token mappings, and adaptation constraints before coding. 适用于代码生成前的前端实现规范沉淀。
 ---
 
 
@@ -83,3 +83,23 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Output implementation language specification, not runtime source code.
+- Use upstream artifacts as source of truth; avoid speculative redesign.
+
+### Execution Workflow
+1. Define App Router structure and server/client component boundaries.
+2. Specify TypeScript contracts and Tailwind-token mapping strategy.
+3. Declare adaptation constraints (preserve/replace/extend/avoid/not-suitable).
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

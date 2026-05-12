@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation Orchestrator"
-  short_description: "Orchestrate user-generation atomic skills with stage gates, resume support, and final delivery report."
-  default_prompt: "Use this skill to Orchestrate user-generation atomic skills with stage gates, resume support, and final delivery report"
+  short_description: "Orchestrate the complete user-generation pipeline from requirements to QA-verified delivery with gate controls and resume support."
+  default_prompt: "Use this skill when teams need reliable stage-by-stage execution across blueprinting, template composition, code generation, and iterative visual QA. 适用于用户生成全链路编排、恢复与交付控制。"

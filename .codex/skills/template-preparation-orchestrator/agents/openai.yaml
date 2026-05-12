@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "Template Preparation Orchestrator"
-  short_description: "Orchestrate template-preparation atomic skills (01-05 + indexing) with stage gates and resumable execution."
-  default_prompt: "Use this skill to Orchestrate template-preparation atomic skills (01-05 + indexing) with stage gates and resumable execution"
+  short_description: "Orchestrate the full template-preparation pipeline (01-05 + indexing) with stage gates, resumable state, and artifact validation."
+  default_prompt: "Use this skill when end-to-end template preparation must be executed reliably across atomic skills with explicit blocker handling and delivery reporting. 适用于模板准备全流程编排与门禁控制。"

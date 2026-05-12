@@ -1,6 +1,6 @@
 ---
 name: template-prep-design-system-structurizer
-description: Convert visual parse + UI/UX abstraction into template-level design system tokens and style rules.
+description: Convert visual and UI/UX abstractions into a template-level design system specification (tokens, type scale, spacing, component baselines). Use when downstream implementation needs a normalized style contract with explicit reuse constraints and responsive token guidance. 适用于生成模板级设计系统规范以支持后续实现。
 ---
 
 
@@ -84,3 +84,23 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Produce template-level design system contract, not product-wide rebranding.
+- Preserve source template character; normalize into reusable tokens.
+
+### Execution Workflow
+1. Build token taxonomy and semantic naming conventions.
+2. Structure color/typography/spacing/radius/border/shadow/state systems.
+3. Define component style baselines and multi-page inheritance guidance.
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

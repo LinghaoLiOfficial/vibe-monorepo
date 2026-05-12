@@ -1,6 +1,6 @@
 ---
 name: user-generation-orchestrator
-description: Orchestrate user-generation atomic skills with stage gates, resume support, and final delivery report.
+description: Orchestrate the complete user-generation pipeline from requirements to QA-verified delivery with gate controls and resume support. Use when teams need reliable stage-by-stage execution across blueprinting, template composition, code generation, and iterative visual QA. 适用于用户生成全链路编排、恢复与交付控制。
 ---
 
 
@@ -103,3 +103,29 @@ Track each stage with:
 ## 7. Recommended Next Step
 - next_command_or_skill:
 ```
+
+## Professional Notes
+
+### Orchestration Principles
+- Coordinate stages 9->10->6->7 with strict artifact gate enforcement.
+- Never claim completion without verified stage outputs.
+- Support `resume_from` only when prior artifacts are validated.
+
+### Stage Contract
+- Stage outputs must include required depth fields for layout and palette contracts.
+- Treat missing required markdown structure as P1 gate failure.
+- Record stage status, blockers, and next action in orchestration report.
+
+### Recovery Policy
+- If any stage fails validation, halt and report earliest invalid stage.
+- Resume from earliest invalid stage after remediation, not from later stage.
+
+### Quality Gates
+- P0: Every stage produces required artifacts and passes stage-level validation before progression.
+- P1: Cross-stage consistency (naming, path contracts, responsive assumptions) is validated.
+- P2: Orchestration report includes blocker context, next action, and resume readiness.
+
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

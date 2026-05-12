@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "Template Prep Page Visual Parser"
-  short_description: "Parse webpage screenshot(s) into a structured visual analysis markdown for downstream template-preparation skills."
-  default_prompt: "Use this skill to Parse webpage screenshot(s) into a structured visual analysis markdown for downstream template-preparation skills"
+  short_description: "Parse desktop/mobile webpage screenshots into a reusable, evidence-based visual analysis artifact for template preparation."
+  default_prompt: "Use this skill when converting raw screenshot inputs into structured page understanding (layout hierarchy, visual tokens, interaction cues), with canonical screenshot persistence and uncertainty labeling. 适用于模板准备阶段的页面截图结构化解析与证据沉淀。"

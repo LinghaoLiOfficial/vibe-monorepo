@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation Multi Page Template Composition"
-  short_description: "Compose a multi-page template plan from blueprint + template index with explainable matching."
-  default_prompt: "Use this skill to Compose a multi-page template plan from blueprint + template index with explainable matching"
+  short_description: "Compose a multi-page template strategy by matching system blueprint requirements with template indices using explainable scoring."
+  default_prompt: "Use this skill when selecting a final best-fit template, mapping routes to template regions, and defining adaptation plans with responsive and component-level constraints. 适用于多页面模板选型、映射与适配规划。"

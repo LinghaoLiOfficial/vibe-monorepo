@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "Template Prep Template Indexing"
-  short_description: "Index template prep artifacts into searchable template metadata for matching and composition."
-  default_prompt: "Use this skill to Index template prep artifacts into searchable template metadata for matching and composition"
+  short_description: "Index completed template-prep artifacts into searchable metadata for retrieval, matching, and reuse decisions."
+  default_prompt: "Use this skill when templates need consistent identity tags, matching signals, preserve/replace boundaries, and confidence-aware responsive coverage labels. 适用于模板入库检索、匹配与复用索引。"

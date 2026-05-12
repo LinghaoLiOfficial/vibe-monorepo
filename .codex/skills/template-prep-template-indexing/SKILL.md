@@ -1,6 +1,6 @@
 ---
 name: template-prep-template-indexing
-description: Index template prep artifacts into searchable template metadata for matching and composition.
+description: Index completed template-prep artifacts into searchable metadata for retrieval, matching, and reuse decisions. Use when templates need consistent identity tags, matching signals, preserve/replace boundaries, and confidence-aware responsive coverage labels. 适用于模板入库检索、匹配与复用索引。
 ---
 
 
@@ -82,3 +82,23 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Build retrieval-ready index metadata, not narrative summary only.
+- Preserve evidence chain to upstream artifacts.
+
+### Execution Workflow
+1. Normalize template identity and classification fields.
+2. Produce multi-dimensional tags (semantic/style/layout/component/interaction).
+3. Emit matching signals, adaptation boundaries, and reuse recommendations.
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

@@ -1,7 +1,7 @@
 # Skills 系统操作手册（中文版）
 
 ## 1. 文档目的
-本文档是当前项目 Skills 系统的操作规范，定义执行真源、角色边界、契约、阶段门禁与维护规则。
+本文档定义当前生产 Skills 的执行真源、角色边界、契约、阶段门禁和维护规则。
 
 ## 2. 执行真源（Source of Truth）
 生产级 Skills 统一位于 `.codex/skills`：
@@ -19,7 +19,7 @@
 11. `.codex/skills/user-generation-visual-qa-iterative-fix/SKILL.md`
 12. `.codex/skills/user-generation-orchestrator/SKILL.md`
 
-除 `.codex/skills/*/SKILL.md` 外的历史草稿，仅可参考，不作为执行标准。
+除 `.codex/skills/*/SKILL.md` 外的历史草稿仅可参考，不作为执行标准。
 
 ## 3. Skill 分类
 
@@ -35,69 +35,66 @@
 - `user-generation-nextjs-react-code-generation`
 - `user-generation-visual-qa-iterative-fix`
 
-原子 Skill 必须定义输入、输出、校验、失败策略，并产出可验证文件。
-
 ### 3.2 编排 Skill（2 个）
 - `template-preparation-orchestrator`
 - `user-generation-orchestrator`
 
-编排 Skill 负责阶段顺序、门禁、恢复与报告，不替代原子 Skill 内部逻辑。
+## 4. 跨 Skill 基线契约
 
-### 3.3 默认前端交付基线
-- 面向生成链路的默认前端技术栈：
-- Next.js + React + TypeScript + Tailwind CSS + shadcn/ui
-- 默认响应式交付目标：
-- Desktop 基线（`>=1200px`）
-- Mobile 基线（`<=767px`）
-- 建议补充检查：Tablet（`768-1199px`）
-- 仅当用户需求明确要求 desktop-only 时，才可不交付移动端。
+### 4.1 命名规范基线（template-prep 流程）
+- 所有路径和标识符统一使用 `<template-name-slug>`（可读 kebab-case）。
+- 禁止使用 hash/code-like ID 作为模板命名。
+- 若上游产物使用 hash/code-like 命名，应先阻塞并要求命名归一化。
 
-## 4. 标准 SKILL.md 结构
-每个 SKILL.md 建议包含：
+### 4.2 默认前端交付基线
+- 默认技术栈：Next.js + React + TypeScript + Tailwind CSS + shadcn/ui。
+- 默认响应式目标：
+1. Desktop 基线（`>=1200px`）
+2. Mobile 基线（`<=767px`）
+3. 建议补充 Tablet 检查（`768-1199px`）
+- 仅当需求明确要求 desktop-only 时，才允许不交付移动端。
+
+### 4.3 固定路径契约
+- template-prep 产物位于 `templates/<template-name-slug>/...`。
+- user-generation 的需求/报告产物位于 `/user-requirements/`。
+- user-generation 的前端代码输出与修复仅允许在 `frontend/` 下。
+
+## 5. 标准 SKILL.md 结构
+每个 SKILL.md 应包含：
 
 1. Frontmatter：
 - `name`
-- `version`
-- `kind`（`atomic` 或 `orchestrator`）
-- `output_format`
 - `description`
-- `triggers`
 
 2. 运行契约：
-- Purpose/Scope
+- Purpose/Scope 或 Pipeline
 - Inputs
 - Outputs
-- Steps/Pipeline
-- Validation Checklist 或 Gate Rules
+- Required Sections / Validation Checklist / Gate Rules
 - Failure Policy
 
 3. 执行 Schema：
-- 原子：`Execution Status Schema`、`Artifact Contract`、`Standard Report Template`
-- 编排：`Orchestration State Schema`、`Resume Contract`、`Standard Orchestration Report Template`
+- 原子 Skill：`Execution Status Schema`、`Artifact Contract`、`Standard Report Template`
+- 编排 Skill：`Orchestration State Schema`、`Resume Contract`、`Standard Orchestration Report Template`
 
-## 5. 状态约定
+## 6. 状态约定
 
-### 5.1 原子状态
+### 6.1 原子状态
 - `not_started`
 - `in_progress`
 - `blocked`
 - `completed`
 - `completed_with_risk`
 
-### 5.2 编排阶段状态
+### 6.2 编排阶段状态
 - `not_started`
 - `in_progress`
 - `blocked`
 - `completed`
 - `skipped`
 
-规则：
-1. 仅当无法继续推进时使用 `blocked`。
-2. 产物存在但不确定性较高时使用 `completed_with_risk`。
-3. 未完成必要校验不得标记为 `completed`。
-
-## 6. 原子产物契约基线
-建议基础字段：
+## 7. 原子产物契约基线
+基础字段：
 - `artifact_path`
 - `artifact_exists`
 - `artifact_non_empty`
@@ -105,35 +102,28 @@
 - `confidence`（`high|medium|low`）
 - `blocking_reason`
 
-允许各 Skill 扩展字段，并在对应 SKILL.md 中明确。
+当前已知扩展字段：
+- `template-prep-page-visual-parser`：`saved_screenshot_paths`、`saved_screenshots_exist`
+- `user-generation-system-blueprint`：`component_layout_section_ok`、`hex_palette_section_ok`
+- `user-generation-nextjs-react-code-generation`：`component_layout_section_ok`、`hex_palette_section_ok`
 
-当前生产示例：
-- `template-prep-page-visual-parser` 额外追踪：
-- `saved_screenshot_paths`
-- `saved_screenshots_exist`
+## 8. 恢复与门禁规则
 
-## 7. 恢复与门禁规则
-
-### 7.1 恢复执行
+### 8.1 恢复执行
 - `resume_from` 必须匹配已知阶段名。
-- 恢复点之前阶段必须有有效产物。
-- 若前序阶段无效，应回退到最早无效阶段重跑。
+- 恢复点之前阶段必须已有有效产物。
+- 若前序产物无效，应回退至最早无效阶段。
 
-### 7.2 门禁通过条件
-以下条件同时满足才可通过：
+### 8.2 通用门禁通过条件
+同时满足以下条件才可通过：
 1. 预期产物路径存在。
 2. 产物非空。
-3. 必要章节/检查项通过。
-4. 不存在未解决阻塞问题。
+3. 必需章节/检查项满足。
+4. 无未解决阻塞问题。
 
-门禁失败时：
-- 立即停止下游阶段。
-- 记录阻塞原因与恢复建议。
-- 输出报告并给出下一步建议。
+## 9. 端到端流程
 
-## 8. 端到端流程
-
-### 8.1 模板准备流程
+### 9.1 模板准备流程（Template Preparation）
 阶段顺序：
 1. `template-prep-page-visual-parser`
 2. `template-prep-uiux-design-language-abstractor`
@@ -145,25 +135,19 @@
 编排器：`template-preparation-orchestrator`
 
 常见产物：
-- `01-page-visual-parse.md`
-- `02-uiux-design-language.md`
-- `03-design-system.md`
-- `04-frontend-component-plan.md`
-- `05-nextjs-react-frontend-language.md`
-- `template-index.md`
-- `preparation-report.md`
+- `templates/<template-name-slug>/01-page-visual-parse.md`
+- `templates/<template-name-slug>/02-uiux-design-language.md`
+- `templates/<template-name-slug>/03-design-system.md`
+- `templates/<template-name-slug>/04-frontend-component-plan.md`
+- `templates/<template-name-slug>/05-nextjs-react-frontend-language.md`
+- `templates/<template-name-slug>/template-index.md`
+- `templates/<template-name-slug>/preparation-report.md`
 
-截图处理要求：
-- 视觉解析阶段必须将输入截图落盘到 `template-preparation/inputs/screenshots/` 并使用规范命名。
+模板准备特定门禁：
+- 视觉解析阶段必须将截图按规范持久化到 `template-preparation/inputs/screenshots/`。
+- 若缺少移动端截图证据，允许以 hypothesis 模式继续，但应使用 `completed_with_risk`。
 
-响应式证据要求：
-- 模板准备默认输出双目标内容：
-- Desktop Evidence
-- Mobile Evidence 或 Mobile Hypothesis
-- 若缺少移动端截图证据，可继续执行，但必须显式记录假设，并在适用阶段使用 `completed_with_risk`。
-- 若产物缺少移动端必需章节（且用户未明确 desktop-only），应判定门禁失败。
-
-### 8.2 用户生成流程
+### 9.2 用户生成流程（User Generation）
 阶段顺序：
 1. `user-generation-system-blueprint`
 2. `user-generation-multi-page-template-composition`
@@ -175,63 +159,48 @@
 常见产物：
 - `/user-requirements/system-blueprint.md`
 - `/user-requirements/multi-page-template-composition.md`
-- 仅位于 `frontend/` 下的前端代码文件
+- 仅位于 `frontend/` 下的代码文件
 - `/user-requirements/code-generation-report.md`
 - `/user-requirements/visual-qa-iterative-fix-report.md`
-- `/user-requirements/12-user-generation-orchestration-report.md`
+- `/user-requirements/user-generation-orchestration-report.md`
 
-技术栈与响应式交付要求：
-- 默认实现栈：Next.js + React + TypeScript + Tailwind CSS + shadcn/ui。
-- 用户生成流程默认需要同时验证 desktop 与 mobile，除非用户明确要求 desktop-only。
-- 代码生成与 QA 报告应包含响应式覆盖与技术栈合规说明。
-- 用户需求相关产物必须统一写入 `/user-requirements/`。
-- PC 端默认应全宽铺满；若因根级固定/最大宽度容器导致左右留白，且需求未明确要求居中窄版，应判定为 P1。
-- 必须向用户显式披露最终选取的最合适模板。
+用户生成特定门禁：
+- 缺少移动端适配证据：`P1` 门禁失败（除非明确 desktop-only）。
+- 桌面端根级/壳层非全宽（由固定/最大宽约束导致左右留白）：`P1`（除非需求明确要求）。
+- 缺少最终模板显式披露（`template_id` + `template_name`）：`P1`。
+- 缺少每页组件布局必需细节深度：`P1`。
+- 缺少全局 Hex 调色板必需细节深度：`P1`。
+- 无法通过编辑一个主主题文件完成全局配色切换：`P1`。
+- 缺少 shadcn/ui 评估证据：`P1`。
+- 适用交互组件未采用 shadcn/ui：`P1`（除非明确豁免）。
 
-## 9. 各 Skill 边界摘要
-- `template-prep-page-visual-parser`：只做视觉结构解析与截图持久化。
-- `template-prep-uiux-design-language-abstractor`：只做 UX/交互抽象。
-- `template-prep-design-system-structurizer`：只做设计系统/Token 规则。
-- `template-prep-frontend-component-planner`：只做组件规划与契约。
-- `template-prep-nextjs-react-frontend-design-language`：只做实现导向规范文档。
-- `template-prep-template-indexing`：只做索引元数据。
-- `template-preparation-orchestrator`：只做流程编排/门禁/恢复。
-- `user-generation-system-blueprint`：只做系统蓝图定义。
-- `user-generation-multi-page-template-composition`：只做模板匹配组合规划。
-- `user-generation-nextjs-react-code-generation`：只做代码生成与修改。
-- `user-generation-visual-qa-iterative-fix`：只做视觉 QA 与最小修复。
-- `user-generation-orchestrator`：只做用户生成流程编排。
+## 10. 当前必需章节增量
+- `template-prep-page-visual-parser` 必需：`## Desktop Evidence`、`## Mobile Evidence Or Hypothesis`。
+- `template-prep-nextjs-react-frontend-design-language` 必需：`## TypeScript Contract`、`## shadcn/ui Adoption Plan`。
+- `user-generation-system-blueprint` 必需：`## Responsive Strategy`、`## Frontend Stack Contract`。
+- `user-generation-multi-page-template-composition` 必需：`## Final Selected Template`（含最终最优模板决策证据）。
+- `user-generation-nextjs-react-code-generation` 强制技术栈合规报告与 `frontend/` 单一路径约束。
+- `user-generation-visual-qa-iterative-fix` 强制桌面全宽 QA 门禁与最终模板披露校验。
+- `user-generation-orchestrator` 在编排报告中强制最终模板披露字段与关联门禁。
 
-## 9.1 当前必需章节增量
-- `user-generation-system-blueprint` 新增：
-- `## Responsive Strategy`
-- `## Frontend Stack Contract`
-- 固定需求产物路径约束：`/user-requirements/`
-- `user-generation-multi-page-template-composition` 新增：
-- `## Final Selected Template`（必须包含 `template_id`、`template_name`、选择理由、候选模板权衡）
-- `user-generation-nextjs-react-code-generation` 新增技术栈合规报告要求：
-- TypeScript 使用约束
-- Tailwind token 化样式约束
-- shadcn/ui 采用情况摘要
-- 前端代码输出路径约束：仅 `frontend/`
-- 必须基于并报告最终选定模板（`template_id` + `template_name`）
-- PC 端默认全宽（非需求明确时，禁止根级固定/最大宽度壳层容器）
-- `user-generation-visual-qa-iterative-fix` 新增：
-- PC 全宽验收门禁（左右留白问题在非明确需求下为 P1）
-- 最终模板用户披露校验（缺失为 P1）
-- `user-generation-orchestrator` 新增：
-- 编排报告中的用户可见最终模板披露字段
-- 未披露最终模板时门禁失败
-- `template-prep-nextjs-react-frontend-design-language` 新增：
-- `## TypeScript Contract`
-- `## shadcn/ui Adoption Plan`
-- `template-prep-page-visual-parser` 新增：
-- `## Desktop Evidence`
-- `## Mobile Evidence Or Hypothesis`
+## 11. 章节细节深度契约（User-Generation）
+必需 markdown 产物中以下字段必须具备：
 
-## 10. 变更维护规则
+`## Per-page Component Layout`：
+- `region_partition`
+- `component_tree`
+- `breakpoint_changes`
+- `interaction_states`
+
+`## Global Hex Color Palette`：
+- `semantic_tokens`
+- `hex_values`
+- `usage_rules`
+- `contrast_notes`
+
+## 12. 变更维护规则
 更新 Skill 时：
 1. 先更新目标 `SKILL.md`。
-2. 若涉及路径、契约、状态、职责变化，同步更新本手册中英文版本。
+2. 只要契约、路径、状态、门禁规则、职责有变化，就同步更新本手册中英文版本。
 3. 文案保持可验证、可执行、少歧义。
-4. 非必要不做破坏式改动；若废弃旧规则需显式标注。
+4. 除非明确废弃，优先做增量兼容更新。

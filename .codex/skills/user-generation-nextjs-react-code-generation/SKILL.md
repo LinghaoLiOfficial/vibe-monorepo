@@ -1,6 +1,6 @@
 ---
 name: user-generation-nextjs-react-code-generation
-description: Generate/modify Next.js + React + TypeScript + Tailwind CSS + shadcn/ui code according to blueprint and template composition outputs.
+description: Generate or modify frontend code under Next.js + React + TypeScript + Tailwind + shadcn/ui based on blueprint and composition artifacts. Use when converting approved planning outputs into production-style responsive implementation under strict path and tokenization contracts. 适用于依据上游产物进行前端代码落地。
 ---
 
 
@@ -125,3 +125,23 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Implement code from approved planning artifacts; avoid planning-stage rewrites.
+- Respect repository conventions and strict `frontend/` output boundary.
+
+### Execution Workflow
+1. Read blueprint/composition artifacts and derive implementation checklist.
+2. Build shared layout/theme/components first, then route pages.
+3. Validate run/build/type/lint where available and record evidence.
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

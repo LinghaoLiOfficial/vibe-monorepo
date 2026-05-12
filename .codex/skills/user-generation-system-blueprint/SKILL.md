@@ -1,6 +1,6 @@
 ---
 name: user-generation-system-blueprint
-description: Convert user requirements into a system blueprint for multi-page app generation.
+description: Convert product requirements into an implementation-grade multi-page system blueprint. Use when a project needs scoped routes, roles, core flows, cross-page consistency, responsive strategy, and stack contracts before template composition or coding begins. 适用于从需求到系统蓝图的结构化建模。
 ---
 
 
@@ -115,3 +115,23 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Convert requirements into system blueprint; do not perform template matching or coding.
+- Prioritize cross-page logic and route semantics over visual micro-details.
+
+### Execution Workflow
+1. Normalize requirement scope, roles, routes, and core flows.
+2. Define per-page component layout depth and consistency constraints.
+3. Specify responsive strategy and frontend stack contract for downstream stages.
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

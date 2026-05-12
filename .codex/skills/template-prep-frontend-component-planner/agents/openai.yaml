@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "Template Prep Frontend Component Planner"
-  short_description: "Plan component architecture, boundaries, props contracts, states, and replaceable regions for a template page."
-  default_prompt: "Use this skill to Plan component architecture, boundaries, props contracts, states, and replaceable regions for a template page"
+  short_description: "Plan frontend component architecture from prep artifacts, including component tree, boundaries, props contracts, state/interaction rules, and replaceable regions."
+  default_prompt: "Use this skill when turning design-language outputs into implementation-ready component decomposition with responsive behavior expectations. 适用于将设计产物转译为组件规划与契约。"

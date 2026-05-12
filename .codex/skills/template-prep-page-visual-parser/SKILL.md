@@ -1,6 +1,6 @@
 ---
 name: template-prep-page-visual-parser
-description: Parse webpage screenshot(s) into a structured visual analysis markdown for downstream template-preparation skills.
+description: Parse desktop/mobile webpage screenshots into a reusable, evidence-based visual analysis artifact for template preparation. Use when converting raw screenshot inputs into structured page understanding (layout hierarchy, visual tokens, interaction cues), with canonical screenshot persistence and uncertainty labeling. 适用于模板准备阶段的页面截图结构化解析与证据沉淀。
 ---
 
 
@@ -100,3 +100,29 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Use for screenshot-to-structured-observation only; do not redesign UI or generate code.
+- Treat visible evidence as facts and separate facts from inference.
+- If image quality is low, mark confidence down and keep explicit uncertainty notes.
+
+### Execution Workflow
+1. Validate screenshot source quality and viewport scope (desktop/mobile/tablet evidence).
+2. Produce section-level visual parse with layout, hierarchy, and interaction entry points.
+3. Extract reusable signals for downstream indexing and design-system structuring.
+4. Persist machine-readable summary fields for later orchestration consumption.
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+
+### Failure Recovery
+- Missing/low-quality screenshot: block with explicit remediation request.
+- Single-viewport input only: continue with `completed_with_risk` and list verification gaps.

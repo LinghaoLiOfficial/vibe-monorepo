@@ -1,6 +1,6 @@
 ---
 name: user-generation-multi-page-template-composition
-description: Compose a multi-page template plan from blueprint + template index with explainable matching.
+description: Compose a multi-page template strategy by matching system blueprint requirements with template indices using explainable scoring. Use when selecting a final best-fit template, mapping routes to template regions, and defining adaptation plans with responsive and component-level constraints. 适用于多页面模板选型、映射与适配规划。
 ---
 
 
@@ -118,3 +118,23 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Produce explainable composition strategy; do not generate frontend code.
+- Follow `system-blueprint` as hard constraint for route responsibilities.
+
+### Execution Workflow
+1. Build matching strategy and scoring dimensions.
+2. Select final visual anchor template and per-route structural templates.
+3. Define global style unification and shared component strategy.
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

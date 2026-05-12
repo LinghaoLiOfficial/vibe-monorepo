@@ -1,6 +1,6 @@
 ---
 name: user-generation-visual-qa-iterative-fix
-description: Run visual/code QA on generated multi-page app and iteratively apply minimal fixes.
+description: Run iterative visual and code QA on generated multi-page frontend output, then apply minimal scoped fixes until acceptance gates pass. Use when validating desktop/mobile behavior, detecting regressions, and producing risk-prioritized remediation evidence. 适用于多页前端验收与最小修复闭环。
 ---
 
 
@@ -103,3 +103,23 @@ Use these statuses in run logs or reports:
 - next_skill:
 - handoff_notes:
 ```
+
+## Professional Notes
+
+### Scope And Non-Goals
+- Validate generated app and apply minimal fixes; do not re-architect system from zero.
+- Keep fix scope narrow and evidence-based.
+
+### Execution Workflow
+1. Run desktop/mobile (and recommended tablet) QA checks.
+2. Classify issues by P0/P1/P2 and execute minimal scoped fixes.
+3. Re-validate and iterate until pass or explicit blocker.
+
+### Quality Gates
+- P0: Required output artifact exists, is non-empty, and passes required-section checks.
+- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
+- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+

@@ -1,7 +1,7 @@
 # Skills System Manual
 
 ## 1. Purpose
-This is the operational manual for the current project skill system. It defines the execution source of truth, role boundaries, contracts, stage gates, and maintenance rules for all production skills.
+This manual defines the execution source of truth, role boundaries, contracts, stage gates, and maintenance rules for all current production skills.
 
 ## 2. Source of Truth
 Canonical production skills are under `.codex/skills`:
@@ -35,68 +35,65 @@ Any historical drafts outside `.codex/skills/*/SKILL.md` are reference-only and 
 - `user-generation-nextjs-react-code-generation`
 - `user-generation-visual-qa-iterative-fix`
 
-Atomic skills must define input, output, validation, failure policy, and produce verifiable artifacts.
-
 ### 3.2 Orchestrator skills (2)
 - `template-preparation-orchestrator`
 - `user-generation-orchestrator`
 
-Orchestrators coordinate sequencing, gate checks, resume, and reporting. They do not replace atomic internals.
+## 4. Cross-Skill Baseline Contracts
 
-## 3.3 Default Frontend Delivery Baseline
-- Default frontend stack for generation-oriented flow:
-- Next.js + React + TypeScript + Tailwind CSS + shadcn/ui
-- Default responsive delivery target:
-- Desktop baseline (`>=1200px`)
-- Mobile baseline (`<=767px`)
-- Recommended checkpoint: tablet (`768-1199px`)
-- Desktop-only delivery is allowed only when explicitly requested by the user requirement.
+### 4.1 Naming convention baseline (template-prep flow)
+- Use `<template-name-slug>` (human-readable kebab-case) for all paths and identifiers.
+- Do not use hash/code-like IDs as template naming.
+- If upstream artifacts are hash/code-like, stop and request normalization before continuing.
 
-## 4. Standard SKILL.md Structure
+### 4.2 Default frontend delivery baseline
+- Default stack: Next.js + React + TypeScript + Tailwind CSS + shadcn/ui.
+- Default responsive target:
+1. Desktop baseline (`>=1200px`)
+2. Mobile baseline (`<=767px`)
+3. Recommended tablet checkpoint (`768-1199px`)
+- Desktop-only delivery is allowed only when explicitly required by user requirements.
+
+### 4.3 Fixed path contracts
+- Template-prep artifacts are generated under `templates/<template-name-slug>/...`.
+- User-generation requirement/report artifacts are generated under `/user-requirements/`.
+- User-generation frontend code output/fixes must be under `frontend/` only.
+
+## 5. Standard SKILL.md Structure
 Each SKILL.md should include:
 
 1. Frontmatter:
 - `name`
-- `version`
-- `kind` (`atomic` or `orchestrator`)
-- `output_format`
 - `description`
-- `triggers`
 
 2. Runtime contract:
-- Purpose/Scope
+- Purpose/Scope or Pipeline
 - Inputs
 - Outputs
-- Steps/Pipeline
-- Validation checklist or gate rules
+- Required Sections / Validation checklist / Gate rules
 - Failure policy
 
 3. Execution schema:
 - Atomic: `Execution Status Schema`, `Artifact Contract`, `Standard Report Template`
 - Orchestrator: `Orchestration State Schema`, `Resume Contract`, `Standard Orchestration Report Template`
 
-## 5. Status Conventions
+## 6. Status Conventions
 
-### 5.1 Atomic status values
+### 6.1 Atomic status values
 - `not_started`
 - `in_progress`
 - `blocked`
 - `completed`
 - `completed_with_risk`
 
-### 5.2 Orchestrator stage values
+### 6.2 Orchestrator stage values
 - `not_started`
 - `in_progress`
 - `blocked`
 - `completed`
 - `skipped`
 
-Rules:
-1. Use `blocked` only when forward progress is impossible.
-2. Use `completed_with_risk` when output exists but uncertainty remains.
-3. Never mark `completed` without running required validation.
-
-## 6. Artifact Contract Baseline (Atomic)
+## 7. Artifact Contract Baseline (Atomic)
 Recommended baseline fields:
 - `artifact_path`
 - `artifact_exists`
@@ -105,35 +102,28 @@ Recommended baseline fields:
 - `confidence` (`high|medium|low`)
 - `blocking_reason`
 
-Skill-specific fields are allowed and should be documented in each SKILL.md.
+Known skill-specific extensions:
+- `template-prep-page-visual-parser`: `saved_screenshot_paths`, `saved_screenshots_exist`
+- `user-generation-system-blueprint`: `component_layout_section_ok`, `hex_palette_section_ok`
+- `user-generation-nextjs-react-code-generation`: `component_layout_section_ok`, `hex_palette_section_ok`
 
-Example now in production:
-- `template-prep-page-visual-parser` additionally tracks:
-- `saved_screenshot_paths`
-- `saved_screenshots_exist`
+## 8. Resume and Gate Rules
 
-## 7. Resume and Gate Rules
-
-### 7.1 Resume
+### 8.1 Resume
 - `resume_from` must match a known stage name.
-- Prior stages must have valid artifacts.
+- Prior stages must have valid artifacts before resume.
 - If prior artifacts are invalid, rollback to earliest invalid stage.
 
-### 7.2 Gate pass conditions
+### 8.2 Generic gate pass conditions
 A stage passes when all are true:
 1. Expected artifact path exists.
 2. Artifact is non-empty.
 3. Required sections/checkpoints are satisfied.
 4. No unresolved blocking issue remains.
 
-On gate failure:
-- Stop downstream execution.
-- Record blocker and recovery action.
-- Emit report with next recommended step.
+## 9. End-to-End Pipelines
 
-## 8. End-to-End Pipelines
-
-### 8.1 Template Preparation pipeline
+### 9.1 Template Preparation pipeline
 Stage order:
 1. `template-prep-page-visual-parser`
 2. `template-prep-uiux-design-language-abstractor`
@@ -145,25 +135,19 @@ Stage order:
 Coordinator: `template-preparation-orchestrator`
 
 Typical outputs:
-- `01-page-visual-parse.md`
-- `02-uiux-design-language.md`
-- `03-design-system.md`
-- `04-frontend-component-plan.md`
-- `05-nextjs-react-frontend-language.md`
-- `template-index.md`
-- `preparation-report.md`
+- `templates/<template-name-slug>/01-page-visual-parse.md`
+- `templates/<template-name-slug>/02-uiux-design-language.md`
+- `templates/<template-name-slug>/03-design-system.md`
+- `templates/<template-name-slug>/04-frontend-component-plan.md`
+- `templates/<template-name-slug>/05-nextjs-react-frontend-language.md`
+- `templates/<template-name-slug>/template-index.md`
+- `templates/<template-name-slug>/preparation-report.md`
 
-Screenshot handling requirement:
-- Visual parser must persist input screenshot(s) into `template-preparation/inputs/screenshots/` with canonical naming.
+Template-prep gate specifics:
+- Visual parser must persist canonical screenshots under `template-preparation/inputs/screenshots/`.
+- If mobile screenshot evidence is missing, allowed in hypothesis mode with `completed_with_risk`.
 
-Responsive evidence requirement:
-- Template preparation defaults to dual-target output:
-- Desktop Evidence
-- Mobile Evidence or Mobile Hypothesis
-- If mobile screenshot evidence is missing, pipeline can continue with explicit assumptions and should use `completed_with_risk` where applicable.
-- If mobile-required sections are missing from artifacts (and user did not request desktop-only), gate should fail.
-
-### 8.2 User Generation pipeline
+### 9.2 User Generation pipeline
 Stage order:
 1. `user-generation-system-blueprint`
 2. `user-generation-multi-page-template-composition`
@@ -175,63 +159,48 @@ Coordinator: `user-generation-orchestrator`
 Typical outputs:
 - `/user-requirements/system-blueprint.md`
 - `/user-requirements/multi-page-template-composition.md`
-- Generated frontend code files under `frontend/` only
+- code files under `frontend/` only
 - `/user-requirements/code-generation-report.md`
 - `/user-requirements/visual-qa-iterative-fix-report.md`
-- `/user-requirements/12-user-generation-orchestration-report.md`
+- `/user-requirements/user-generation-orchestration-report.md`
 
-Stack and responsive delivery requirement:
-- Default implementation stack: Next.js + React + TypeScript + Tailwind CSS + shadcn/ui.
-- User-generation flow must validate both desktop and mobile by default unless desktop-only is explicitly required.
-- Code-generation and QA reports should include responsive coverage and stack-compliance notes.
-- User-requirement artifacts must be written under `/user-requirements/`.
-- Desktop output should be full-width by default; left-right blank gutters caused by root-level fixed/max container constraints should be treated as P1 unless explicitly required.
-- Final best-fit template must be explicitly disclosed to the user.
+User-generation gate specifics:
+- Missing mobile adaptation evidence is `P1` gate failure unless desktop-only is explicitly requested.
+- Desktop shell/root non-full-width (left-right gutters from fixed/max-width root constraints) is `P1` unless explicitly required.
+- Missing explicit final selected template disclosure (`template_id` + `template_name`) is `P1`.
+- Missing required per-page component layout detail depth is `P1`.
+- Missing required global hex color palette detail depth is `P1`.
+- Inability to switch global palette by editing one primary theme file is `P1`.
+- Missing shadcn/ui evaluation evidence is `P1`.
+- Missing shadcn/ui adoption for suitable interactive components is `P1` unless explicitly opted out.
 
-## 9. Operational Boundaries by Skill
-- `template-prep-page-visual-parser`: visual structure extraction + screenshot persistence only.
-- `template-prep-uiux-design-language-abstractor`: UX/interaction abstraction only.
-- `template-prep-design-system-structurizer`: design tokens/system rules only.
-- `template-prep-frontend-component-planner`: component planning/contracts only.
-- `template-prep-nextjs-react-frontend-design-language`: implementation-oriented frontend language spec only.
-- `template-prep-template-indexing`: indexing metadata only.
-- `template-preparation-orchestrator`: stage sequencing/gates/resume only.
-- `user-generation-system-blueprint`: system requirement blueprinting only.
-- `user-generation-multi-page-template-composition`: template matching/composition planning only.
-- `user-generation-nextjs-react-code-generation`: code generation/modification only.
-- `user-generation-visual-qa-iterative-fix`: visual QA and minimal iterative fix only.
-- `user-generation-orchestrator`: user-generation flow orchestration only.
+## 10. Required Section Deltas (Current)
+- `template-prep-page-visual-parser` requires `## Desktop Evidence` and `## Mobile Evidence Or Hypothesis`.
+- `template-prep-nextjs-react-frontend-design-language` requires `## TypeScript Contract` and `## shadcn/ui Adoption Plan`.
+- `user-generation-system-blueprint` requires `## Responsive Strategy` and `## Frontend Stack Contract`.
+- `user-generation-multi-page-template-composition` requires `## Final Selected Template` and explicit best-fit decision evidence.
+- `user-generation-nextjs-react-code-generation` enforces stack compliance reporting and `frontend/`-only output.
+- `user-generation-visual-qa-iterative-fix` enforces full-width desktop QA gate and final-template disclosure QA check.
+- `user-generation-orchestrator` enforces final-template disclosure fields and related gate failure rules in orchestration reports.
 
-## 9.1 Required Section Deltas (Current)
-- `user-generation-system-blueprint` now includes:
-- `## Responsive Strategy`
-- `## Frontend Stack Contract`
-- fixed requirement artifact path under `/user-requirements/`
-- `user-generation-multi-page-template-composition` now includes:
-- `## Final Selected Template` (must include `template_id`, `template_name`, concise selection reason, and considered alternatives)
-- `user-generation-nextjs-react-code-generation` now requires stack-compliance reporting:
-- TypeScript usage constraints
-- Tailwind tokenized styling constraints
-- shadcn/ui adoption summary
-- frontend code output path constraint under `frontend/` only
-- explicit use/reporting of the final selected template (`template_id` + `template_name`)
-- desktop full-width default (no root-level fixed/max-width shell unless explicitly required)
-- `user-generation-visual-qa-iterative-fix` now includes:
-- desktop full-width QA gate (left-right blank gutters as P1 unless explicitly required)
-- final-template user-facing disclosure QA check (missing disclosure is P1)
-- `user-generation-orchestrator` now includes:
-- user-facing final template disclosure fields in orchestration report
-- gate failure when final-template disclosure is missing
-- `template-prep-nextjs-react-frontend-design-language` now includes:
-- `## TypeScript Contract`
-- `## shadcn/ui Adoption Plan`
-- `template-prep-page-visual-parser` now includes:
-- `## Desktop Evidence`
-- `## Mobile Evidence Or Hypothesis`
+## 11. Section Detail Depth Contract (User-Generation)
+Required depth fields across required markdown artifacts:
 
-## 10. Change Management
+For `## Per-page Component Layout`:
+- `region_partition`
+- `component_tree`
+- `breakpoint_changes`
+- `interaction_states`
+
+For `## Global Hex Color Palette`:
+- `semantic_tokens`
+- `hex_values`
+- `usage_rules`
+- `contrast_notes`
+
+## 12. Change Management
 When updating skills:
 1. Update the target `SKILL.md` first.
-2. Sync this manual (EN + zh-CN) if contracts, paths, statuses, or stage responsibilities changed.
+2. Sync this manual (EN + zh-CN) whenever contracts, paths, statuses, gate rules, or stage responsibilities change.
 3. Keep wording deterministic and verifiable.
-4. Prefer additive changes to preserve backward compatibility unless deprecation is explicit.
+4. Prefer additive changes unless explicit deprecation is required.

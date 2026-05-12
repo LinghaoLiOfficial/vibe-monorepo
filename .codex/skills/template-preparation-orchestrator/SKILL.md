@@ -1,6 +1,6 @@
 ---
 name: template-preparation-orchestrator
-description: Orchestrate template-preparation atomic skills (01-05 + indexing) with stage gates and resumable execution.
+description: Orchestrate the full template-preparation pipeline (01-05 + indexing) with stage gates, resumable state, and artifact validation. Use when end-to-end template preparation must be executed reliably across atomic skills with explicit blocker handling and delivery reporting. 适用于模板准备全流程编排与门禁控制。
 ---
 
 
@@ -101,3 +101,23 @@ Run-level fields required in `orchestration-state.json`:
 ## 6. Recommended Next Step
 - next_command_or_skill:
 ```
+
+## Professional Notes
+
+### Orchestration Principles
+- Orchestrate atomic skills; do not silently replace their responsibilities.
+- Enforce stage gates before advancing to downstream stages.
+- Persist state for resumable execution and deterministic recovery.
+
+### Quality Gates
+- P0: Every stage produces required artifacts and passes stage-level validation before progression.
+- P1: Cross-stage consistency (naming, path contracts, responsive assumptions) is validated.
+- P2: Orchestration report includes blocker context, next action, and resume readiness.
+
+### Downstream Handoff
+- Provide only actionable artifacts required by the immediate next stage.
+- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+
+### Recovery Policy
+- On blocking failure: stop pipeline, report blocker + next actionable remediation.
+- On resumable failure: reset to earliest invalid artifact stage.
