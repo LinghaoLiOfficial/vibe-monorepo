@@ -27,7 +27,9 @@ triggers:
 - `## Page Inventory`
 - `## Route Map`
 - `## Core Flows`
+- `## Per-page Component Layout`
 - `## Cross-page Consistency Rules`
+- `## Global Hex Color Palette`
 - `## Responsive Strategy`
 - `## Frontend Stack Contract`
 - `## Assumptions`
@@ -49,6 +51,23 @@ triggers:
 - TypeScript strictness policy and shared type ownership boundaries
 - Tailwind token usage constraints (design tokens -> utility mapping)
 - shadcn/ui adoption policy (preferred primitives and customization boundaries)
+- Required shadcn/ui baseline mapping by page archetype (for example auth form, card grid, list/editor shell)
+- Per-page interactive component assessment method (identify suitable interactive components first, then adopt shadcn/ui where applicable; document exemption when no suitable components exist)
+- Single-source theme ownership rule: global palette tokens must be owned by one primary theme file and referenced by all routes/components.
+
+# Section Detail Depth Template
+- For `## Per-page Component Layout`, each route must include at least:
+- region_partition: header/sidebar/main/footer or equivalent zones
+- component_tree: page-level to block-level component hierarchy (concise tree)
+- breakpoint_changes: desktop/tablet/mobile layout changes
+- interaction_states: default/hover/focus/active/disabled/loading/error states (as applicable)
+- shadcn_mapping: components used or explicit no-component exemption reason
+- For `## Global Hex Color Palette`, include at least:
+- semantic_tokens: primary/secondary/accent/background/surface/border/text/success/warning/error
+- hex_values: explicit `#RRGGBB` or `#RRGGBBAA` values for each token
+- usage_rules: where each token is applied (shell/card/form/nav/feedback)
+- contrast_notes: concise accessibility contrast rationale for key text/background pairs
+- single_source_theme_file: required path proposal for the one-file theme switch entrypoint
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
@@ -63,6 +82,8 @@ Use these statuses in run logs or reports:
 - `artifact_exists`: `true|false`
 - `artifact_non_empty`: `true|false`
 - `required_sections_ok`: `true|false`
+- `component_layout_section_ok`: `true|false`
+- `hex_palette_section_ok`: `true|false`
 - `confidence`: `high|medium|low`
 - `blocking_reason`: empty when not blocked
 

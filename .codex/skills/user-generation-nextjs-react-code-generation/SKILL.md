@@ -36,6 +36,12 @@ triggers:
 - Prefer TypeScript-first component and data contracts; avoid introducing untyped API surfaces.
 - Prefer shadcn/ui primitives before custom base components when requirements are compatible.
 - Use Tailwind utility + token mapping from design artifacts; avoid hardcoded visual values when token exists.
+- Centralize global color theme in one primary theme file (for example `frontend/src/styles/theme.css` or `frontend/src/theme/tokens.ts`) and consume via tokens/variables across pages.
+- Support one-step palette replacement by editing the primary theme file only; avoid scattered page-level hex literals for global colors.
+- Install and scaffold shadcn/ui in `frontend/` when absent and required by stack contract.
+- If shadcn/ui is unavailable or blocked, mark stage `blocked` or `completed_with_risk` with explicit remediation.
+- Evaluate each route for suitable interactive components before implementation; adopt shadcn/ui for all suitable interactive components by default.
+- If a route has no suitable interactive components, document no-component exemption in report.
 
 # Report Must Include
 - Changed files
@@ -46,6 +52,14 @@ triggers:
 - Breakpoints tested (at minimum one desktop width and one mobile width)
 - TypeScript coverage summary for newly introduced modules/components
 - shadcn/ui usage summary (new primitives added or reused)
+- shadcn/ui evidence list (component file paths + import references)
+- per-route shadcn/ui evaluation results (has_interactive_components, adopted_components, exemptions)
+- per-route implemented component layout details
+- global hex color palette implemented in code (tokens/variables + usage paths)
+- primary theme file path for one-step palette switching
+- one-step palette switching instruction (which section/keys to edit)
+- per-route layout depth checklist (`region_partition`, `component_tree`, `breakpoint_changes`, `interaction_states`)
+- hex palette depth checklist (`semantic_tokens`, `hex_values`, `usage_rules`, `contrast_notes`)
 
 # Responsive Implementation Minimum
 - Navigation shell adapts across breakpoints (for example sidebar -> drawer/sheet on mobile).
@@ -59,6 +73,11 @@ triggers:
 - TypeScript is enabled for new/modified React modules; avoid `any` unless justified in report.
 - Tailwind CSS drives layout/spacing/typography/color decisions aligned to tokens.
 - shadcn/ui components are used for common primitives (button, input, dialog/sheet, table, select) unless existing design system requires alternatives.
+- shadcn/ui usage must be evidenced in generated code (imports from `@/components/ui/*` or documented equivalent alias path); otherwise severity at least `P1` unless user explicitly opts out.
+- For routes with suitable interactive components, missing shadcn/ui adoption is at least `P1` unless user explicitly opts out.
+- Routes with no suitable interactive components may be exempt, but exemption evidence is mandatory.
+- Missing required detail depth in component layout or hex palette sections is at least `P1`.
+- If global palette cannot be switched by editing one primary theme file, severity is at least `P1`.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
@@ -73,6 +92,8 @@ Use these statuses in run logs or reports:
 - `artifact_exists`: `true|false`
 - `artifact_non_empty`: `true|false`
 - `required_sections_ok`: `true|false`
+- `component_layout_section_ok`: `true|false`
+- `hex_palette_section_ok`: `true|false`
 - `confidence`: `high|medium|low`
 - `blocking_reason`: empty when not blocked
 
