@@ -1,13 +1,8 @@
 ---
 name: template-prep-uiux-design-language-abstractor
-version: 1.2.0
-kind: atomic
-output_format: markdown
 description: Abstract UI/UX design language from visual-parse markdown into reusable UX intent and interaction principles.
-triggers:
-  - uiux design language abstraction
-  - UI/UX 设计语言抽象
 ---
+
 
 # Inputs
 

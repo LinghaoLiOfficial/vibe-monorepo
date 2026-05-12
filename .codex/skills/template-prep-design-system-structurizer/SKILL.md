@@ -1,13 +1,8 @@
 ---
 name: template-prep-design-system-structurizer
-version: 1.2.0
-kind: atomic
-output_format: markdown
 description: Convert visual parse + UI/UX abstraction into template-level design system tokens and style rules.
-triggers:
-  - template design system structuring
-  - 模板设计系统结构化
 ---
+
 
 # Inputs
 

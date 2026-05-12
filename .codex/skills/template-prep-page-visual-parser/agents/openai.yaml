@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "Template Prep Page Visual Parser"
+  short_description: "Parse webpage screenshot(s) into a structured visual analysis markdown for downstream template-preparation skills."
+  default_prompt: "Use this skill to Parse webpage screenshot(s) into a structured visual analysis markdown for downstream template-preparation skills"

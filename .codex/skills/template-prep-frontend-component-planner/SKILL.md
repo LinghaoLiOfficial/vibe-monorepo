@@ -1,13 +1,8 @@
 ---
 name: template-prep-frontend-component-planner
-version: 1.2.0
-kind: atomic
-output_format: markdown
 description: Plan component architecture, boundaries, props contracts, states, and replaceable regions for a template page.
-triggers:
-  - template component planning
-  - 前端组件规划
 ---
+
 
 # Inputs
 

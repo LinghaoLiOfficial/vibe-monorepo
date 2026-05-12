@@ -1,13 +1,8 @@
 ---
 name: user-generation-visual-qa-iterative-fix
-version: 1.1.0
-kind: atomic
-output_format: markdown
 description: Run visual/code QA on generated multi-page app and iteratively apply minimal fixes.
-triggers:
-  - visual qa iterative fix
-  - 视觉验收迭代修复
 ---
+
 
 # Inputs
 - `/user-requirements/system-blueprint.md`

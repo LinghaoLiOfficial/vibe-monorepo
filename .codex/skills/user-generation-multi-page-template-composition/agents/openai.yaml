@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "User Generation Multi Page Template Composition"
+  short_description: "Compose a multi-page template plan from blueprint + template index with explainable matching."
+  default_prompt: "Use this skill to Compose a multi-page template plan from blueprint + template index with explainable matching"

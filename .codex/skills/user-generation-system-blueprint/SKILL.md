@@ -1,13 +1,8 @@
 ---
 name: user-generation-system-blueprint
-version: 1.2.0
-kind: atomic
-output_format: markdown
 description: Convert user requirements into a system blueprint for multi-page app generation.
-triggers:
-  - system blueprint
-  - 系统蓝图
 ---
+
 
 # Inputs
 - `/user-requirements/user-requirement.md` (or equivalent requirement doc)

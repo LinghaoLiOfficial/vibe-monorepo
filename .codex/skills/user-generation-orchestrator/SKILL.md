@@ -1,13 +1,8 @@
 ---
 name: user-generation-orchestrator
-version: 1.2.0
-kind: orchestrator
-output_format: markdown
 description: Orchestrate user-generation atomic skills with stage gates, resume support, and final delivery report.
-triggers:
-  - user generation orchestrator
-  - 用户生成编排
 ---
+
 
 # Pipeline
 1. system-blueprint

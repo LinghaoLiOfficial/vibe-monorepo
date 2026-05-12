@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "Template Preparation Orchestrator"
+  short_description: "Orchestrate template-preparation atomic skills (01-05 + indexing) with stage gates and resumable execution."
+  default_prompt: "Use this skill to Orchestrate template-preparation atomic skills (01-05 + indexing) with stage gates and resumable execution"

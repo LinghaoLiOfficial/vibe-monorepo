@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "User Generation Orchestrator"
+  short_description: "Orchestrate user-generation atomic skills with stage gates, resume support, and final delivery report."
+  default_prompt: "Use this skill to Orchestrate user-generation atomic skills with stage gates, resume support, and final delivery report"

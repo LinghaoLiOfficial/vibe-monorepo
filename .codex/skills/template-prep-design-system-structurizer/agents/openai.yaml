@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "Template Prep Design System Structurizer"
+  short_description: "Convert visual parse + UI/UX abstraction into template-level design system tokens and style rules."
+  default_prompt: "Use this skill to Convert visual parse + UI/UX abstraction into template-level design system tokens and style rules"

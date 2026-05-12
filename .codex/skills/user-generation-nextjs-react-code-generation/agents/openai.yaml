@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "User Generation Nextjs React Code Generation"
+  short_description: "Generate/modify Next.js + React + TypeScript + Tailwind CSS + shadcn/ui code according to blueprint and template composition outputs."
+  default_prompt: "Use this skill to Generate/modify Next.js + React + TypeScript + Tailwind CSS + shadcn/ui code according to blueprint and template composition outputs"

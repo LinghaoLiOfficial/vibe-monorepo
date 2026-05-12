@@ -1,13 +1,8 @@
 ---
 name: user-generation-multi-page-template-composition
-version: 1.1.0
-kind: atomic
-output_format: markdown
 description: Compose a multi-page template plan from blueprint + template index with explainable matching.
-triggers:
-  - multi-page template composition
-  - 多页模板组合
 ---
+
 
 # Inputs
 - `/user-requirements/system-blueprint.md`

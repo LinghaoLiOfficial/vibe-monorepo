@@ -1,13 +1,8 @@
 ---
 name: template-prep-template-indexing
-version: 1.2.0
-kind: atomic
-output_format: markdown
 description: Index template prep artifacts into searchable template metadata for matching and composition.
-triggers:
-  - template indexing
-  - 模板索引
 ---
+
 
 # Inputs
 

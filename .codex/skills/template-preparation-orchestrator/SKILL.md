@@ -1,13 +1,8 @@
 ---
 name: template-preparation-orchestrator
-version: 1.2.0
-kind: orchestrator
-output_format: markdown
 description: Orchestrate template-preparation atomic skills (01-05 + indexing) with stage gates and resumable execution.
-triggers:
-  - template preparation orchestrator
-  - 模板准备编排
 ---
+
 
 # Scope
 Coordinate atomic skills only; do not replace their detailed logic.

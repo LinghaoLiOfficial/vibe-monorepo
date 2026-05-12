@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "User Generation System Blueprint"
+  short_description: "Convert user requirements into a system blueprint for multi-page app generation."
+  default_prompt: "Use this skill to Convert user requirements into a system blueprint for multi-page app generation"

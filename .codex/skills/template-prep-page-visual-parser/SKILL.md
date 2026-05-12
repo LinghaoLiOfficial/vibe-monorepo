@@ -1,14 +1,8 @@
 ---
 name: template-prep-page-visual-parser
-version: 1.2.0
-kind: atomic
-output_format: markdown
 description: Parse webpage screenshot(s) into a structured visual analysis markdown for downstream template-preparation skills.
-triggers:
-  - template prep visual parse
-  - 页面视觉解析
-  - parse template screenshot
 ---
+
 
 # Purpose
 Convert screenshot evidence into a reusable page-level visual parse document, and persist the input screenshot(s) into the standardized screenshots directory for later stages.

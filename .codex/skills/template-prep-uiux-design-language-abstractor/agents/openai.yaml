@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "Template Prep Uiux Design Language Abstractor"
+  short_description: "Abstract UI/UX design language from visual-parse markdown into reusable UX intent and interaction principles."
+  default_prompt: "Use this skill to Abstract UI/UX design language from visual-parse markdown into reusable UX intent and interaction principles"

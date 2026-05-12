@@ -1,13 +1,8 @@
 ---
 name: user-generation-nextjs-react-code-generation
-version: 1.2.0
-kind: atomic
-output_format: markdown
 description: Generate/modify Next.js + React + TypeScript + Tailwind CSS + shadcn/ui code according to blueprint and template composition outputs.
-triggers:
-  - nextjs react code generation
-  - 代码生成
 ---
+
 
 # Inputs
 - `/user-requirements/system-blueprint.md`

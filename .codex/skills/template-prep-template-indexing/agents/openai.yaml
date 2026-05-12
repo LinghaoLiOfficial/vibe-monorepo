@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "Template Prep Template Indexing"
+  short_description: "Index template prep artifacts into searchable template metadata for matching and composition."
+  default_prompt: "Use this skill to Index template prep artifacts into searchable template metadata for matching and composition"

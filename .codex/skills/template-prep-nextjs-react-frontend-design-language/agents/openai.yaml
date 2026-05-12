@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "Template Prep Nextjs React Frontend Design Language"
+  short_description: "Produce implementation-oriented Next.js + React + TypeScript + Tailwind CSS + shadcn/ui frontend language spec from template prep artifacts."
+  default_prompt: "Use this skill to Produce implementation-oriented Next.js + React + TypeScript + Tailwind CSS + shadcn/ui frontend language spec from template prep artifacts"

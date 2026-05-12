@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "User Generation Visual Qa Iterative Fix"
+  short_description: "Run visual/code QA on generated multi-page app and iteratively apply minimal fixes."
+  default_prompt: "Use this skill to Run visual/code QA on generated multi-page app and iteratively apply minimal fixes"

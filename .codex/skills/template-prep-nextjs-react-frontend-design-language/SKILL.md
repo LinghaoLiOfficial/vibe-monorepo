@@ -1,13 +1,8 @@
 ---
 name: template-prep-nextjs-react-frontend-design-language
-version: 1.3.0
-kind: atomic
-output_format: markdown
 description: Produce implementation-oriented Next.js + React + TypeScript + Tailwind CSS + shadcn/ui frontend language spec from template prep artifacts.
-triggers:
-  - template nextjs react frontend spec
-  - 模板前端实现规范
 ---
+
 
 # Inputs
 
