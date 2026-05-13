@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "Frontend Structure Contract"
-  short_description: "Define and enforce a canonical frontend project directory structure across template and code-generation runs."
-  default_prompt: "Use this skill when multiple runs must keep consistent frontend structure boundaries (frontend/src/app, components, features, styles), route placement rules, and theme-entrypoint ownership."
+  short_description: "Define and enforce the current repo frontend minimal skeleton and optional extension boundaries."
+  default_prompt: "Use this skill when runs must align generated frontend code to the current minimal skeleton (frontend/src/app, frontend/src/lib, frontend/src/styles) while documenting optional extensions like components/features."

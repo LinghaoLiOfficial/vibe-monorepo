@@ -18,6 +18,12 @@ description: Run iterative visual QA after fullstack integration acceptance and 
 - Frontend code fixes must be applied under `frontend/` only unless integration report proves backend-side fix is strictly required for visual correctness.
 - Requirement/report artifacts must be written under `/user-requirements/`.
 
+# Frontend Spec Alignment (Mandatory)
+- Read `docs/FRONTEND_SPEC.md` before QA execution.
+- Keep desktop-first + mobile adaptation checks explicit.
+- Keep server/client boundary changes minimal and justified.
+- Keep one-step theme switch valid via `frontend/src/styles/theme.css`.
+
 # Precondition Gate
 - `fullstack-integration-qa` must be completed first.
 - Missing `/user-requirements/fullstack-integration-qa-report.md` is `P1` and blocks this stage.
@@ -40,6 +46,12 @@ description: Run iterative visual QA after fullstack integration acceptance and 
 - Validate shadcn/ui adoption evidence against composition and code-generation reports.
 - Validate required markdown structure/depth checks still pass (component layout + hex palette).
 - Validate one-step theme switching remains valid after fixes.
+- Run frontend quality commands before stage completion:
+```bash
+cd frontend
+pnpm type-check
+pnpm build
+```
 
 # Report
 - Issue list by severity
@@ -51,6 +63,8 @@ description: Run iterative visual QA after fullstack integration acceptance and 
 - markdown artifact structure and detail-depth verification summary
 - one-step theme switching verification
 - dependency check result for `fullstack-integration-qa-report.md`
+- frontend spec alignment evidence
+- frontend quality command results (`pnpm type-check`, `pnpm build`)
 
 # Execution Status Schema
 - `not_started`
@@ -65,6 +79,8 @@ description: Run iterative visual QA after fullstack integration acceptance and 
 - `artifact_non_empty`
 - `required_sections_ok`
 - `integration_precondition_ok`
+- `frontend_spec_alignment_ok`
+- `frontend_quality_ok`
 - `confidence`
 - `blocking_reason`
 
@@ -76,5 +92,5 @@ description: Run iterative visual QA after fullstack integration acceptance and 
 
 ### Quality Gates
 - P0: Required output artifact exists, is non-empty, and passes required-section checks.
-- P1: Integration precondition and responsive/visual constraints are verified.
+- P1: Integration precondition, frontend spec alignment, and responsive/visual constraints are verified.
 - P2: Remaining risks and fallback actions are explicit.

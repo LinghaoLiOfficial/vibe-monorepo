@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation System Blueprint"
-  short_description: "Build a slice-oriented system blueprint for frontend-first fullstack execution."
-  default_prompt: "Use this skill when requirements must be translated into a route/flow blueprint with requirement-slice definition, frontend contracts, and backend-readiness assumptions."
+  short_description: "Build a slice-oriented blueprint with explicit FRONTEND_SPEC alignment for frontend-first delivery."
+  default_prompt: "Use this skill when requirements must become a route/flow blueprint with requirement-slice definition, frontend structure/spec alignment, and backend-readiness assumptions."

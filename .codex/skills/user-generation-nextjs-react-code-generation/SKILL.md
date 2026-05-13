@@ -11,6 +11,14 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 # Required Companion Tool Skill
 - Use `frontend-project-structure-contract` to validate directory and route placement compliance before finalizing.
 
+# Frontend Spec Alignment (Mandatory)
+- Read `docs/FRONTEND_SPEC.md` before implementation.
+- Enforce:
+- Server/Client boundary discipline
+- Desktop-first then mobile adaptation
+- one-file theme switch policy (`frontend/src/styles/theme.css`)
+- frontend quality gates (`pnpm type-check`, `pnpm build`)
+
 # Outputs
 - Code files under `frontend/` only
 - `/user-requirements/code-generation-report.md`
@@ -31,6 +39,12 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - Evaluate each route for suitable interactive components; adopt shadcn/ui for suitable interactive components.
 - Derive API intent from implemented frontend behavior and persist as contract input artifact.
 - Run `scripts/check_structure_contracts.sh` before stage completion.
+- Run frontend quality commands before stage completion:
+```bash
+cd frontend
+pnpm type-check
+pnpm build
+```
 
 # Frontend API Contract Input Contract
 `/user-requirements/frontend-api-contract-input.md` must include:
@@ -55,11 +69,16 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - Primary theme file path for one-step palette switching
 - Generated API contract input artifact path and completeness result
 - Structure consistency script result
+- Frontend spec alignment evidence
+- Frontend quality command results (`pnpm type-check`, `pnpm build`)
 
 # Gate Rules
 - Missing `/user-requirements/frontend-api-contract-input.md` is `P1` and blocks stage completion.
 - Missing required sections in contract input artifact is `P1`.
 - Failing `scripts/check_structure_contracts.sh` is `P1`.
+- Missing frontend spec alignment evidence is `P1`.
+- Missing frontend quality command evidence is `P1`.
+- Failing frontend quality commands is `P1`.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
@@ -78,6 +97,8 @@ Use these statuses in run logs or reports:
 - `hex_palette_section_ok`: `true|false`
 - `frontend_api_contract_input_ok`: `true|false`
 - `structure_consistency_ok`: `true|false`
+- `frontend_spec_alignment_ok`: `true|false`
+- `frontend_quality_ok`: `true|false`
 - `confidence`: `high|medium|low`
 - `blocking_reason`: empty when not blocked
 
@@ -89,5 +110,5 @@ Use these statuses in run logs or reports:
 
 ### Quality Gates
 - P0: Required outputs exist and pass required-section checks.
-- P1: Frontend structure/path compliance, structure consistency script, and contract-input completeness are validated.
+- P1: Frontend structure/path compliance, frontend spec alignment, structure consistency script, and contract-input completeness are validated.
 - P2: Handoff is actionable for `api-contract-design` stage.

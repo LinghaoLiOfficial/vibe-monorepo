@@ -17,6 +17,11 @@ description: Orchestrate a frontend-first fullstack user-generation pipeline wit
 - Use `backend-project-structure-contract` across stages 4-6.
 - Stage completion must include companion contract evidence.
 
+# Required Specs And Guardrails
+- Frontend-related stages (1-3, 7) must read `docs/FRONTEND_SPEC.md`.
+- Backend-related stages (4-6) must read `docs/BACKEND_SPEC.md`.
+- Respect `.codex/hooks.json` auto-guardrail behavior when present.
+
 # Output
 - `/user-requirements/user-generation-orchestration-report.md`
 
@@ -41,6 +46,24 @@ description: Orchestrate a frontend-first fullstack user-generation pipeline wit
 - Run `scripts/check_structure_contracts.sh` before marking stages 3, 5, and 6 as completed.
 - If structure check fails, stage status must be `blocked`.
 
+# CI And Hooks Guardrail (Mandatory)
+- Orchestrator must treat local gate commands as CI-equivalent prechecks.
+- Backend CI-equivalent prechecks:
+```bash
+cd backend
+uv run ruff check .
+uv run ruff format --check .
+uv run mypy app tests
+uv run pytest -q
+```
+- Frontend CI-equivalent prechecks:
+```bash
+cd frontend
+pnpm type-check
+pnpm build
+```
+- When `.codex/hooks.json` exists, include hooks execution status summary in stage reports.
+
 # Gate Rules
 - Validate each stage artifact before moving on.
 - Stop and report blockers if required artifact/check fails.
@@ -58,6 +81,10 @@ description: Orchestrate a frontend-first fullstack user-generation pipeline wit
 - Treat contract/backend mismatch on route, schema, error model, or auth policy as gate failure (P1).
 - Treat missing integration QA evidence for at least one core flow as gate failure (P1).
 - Treat structure consistency check failure as gate failure (P1).
+- Treat missing CI-equivalent precheck evidence as gate failure (P1).
+- Treat failing backend integration baseline checks as gate failure (P1).
+- Treat missing frontend spec alignment evidence as gate failure (P1).
+- Treat missing backend spec alignment evidence as gate failure (P1).
 
 # Orchestration State Schema
 Track each stage with:
@@ -103,7 +130,11 @@ Run-level fields:
 - blocked_stage:
 - frontend_structure_contract_gate:
 - backend_structure_contract_gate:
+- frontend_spec_gate:
+- backend_spec_gate:
 - structure_consistency_script_gate:
+- ci_equivalent_precheck_gate:
+- hooks_guardrail_gate:
 - api_contract_gate:
 - contract_backend_consistency_gate:
 - integration_qa_gate:
@@ -137,5 +168,5 @@ Run-level fields:
 
 ### Quality Gates
 - P0: Every stage produces required artifacts and passes stage-level validation before progression.
-- P1: Cross-stage consistency (path contracts, frontend-backend contract alignment, responsive assumptions, structure consistency script) is validated.
+- P1: Cross-stage consistency (path contracts, frontend-backend contract alignment, frontend/backend spec alignment, responsive assumptions, structure consistency script, CI-equivalent checks) is validated.
 - P2: Orchestration report includes blocker context, next action, and resume readiness.

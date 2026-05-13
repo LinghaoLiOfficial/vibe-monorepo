@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation Multi Page Template Composition"
-  short_description: "Compose a multi-page template strategy by matching system blueprint requirements with template indices using explainable scoring."
-  default_prompt: "Use this skill when selecting a final best-fit template, mapping routes to template regions, and defining adaptation plans with responsive and component-level constraints. 适用于多页面模板选型、映射与适配规划。"
+  short_description: "Compose template mapping with explicit frontend structure and FRONTEND_SPEC alignment evidence."
+  default_prompt: "Use this skill when selecting best-fit templates and mapping routes, while producing explicit frontend structure alignment, responsive adaptation, and FRONTEND_SPEC-conformant composition output."

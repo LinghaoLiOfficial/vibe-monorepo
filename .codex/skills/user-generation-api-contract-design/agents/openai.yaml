@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation API Contract Design"
-  short_description: "Produce implementation-grade API contracts from frontend-derived interaction intent for backend execution."
-  default_prompt: "Use this skill when frontend-first user-generation runs need a strict API contract (schemas, errors, auth, compatibility) before backend code generation."
+  short_description: "Produce implementation-grade API contracts with explicit backend spec and structure alignment checks."
+  default_prompt: "Use this skill when frontend-first runs need a strict API contract before backend code generation, including BACKEND_SPEC alignment and structure consistency evidence."

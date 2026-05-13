@@ -20,12 +20,22 @@ description: Validate frontend-backend integration for the current requirement s
 3. Apply minimal scoped fix.
 4. Re-run checks until pass or blocker.
 
+# Backend Integration Baseline (Mandatory)
+- Read `docs/BACKEND_SPEC.md` before QA execution.
+- Integration stage must include these baseline checks:
+```bash
+cd backend
+uv run pytest -q tests/integration/test_health.py
+uv run pytest -q tests/integration/test_exception_handlers.py
+uv run pytest -q tests/integration/test_metrics.py
+```
+- Run `scripts/check_structure_contracts.sh` before stage completion.
+
 # Required QA Coverage
 - At least one end-to-end core flow for current slice.
 - Contract conformance checks for endpoints in scope.
 - Auth/permission checks when flow requires identity.
 - Frontend-backend error model consistency checks.
-- Run `scripts/check_structure_contracts.sh` before stage completion.
 
 # Report
 - Issues by severity
@@ -35,11 +45,16 @@ description: Validate frontend-backend integration for the current requirement s
 - Core flow pass/fail summary
 - Remaining risks
 - Structure consistency script result
+- Backend integration baseline test results
+- Backend spec alignment evidence
+- NFR verification snapshot
 
 # Gate Rules
 - Missing e2e core flow evidence is `P1`.
 - Contract conformance failure is `P1`.
 - Failing `scripts/check_structure_contracts.sh` is `P1`.
+- Missing backend integration baseline evidence is `P1`.
+- Missing NFR verification snapshot is `P1`.
 
 # Execution Status Schema
 - `not_started`
@@ -54,5 +69,8 @@ description: Validate frontend-backend integration for the current requirement s
 - `artifact_non_empty`
 - `required_sections_ok`
 - `structure_consistency_ok`
+- `backend_integration_baseline_ok`
+- `backend_spec_alignment_ok`
+- `nfr_baseline_ok`
 - `confidence`
 - `blocking_reason`

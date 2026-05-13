@@ -3,7 +3,6 @@ name: user-generation-multi-page-template-composition
 description: Compose a multi-page template strategy by matching system blueprint requirements with template indices using explainable scoring. Use when selecting a final best-fit template, mapping routes to template regions, and defining adaptation plans with responsive and component-level constraints. 适用于多页面模板选型、映射与适配规划。
 ---
 
-
 # Inputs
 - `/user-requirements/system-blueprint.md`
 - template index files under `templates/*/template-index.md`
@@ -12,13 +11,18 @@ description: Compose a multi-page template strategy by matching system blueprint
 - Use `frontend-project-structure-contract` to align output with the blueprint structure contract.
 - If alignment evidence is missing, treat section validation as failed.
 
+# Frontend Spec Alignment (Mandatory)
+- Read `docs/FRONTEND_SPEC.md` before composition.
+- Ensure composition reflects:
+- desktop-first information hierarchy
+- mobile adaptation matrix completeness
+- server/client boundary assumptions at route level
+
 # Output
 - `/user-requirements/multi-page-template-composition.md`
 
 # Path Contract
-- Requirement-related artifacts must be written under a fixed requirements folder.
-- Fixed requirements folder: `/user-requirements/`
-- Do not write this skill output to `docs/` by default.
+- Requirement-related artifacts must be written under `/user-requirements/`.
 
 # Required Sections
 - `## Final Selected Template`
@@ -28,6 +32,7 @@ description: Compose a multi-page template strategy by matching system blueprint
 - `## Adaptation Plan`
 - `## Per-page Component Layout`
 - `## Frontend Project Structure Alignment`
+- `## Frontend Spec Alignment`
 - `## Global Hex Color Palette`
 - `## Responsive Adaptation Matrix`
 - `## shadcn/ui Component Mapping`
@@ -39,46 +44,16 @@ description: Compose a multi-page template strategy by matching system blueprint
 - In `## Final Selected Template`, include at least:
 - `template_id`
 - `template_name`
-- `selection_reason` (why this is the best fit for current user requirements)
-- `alternative_templates_considered` (with concise tradeoffs)
-- This section is mandatory and user-facing; do not hide final selection only in internal notes.
+- `selection_reason`
+- `alternative_templates_considered`
 
-# Responsive Adaptation Matrix Contract
-- Must map each route to desktop/mobile adaptation decisions.
-- Per route, include:
-- Shell behavior (sidebar/header/tabs/drawer)
-- Layout transform (columns to stacked flow)
-- High-density widget strategy (table/chart/list fallback pattern)
-- Interaction adjustments (touch targets, gesture/scroll constraints)
-
-# shadcn/ui Component Mapping Contract
-- Must map each route to concrete shadcn/ui primitives and intended usage.
-- Per route, include:
-- interactive_components_detected (boolean + concise evidence)
-- required_components (for example `Button`, `Input`, `Textarea`, `Card`, `Tabs`, `Sheet`, `Table`)
-- fallback_policy when shadcn/ui is intentionally not used for a block (must include reason)
-- no_component_exemption when route has no suitable interactive components
-
-# Section Detail Depth Template
-- For `## Per-page Component Layout`, each route must include at least:
-- region_partition: shell regions and functional zones
-- component_tree: route-level component hierarchy and key reusable blocks
-- breakpoint_changes: desktop/tablet/mobile structural transformation
-- interaction_states: key interactive states for major components
-- shadcn_mapping_link: link to corresponding entries in `## shadcn/ui Component Mapping`
-- For `## Global Hex Color Palette`, include at least:
-- semantic_tokens with explicit hex values
-- token_usage_by_route: token application per route or shared shell
-- emphasis_and_feedback_colors: accent/success/warning/error hex and usage boundaries
-- contrast_notes for primary text/background and CTA pairs
-- For `## Frontend Project Structure Alignment`, include at least:
-- target_structure_source (reference to `system-blueprint` contract section)
-- route_to_directory_mapping (each route -> expected route path defined by companion structure contract)
-- shared_component_allocation (shared-vs-feature ownership according to companion structure contract)
-- structure_conflicts_and_resolution (if template source structure differs, document adaptation)
+# Executable Validation (Mandatory)
+- Run these checks before stage completion:
+```bash
+scripts/check_structure_contracts.sh
+```
 
 # Execution Status Schema
-Use these statuses in run logs or reports:
 - `not_started`
 - `in_progress`
 - `blocked`
@@ -86,14 +61,16 @@ Use these statuses in run logs or reports:
 - `completed_with_risk`
 
 # Artifact Contract
-- `artifact_path`: absolute or repo-relative output file path
-- `artifact_exists`: `true|false`
-- `artifact_non_empty`: `true|false`
-- `required_sections_ok`: `true|false`
-- `component_layout_section_ok`: `true|false`
-- `hex_palette_section_ok`: `true|false`
-- `confidence`: `high|medium|low`
-- `blocking_reason`: empty when not blocked
+- `artifact_path`
+- `artifact_exists`
+- `artifact_non_empty`
+- `required_sections_ok`
+- `component_layout_section_ok`
+- `hex_palette_section_ok`
+- `frontend_spec_alignment_ok`
+- `structure_consistency_ok`
+- `confidence`
+- `blocking_reason`
 
 # Standard Report Template
 ```markdown
@@ -101,7 +78,7 @@ Use these statuses in run logs or reports:
 
 ## 1. Run Metadata
 - skill_name:
-- template_id_or_task_id:
+- slice_id:
 - status:
 
 ## 2. Inputs
@@ -118,6 +95,8 @@ Use these statuses in run logs or reports:
 - checks_run:
 - checks_passed:
 - checks_failed:
+- frontend_spec_alignment_ok:
+- structure_consistency_ok:
 
 ## 5. Risks And Uncertainties
 - confidence:
@@ -135,15 +114,7 @@ Use these statuses in run logs or reports:
 - Produce explainable composition strategy; do not generate frontend code.
 - Follow `system-blueprint` as hard constraint for route responsibilities.
 
-### Execution Workflow
-1. Build matching strategy and scoring dimensions.
-2. Select final visual anchor template and per-route structural templates.
-3. Define global style unification and shared component strategy.
-
 ### Quality Gates
 - P0: Required output artifact exists, is non-empty, and passes required-section checks.
-- P1: Evidence traceability, boundary compliance, and responsive assumptions are explicit.
-- P2: Downstream-ready handoff notes are concise, actionable, and risk-labeled.
-### Downstream Handoff
-- Provide only actionable artifacts required by the immediate next stage.
-- Keep assumptions, confidence, and risk flags explicit for downstream validation.
+- P1: Frontend spec alignment and structure consistency are explicit.
+- P2: Downstream handoff notes are concise and actionable.
