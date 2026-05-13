@@ -8,6 +8,10 @@ description: Compose a multi-page template strategy by matching system blueprint
 - `/user-requirements/system-blueprint.md`
 - template index files under `templates/*/template-index.md`
 
+# Required Companion Tool Skill
+- Use `frontend-project-structure-contract` to align output with the blueprint structure contract.
+- If alignment evidence is missing, treat section validation as failed.
+
 # Output
 - `/user-requirements/multi-page-template-composition.md`
 
@@ -23,6 +27,7 @@ description: Compose a multi-page template strategy by matching system blueprint
 - `## Matching Scores`
 - `## Adaptation Plan`
 - `## Per-page Component Layout`
+- `## Frontend Project Structure Alignment`
 - `## Global Hex Color Palette`
 - `## Responsive Adaptation Matrix`
 - `## shadcn/ui Component Mapping`
@@ -66,6 +71,11 @@ description: Compose a multi-page template strategy by matching system blueprint
 - token_usage_by_route: token application per route or shared shell
 - emphasis_and_feedback_colors: accent/success/warning/error hex and usage boundaries
 - contrast_notes for primary text/background and CTA pairs
+- For `## Frontend Project Structure Alignment`, include at least:
+- target_structure_source (reference to `system-blueprint` contract section)
+- route_to_directory_mapping (each route -> expected route path defined by companion structure contract)
+- shared_component_allocation (shared-vs-feature ownership according to companion structure contract)
+- structure_conflicts_and_resolution (if template source structure differs, document adaptation)
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
@@ -137,4 +147,3 @@ Use these statuses in run logs or reports:
 ### Downstream Handoff
 - Provide only actionable artifacts required by the immediate next stage.
 - Keep assumptions, confidence, and risk flags explicit for downstream validation.
-

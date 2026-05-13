@@ -18,12 +18,13 @@
 10. `.codex/skills/user-generation-nextjs-react-code-generation/SKILL.md`
 11. `.codex/skills/user-generation-visual-qa-iterative-fix/SKILL.md`
 12. `.codex/skills/user-generation-orchestrator/SKILL.md`
+13. `.codex/skills/frontend-project-structure-contract/SKILL.md`
 
 除 `.codex/skills/*/SKILL.md` 外的历史草稿仅可参考，不作为执行标准。
 
 ## 3. Skill 分类
 
-### 3.1 原子 Skill（10 个）
+### 3.1 原子 Skill（11 个）
 - `template-prep-page-visual-parser`
 - `template-prep-uiux-design-language-abstractor`
 - `template-prep-design-system-structurizer`
@@ -34,6 +35,7 @@
 - `user-generation-multi-page-template-composition`
 - `user-generation-nextjs-react-code-generation`
 - `user-generation-visual-qa-iterative-fix`
+- `frontend-project-structure-contract`
 
 ### 3.2 编排 Skill（2 个）
 - `template-preparation-orchestrator`
@@ -58,6 +60,11 @@
 - template-prep 产物位于 `templates/<template-name-slug>/...`。
 - user-generation 的需求/报告产物位于 `/user-requirements/`。
 - user-generation 的前端代码输出与修复仅允许在 `frontend/` 下。
+
+### 4.4 前端结构单一真源契约
+- `frontend-project-structure-contract` 是前端目录结构、路由落位规则、shared-vs-feature 边界和主题入口归属的唯一真源。
+- 其他 Skill 只能引用并校验该伴随契约，不应重复定义具体目录树规则。
+- 在适用阶段，若缺少该伴随契约的产出/对齐/校验证据，按 `P1` 门禁失败处理。
 
 ## 5. 标准 SKILL.md 结构
 每个 SKILL.md 应包含：
@@ -106,6 +113,7 @@
 - `template-prep-page-visual-parser`：`saved_screenshot_paths`、`saved_screenshots_exist`
 - `user-generation-system-blueprint`：`component_layout_section_ok`、`hex_palette_section_ok`
 - `user-generation-nextjs-react-code-generation`：`component_layout_section_ok`、`hex_palette_section_ok`
+- `frontend-project-structure-contract`：`structure_contract_ok`
 
 ## 8. 恢复与门禁规则
 
@@ -146,6 +154,7 @@
 模板准备特定门禁：
 - 视觉解析阶段必须将截图按规范持久化到 `template-preparation/inputs/screenshots/`。
 - 若缺少移动端截图证据，允许以 hypothesis 模式继续，但应使用 `completed_with_risk`。
+- `template-preparation-orchestrator` 必须确保第 5 阶段包含来自 `frontend-project-structure-contract` 的完整结构契约块。
 
 ### 9.2 用户生成流程（User Generation）
 阶段顺序：
@@ -173,12 +182,14 @@
 - 无法通过编辑一个主主题文件完成全局配色切换：`P1`。
 - 缺少 shadcn/ui 评估证据：`P1`。
 - 适用交互组件未采用 shadcn/ui：`P1`（除非明确豁免）。
+- 缺少结构契约产出/对齐/校验证据：`P1`。
 
 ## 10. 当前必需章节增量
 - `template-prep-page-visual-parser` 必需：`## Desktop Evidence`、`## Mobile Evidence Or Hypothesis`。
 - `template-prep-nextjs-react-frontend-design-language` 必需：`## TypeScript Contract`、`## shadcn/ui Adoption Plan`。
-- `user-generation-system-blueprint` 必需：`## Responsive Strategy`、`## Frontend Stack Contract`。
-- `user-generation-multi-page-template-composition` 必需：`## Final Selected Template`（含最终最优模板决策证据）。
+- `template-prep-nextjs-react-frontend-design-language` 必需：`## Frontend Project Structure Contract`（由伴随工具 Skill 产出）。
+- `user-generation-system-blueprint` 必需：`## Responsive Strategy`、`## Frontend Stack Contract`、`## Frontend Project Structure Contract`（由伴随工具 Skill 产出）。
+- `user-generation-multi-page-template-composition` 必需：`## Final Selected Template`、`## Frontend Project Structure Alignment`。
 - `user-generation-nextjs-react-code-generation` 强制技术栈合规报告与 `frontend/` 单一路径约束。
 - `user-generation-visual-qa-iterative-fix` 强制桌面全宽 QA 门禁与最终模板披露校验。
 - `user-generation-orchestrator` 在编排报告中强制最终模板披露字段与关联门禁。

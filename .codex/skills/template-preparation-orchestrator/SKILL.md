@@ -7,11 +7,23 @@ description: Orchestrate the full template-preparation pipeline (01-05 + indexin
 # Scope
 Coordinate atomic skills only; do not replace their detailed logic.
 
+# Required Companion Tool Skill
+- Use `frontend-project-structure-contract` as a companion tool skill when executing stage 5 (`nextjs-react-frontend-design-language`).
+- Ensure stage 5 artifact explicitly includes validated frontend structure contract fields from the companion skill.
+
 # Naming Convention (Mandatory)
 - Use `<template-name-slug>` for all paths and identifiers in this pipeline.
 - `<template-name-slug>` must be human-readable kebab-case (example: `clinicgo-dashboard`).
 - Do not use hash/code-like IDs (example: `0b07bf359d8fa5eb208cd0d5bcab6c87`) as template naming.
 - If the input source filename is hash/code-like, the orchestrator must resolve or request a template name slug, then persist outputs using the slug.
+
+# Collision Avoidance (Mandatory)
+- Never overwrite an existing artifact or persisted screenshot from another run/page.
+- Before writing each stage output, check whether target path already exists.
+- If it exists and is not explicitly the same run artifact, allocate a unique slug: `<template-name-slug>-v2`, then `-v3`, etc.
+- Recompute all downstream stage output paths using the resolved unique slug.
+- Record `canonical_template_slug` and `source_template_slug` in `orchestration-state.json`.
+- Record `artifact_path_mapping` in `orchestration-state.json` for traceability (original target -> actual written path).
 
 # Pipeline
 1. page-visual-parser
@@ -39,6 +51,7 @@ Coordinate atomic skills only; do not replace their detailed logic.
 - Missing mobile screenshot is not a hard blocker by itself; continue with explicit assumptions and set run/status to `completed_with_risk`.
 - If mobile-required sections are missing from stage artifacts, treat as gate failure (P1) unless user explicitly requested desktop-only preparation.
 - All stage artifacts and screenshot paths must use `<template-name-slug>` naming consistently; any hash/code-like naming is a gate failure (P1).
+- If stage 5 is missing a complete structure contract block from `frontend-project-structure-contract`, treat as gate failure (P1).
 
 # Orchestration State Schema
 Track each stage with:
@@ -53,7 +66,10 @@ Run-level fields required in `orchestration-state.json`:
 - `orchestrator`
 - `run_mode`: `fresh|resume`
 - `resume_from`
+- `source_template_slug`
+- `canonical_template_slug`
 - `final_status`: `completed|completed_with_risk|blocked|failed`
+- `artifact_path_mapping`
 - `stages`: array of stage state objects above
 
 # State Persistence Rules

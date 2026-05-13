@@ -10,6 +10,10 @@ description: Orchestrate the complete user-generation pipeline from requirements
 3. nextjs-react-code-generation
 4. visual-qa-iterative-fix
 
+# Required Companion Tool Skill
+- Use `frontend-project-structure-contract` as a companion tool skill across stages 1-3.
+- Ensure structure contract is produced in stage 1, aligned in stage 2, and validated in stage 3 before stage completion.
+
 # Output
 - `/user-requirements/user-generation-orchestration-report.md`
 
@@ -40,6 +44,7 @@ description: Orchestrate the complete user-generation pipeline from requirements
 - Treat missing shadcn/ui evaluation evidence as gate failure (P1).
 - Treat missing shadcn/ui adoption on suitable interactive components as gate failure (P1), unless user explicitly overrides stack constraints.
 - If a page has no suitable interactive components, shadcn/ui is optional for that page but exemption evidence is required.
+- Treat missing frontend structure contract production/alignment/validation evidence as gate failure (P1).
 
 # Orchestration State Schema
 Track each stage with:
@@ -128,4 +133,3 @@ Track each stage with:
 ### Downstream Handoff
 - Provide only actionable artifacts required by the immediate next stage.
 - Keep assumptions, confidence, and risk flags explicit for downstream validation.
-

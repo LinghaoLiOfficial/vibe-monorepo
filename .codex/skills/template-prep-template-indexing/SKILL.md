@@ -10,6 +10,7 @@ description: Index completed template-prep artifacts into searchable metadata fo
 - Use <template-name-slug> (human-readable kebab-case) for all paths and identifiers.
 - Do not use hash/code-like IDs as template naming.
 - If upstream artifacts use hash/code-like naming, stop and request normalization to <template-name-slug> before continuing.
+- Never overwrite existing output from another page/run; if output path exists, resolve a unique slug (`-v2`, `-v3`, ...) before writing.
 
 - `templates/<template-name-slug>/01-page-visual-parse.md`
 - `templates/<template-name-slug>/02-uiux-design-language.md`
@@ -101,4 +102,3 @@ Use these statuses in run logs or reports:
 ### Downstream Handoff
 - Provide only actionable artifacts required by the immediate next stage.
 - Keep assumptions, confidence, and risk flags explicit for downstream validation.
-

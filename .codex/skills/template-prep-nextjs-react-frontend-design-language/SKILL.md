@@ -6,10 +6,15 @@ description: Produce implementation-oriented Next.js + React + TypeScript + Tail
 
 # Inputs
 
+# Required Companion Tool Skill
+- Use `frontend-project-structure-contract` to produce and validate `## Frontend Project Structure Contract`.
+- If companion-skill fields are incomplete, stop and fail section validation.
+
 # Naming Convention (Mandatory)
 - Use <template-name-slug> (human-readable kebab-case) for all paths and identifiers.
 - Do not use hash/code-like IDs as template naming.
 - If upstream artifacts use hash/code-like naming, stop and request normalization to <template-name-slug> before continuing.
+- Never overwrite existing output from another page/run; if output path exists, resolve a unique slug (`-v2`, `-v3`, ...) before writing.
 
 - `templates/<template-name-slug>/03-design-system.md`
 - `templates/<template-name-slug>/04-frontend-component-plan.md`
@@ -21,6 +26,7 @@ description: Produce implementation-oriented Next.js + React + TypeScript + Tail
 # Required Sections
 - `## App Router Structure Suggestion`
 - `## Server Client Component Boundaries`
+- `## Frontend Project Structure Contract`
 - `## Props And Data Contracts`
 - `## Tailwind Token Mapping`
 - `## TypeScript Contract`
@@ -32,7 +38,12 @@ description: Produce implementation-oriented Next.js + React + TypeScript + Tail
 - If template naming is not <template-name-slug> consistent across required inputs/outputs: stop and request rename normalization.
 - If component plan missing: stop.
 - If responsive assumptions are based on desktop-only evidence, mark `completed_with_risk` and enumerate verification gaps.
-- If Tailwind mapping, TypeScript contract, or shadcn/ui plan is missing, fail required-sections validation.
+- If Frontend Project Structure Contract, Tailwind mapping, TypeScript contract, or shadcn/ui plan is missing, fail required-sections validation.
+
+# Frontend Project Structure Contract (Mandatory)
+- Do not define concrete directory trees or placement defaults here.
+- Import and include the full structure contract from `frontend-project-structure-contract`.
+- Validate only that the imported contract block is complete and internally consistent.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
@@ -102,4 +113,3 @@ Use these statuses in run logs or reports:
 ### Downstream Handoff
 - Provide only actionable artifacts required by the immediate next stage.
 - Keep assumptions, confidence, and risk flags explicit for downstream validation.
-

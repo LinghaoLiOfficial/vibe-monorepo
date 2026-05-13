@@ -8,6 +8,10 @@ description: Convert product requirements into an implementation-grade multi-pag
 - `/user-requirements/user-requirement.md` (or equivalent requirement doc)
 - Optional: template library context
 
+# Required Companion Tool Skill
+- Use `frontend-project-structure-contract` to produce `## Frontend Project Structure Contract` with complete required fields.
+- If companion-skill fields are incomplete, treat required-sections validation as failed.
+
 # Output
 - `/user-requirements/system-blueprint.md`
 
@@ -23,6 +27,7 @@ description: Convert product requirements into an implementation-grade multi-pag
 - `## Route Map`
 - `## Core Flows`
 - `## Per-page Component Layout`
+- `## Frontend Project Structure Contract`
 - `## Cross-page Consistency Rules`
 - `## Global Hex Color Palette`
 - `## Responsive Strategy`
@@ -49,6 +54,11 @@ description: Convert product requirements into an implementation-grade multi-pag
 - Required shadcn/ui baseline mapping by page archetype (for example auth form, card grid, list/editor shell)
 - Per-page interactive component assessment method (identify suitable interactive components first, then adopt shadcn/ui where applicable; document exemption when no suitable components exist)
 - Single-source theme ownership rule: global palette tokens must be owned by one primary theme file and referenced by all routes/components.
+
+# Frontend Project Structure Contract Defaults
+- Do not duplicate concrete structure details in this skill.
+- Delegate structure definition fields and defaults to `frontend-project-structure-contract`.
+- In `## Frontend Project Structure Contract`, include the full contract block produced by the companion skill.
 
 # Section Detail Depth Template
 - For `## Per-page Component Layout`, each route must include at least:
@@ -134,4 +144,3 @@ Use these statuses in run logs or reports:
 ### Downstream Handoff
 - Provide only actionable artifacts required by the immediate next stage.
 - Keep assumptions, confidence, and risk flags explicit for downstream validation.
-

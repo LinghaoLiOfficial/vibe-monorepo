@@ -9,6 +9,10 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - `/user-requirements/multi-page-template-composition.md`
 - Optional template artifacts
 
+# Required Companion Tool Skill
+- Use `frontend-project-structure-contract` to validate directory and route placement compliance before finalizing.
+- If companion-skill validation fails, stage cannot be marked completed.
+
 # Outputs
 - Code files under `frontend/` only
 - `/user-requirements/code-generation-report.md`
@@ -18,6 +22,7 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - Requirement/report artifacts for this skill must be written under a fixed requirements folder.
 - Fixed requirements folder: `/user-requirements/`
 - Writing frontend code outside `frontend/` is a contract violation.
+- Frontend implementation must satisfy the canonical structure contract from `/user-requirements/system-blueprint.md` and `/user-requirements/multi-page-template-composition.md`.
 
 # Execution Rules
 - Reuse existing project conventions.
@@ -31,12 +36,13 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - Prefer TypeScript-first component and data contracts; avoid introducing untyped API surfaces.
 - Prefer shadcn/ui primitives before custom base components when requirements are compatible.
 - Use Tailwind utility + token mapping from design artifacts; avoid hardcoded visual values when token exists.
-- Centralize global color theme in one primary theme file (for example `frontend/src/styles/theme.css` or `frontend/src/theme/tokens.ts`) and consume via tokens/variables across pages.
+- Centralize global color theme in one primary theme file defined by `frontend-project-structure-contract` and consume via tokens/variables across pages.
 - Support one-step palette replacement by editing the primary theme file only; avoid scattered page-level hex literals for global colors.
 - Install and scaffold shadcn/ui in `frontend/` when absent and required by stack contract.
 - If shadcn/ui is unavailable or blocked, mark stage `blocked` or `completed_with_risk` with explicit remediation.
 - Evaluate each route for suitable interactive components before implementation; adopt shadcn/ui for all suitable interactive components by default.
 - If a route has no suitable interactive components, document no-component exemption in report.
+- Validate directory structure compliance before finalizing implementation.
 
 # Report Must Include
 - Changed files
@@ -55,6 +61,8 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - one-step palette switching instruction (which section/keys to edit)
 - per-route layout depth checklist (`region_partition`, `component_tree`, `breakpoint_changes`, `interaction_states`)
 - hex palette depth checklist (`semantic_tokens`, `hex_values`, `usage_rules`, `contrast_notes`)
+- frontend structure compliance summary (required directories present/missing + deviations)
+- route file mapping summary (route -> implemented file path aligned with companion structure contract)
 
 # Responsive Implementation Minimum
 - Navigation shell adapts across breakpoints (for example sidebar -> drawer/sheet on mobile).
@@ -73,6 +81,7 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - Routes with no suitable interactive components may be exempt, but exemption evidence is mandatory.
 - Missing required detail depth in component layout or hex palette sections is at least `P1`.
 - If global palette cannot be switched by editing one primary theme file, severity is at least `P1`.
+- If companion structure contract requirements are not met without documented allowed alternatives, severity is at least `P1`.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
@@ -144,4 +153,3 @@ Use these statuses in run logs or reports:
 ### Downstream Handoff
 - Provide only actionable artifacts required by the immediate next stage.
 - Keep assumptions, confidence, and risk flags explicit for downstream validation.
-

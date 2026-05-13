@@ -18,12 +18,13 @@ Canonical production skills are under `.codex/skills`:
 10. `.codex/skills/user-generation-nextjs-react-code-generation/SKILL.md`
 11. `.codex/skills/user-generation-visual-qa-iterative-fix/SKILL.md`
 12. `.codex/skills/user-generation-orchestrator/SKILL.md`
+13. `.codex/skills/frontend-project-structure-contract/SKILL.md`
 
 Any historical drafts outside `.codex/skills/*/SKILL.md` are reference-only and must not be treated as execution truth.
 
 ## 3. Skill Taxonomy
 
-### 3.1 Atomic skills (10)
+### 3.1 Atomic skills (11)
 - `template-prep-page-visual-parser`
 - `template-prep-uiux-design-language-abstractor`
 - `template-prep-design-system-structurizer`
@@ -34,6 +35,7 @@ Any historical drafts outside `.codex/skills/*/SKILL.md` are reference-only and 
 - `user-generation-multi-page-template-composition`
 - `user-generation-nextjs-react-code-generation`
 - `user-generation-visual-qa-iterative-fix`
+- `frontend-project-structure-contract`
 
 ### 3.2 Orchestrator skills (2)
 - `template-preparation-orchestrator`
@@ -58,6 +60,11 @@ Any historical drafts outside `.codex/skills/*/SKILL.md` are reference-only and 
 - Template-prep artifacts are generated under `templates/<template-name-slug>/...`.
 - User-generation requirement/report artifacts are generated under `/user-requirements/`.
 - User-generation frontend code output/fixes must be under `frontend/` only.
+
+### 4.4 Frontend structure single-source contract
+- `frontend-project-structure-contract` is the single source of truth for canonical frontend directory structure, route placement, shared-vs-feature boundaries, and theme entrypoint ownership.
+- Other skills must reference and validate this companion contract, and must not duplicate concrete directory-tree rules.
+- Missing production/alignment/validation evidence of this companion contract is a `P1` gate failure where applicable.
 
 ## 5. Standard SKILL.md Structure
 Each SKILL.md should include:
@@ -106,6 +113,7 @@ Known skill-specific extensions:
 - `template-prep-page-visual-parser`: `saved_screenshot_paths`, `saved_screenshots_exist`
 - `user-generation-system-blueprint`: `component_layout_section_ok`, `hex_palette_section_ok`
 - `user-generation-nextjs-react-code-generation`: `component_layout_section_ok`, `hex_palette_section_ok`
+- `frontend-project-structure-contract`: `structure_contract_ok`
 
 ## 8. Resume and Gate Rules
 
@@ -146,6 +154,7 @@ Typical outputs:
 Template-prep gate specifics:
 - Visual parser must persist canonical screenshots under `template-preparation/inputs/screenshots/`.
 - If mobile screenshot evidence is missing, allowed in hypothesis mode with `completed_with_risk`.
+- `template-preparation-orchestrator` must ensure stage 5 includes a complete structure contract block from `frontend-project-structure-contract`.
 
 ### 9.2 User Generation pipeline
 Stage order:
@@ -173,12 +182,14 @@ User-generation gate specifics:
 - Inability to switch global palette by editing one primary theme file is `P1`.
 - Missing shadcn/ui evaluation evidence is `P1`.
 - Missing shadcn/ui adoption for suitable interactive components is `P1` unless explicitly opted out.
+- Missing structure contract production/alignment/validation evidence is `P1`.
 
 ## 10. Required Section Deltas (Current)
 - `template-prep-page-visual-parser` requires `## Desktop Evidence` and `## Mobile Evidence Or Hypothesis`.
 - `template-prep-nextjs-react-frontend-design-language` requires `## TypeScript Contract` and `## shadcn/ui Adoption Plan`.
-- `user-generation-system-blueprint` requires `## Responsive Strategy` and `## Frontend Stack Contract`.
-- `user-generation-multi-page-template-composition` requires `## Final Selected Template` and explicit best-fit decision evidence.
+- `template-prep-nextjs-react-frontend-design-language` requires `## Frontend Project Structure Contract` populated from the companion tool skill.
+- `user-generation-system-blueprint` requires `## Responsive Strategy`, `## Frontend Stack Contract`, and `## Frontend Project Structure Contract` from the companion tool skill.
+- `user-generation-multi-page-template-composition` requires `## Final Selected Template` and `## Frontend Project Structure Alignment`.
 - `user-generation-nextjs-react-code-generation` enforces stack compliance reporting and `frontend/`-only output.
 - `user-generation-visual-qa-iterative-fix` enforces full-width desktop QA gate and final-template disclosure QA check.
 - `user-generation-orchestrator` enforces final-template disclosure fields and related gate failure rules in orchestration reports.

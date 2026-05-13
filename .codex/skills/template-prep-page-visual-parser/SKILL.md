@@ -12,6 +12,15 @@ Convert screenshot evidence into a reusable page-level visual parse document, an
 - Do not use hash/code-like IDs as template naming.
 - If input screenshot filename is hash/code-like, resolve or request `<template-name-slug>` first, then persist canonical files using the slug.
 
+# Collision Avoidance (Mandatory)
+- Never overwrite existing screenshot files or parse artifacts by default.
+- Before persisting screenshot(s), check target path existence.
+- If the target already exists, allocate next available suffix path:
+- Desktop/base: `<template-name-slug>-v2[-<index>].(png|jpg|webp)`, then `-v3`, etc.
+- Mobile: `<template-name-slug>-v2-mobile[-<index>].(png|jpg|webp)`, then `-v3`, etc.
+- Parse output must use the same resolved unique slug: `templates/<resolved-template-slug>/01-page-visual-parse.md`.
+- Emit `source_template_slug` and `resolved_template_slug` in run report metadata.
+
 # Inputs
 - Primary: `template-preparation/inputs/screenshots/<template-name-slug>.(png|jpg|webp)`
 - External input accepted: user-provided screenshot path(s) or image attachment(s) from the current task
@@ -39,6 +48,7 @@ Convert screenshot evidence into a reusable page-level visual parse document, an
 - Contains `## Uncertainties`
 - Screenshot(s) persisted under `template-preparation/inputs/screenshots/`
 - Naming uses `<template-name-slug>` consistently (no hash/code-like ID paths)
+- No existing artifact/screenshot was overwritten unintentionally
 
 # Failure Policy
 - If no screenshot is available: stop and request input path.
