@@ -3,86 +3,20 @@ name: backend-project-structure-contract
 description: Define and enforce a canonical backend project directory contract aligned to this repository's FastAPI minimal skeleton under backend/app. Use when API-contract, backend code-generation, and integration QA stages must keep stable module boundaries and migration/test layout. 适用于对齐当前仓库后端最小骨架的目录契约。
 ---
 
+# Purpose
+Define canonical backend structure boundaries and validate generated backend artifacts.
+
 # Inputs
-- Optional upstream artifacts:
-- `/user-requirements/system-blueprint.md`
-- `/user-requirements/frontend-api-contract-input.md`
-- `/user-requirements/api-contract.md`
+- backend code outputs
+- api-contract artifacts
 
-# Output
-- Contract section(s) inserted into current stage artifact(s), or explicit contract block for downstream handoff.
+# Outputs
+- structure contract validation evidence in stage report
 
-# Canonical Structure Baseline (Current Repo)
-- Use `backend/` as root for backend code.
-- Baseline directories:
-- `backend/app/api/`
-- `backend/app/application/`
-- `backend/app/domain/`
-- `backend/app/infrastructure/`
-- `backend/app/core/`
-- `backend/app/schemas/`
-- `backend/alembic/`
-- `backend/tests/`
+# Contract Highlights
+- backend code in `backend/` only
+- stable module boundaries under `backend/app`
+- migration/test layout consistency
 
-# Extendable Directories (Optional, Add When Needed)
-- `backend/app/utils/`
-- `backend/app/infrastructure/cache/`
-- `backend/app/infrastructure/queue/`
-- `backend/app/infrastructure/storage/`
-- `backend/scripts/`
-
-# Placement Rules
-- HTTP route handlers and router wiring must be under `backend/app/api/`.
-- Use case orchestration, ports, services, and DTOs must be under `backend/app/application/`.
-- Business entities/rules/policies must be under `backend/app/domain/`.
-- DB repositories and external adapters must be under `backend/app/infrastructure/`.
-- App bootstrap/config/logging/middleware/security/observability must be under `backend/app/core/`.
-- API request/response schemas must be under `backend/app/schemas/`.
-- External API I/O schemas belong to `backend/app/schemas/`; internal use-case data contracts belong to `backend/app/application/dto/`.
-- Cross-layer imports must not bypass application-layer ports (for example, `api` must not import infrastructure adapters directly).
-- Migration files must be generated under `backend/alembic/`.
-- Unit/integration tests must be under `backend/tests/`.
-- Developer and operational helper scripts should be placed under `backend/scripts/` when introduced.
-
-# Good/Bad Examples
-- Good: `api/v1/users.py -> application/use_cases/create_user.py -> application/ports/repositories.py -> infrastructure/db/repositories/user_repo.py`.
-- Good: `schemas/user.py` for external request/response, `application/dto/user.py` for internal orchestration payload.
-- Bad: `api` module importing `infrastructure/db/repositories/*` directly.
-- Bad: placing HTTP request/response models under `application/dto/`.
-
-# Required Contract Fields
-- `canonical_directory_tree`
-- `layer_boundary_rules`
-- `contract_schema_ownership_rules`
-- `migration_policy`
-- `test_layout_rules`
-- `allowed_alternatives_and_rationale`
-
-# Validation Checklist
-- Current-repo baseline directories are present in contract.
-- Layer boundaries are explicit and enforceable.
-- Contract schema ownership boundaries between `schemas` and `application/dto` are explicit.
-- Migration and test policy are explicit.
-- Import-direction constraints prevent direct `api -> infrastructure` coupling.
-
-# Failure Policy
-- Missing required contract fields is `P1`.
-- Missing layer boundary or migration policy is `P1`.
-- Missing or conflicting schema ownership rule is `P1`.
-- Direct `api -> infrastructure` imports are `P1`.
-
-# Execution Status Schema
-- `not_started`
-- `in_progress`
-- `blocked`
-- `completed`
-- `completed_with_risk`
-
-# Artifact Contract
-- `artifact_path`
-- `artifact_exists`
-- `artifact_non_empty`
-- `required_sections_ok`
-- `structure_contract_ok`
-- `confidence`
-- `blocking_reason`
+# Gate
+- Any boundary or ownership violation is `P1`.

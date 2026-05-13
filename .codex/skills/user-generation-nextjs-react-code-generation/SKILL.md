@@ -3,112 +3,27 @@ name: user-generation-nextjs-react-code-generation
 description: Generate or modify frontend code under Next.js + React + TypeScript + Tailwind + shadcn/ui, then emit frontend-derived API contract inputs for downstream backend implementation. Use when converting approved planning outputs into frontend-first production code under strict path and tokenization contracts. 适用于前端优先实现与后端契约输入沉淀。
 ---
 
+# Shared Baseline
+- Reuse `.codex/skills/_shared/SKILL_WORKFLOW_BASELINE.md`.
+
 # Inputs
 - `/user-requirements/system-blueprint.md`
 - `/user-requirements/multi-page-template-composition.md`
-- Optional template artifacts
-
-# Required Companion Tool Skill
-- Use `frontend-project-structure-contract` to validate directory and route placement compliance before finalizing.
-
-# Frontend Spec Alignment (Mandatory)
-- Read `docs/FRONTEND_SPEC.md` before implementation.
-- Enforce:
-- Server/Client boundary discipline
-- Desktop-first then mobile adaptation
-- one-file theme switch policy (`frontend/src/styles/theme.css`)
-- frontend quality gates (`pnpm type-check`, `pnpm build`)
+- optional template artifacts
 
 # Outputs
-- Code files under `frontend/` only
+- frontend code under `frontend/`
 - `/user-requirements/code-generation-report.md`
 - `/user-requirements/frontend-api-contract-input.md`
 
-# Path Contract
-- Frontend code must be placed under `frontend/` only.
-- Requirement artifacts must be written under `/user-requirements/`.
+# Execution
+1. Read `docs/FRONTEND_SPEC.md`.
+2. Build shared layout/components and route pages from composition.
+3. Implement responsive behavior (desktop + mobile by default).
+4. Derive API intent from implemented UI.
+5. Validate structure + quality commands.
 
-# Execution Rules
-- Reuse existing project conventions.
-- Implement shared layout/components first.
-- Add/modify routes and pages per composition plan.
-- Use final selected template as baseline.
-- Implement responsive behavior for desktop + mobile by default unless user explicitly requests desktop-only.
-- Use Next.js + React + TypeScript + Tailwind CSS + shadcn/ui unless user explicitly overrides.
-- Centralize global color theme in one primary theme file and support one-step palette replacement.
-- Evaluate each route for suitable interactive components; adopt shadcn/ui for suitable interactive components.
-- Derive API intent from implemented frontend behavior and persist as contract input artifact.
-- Run `scripts/check_structure_contracts.sh` before stage completion.
-- Run frontend quality commands before stage completion:
-```bash
-cd frontend
-pnpm type-check
-pnpm build
-```
-
-# Frontend API Contract Input Contract
-`/user-requirements/frontend-api-contract-input.md` must include:
-- `## Slice Context`
-- `## Route Interaction Inventory`
-- `## Data Query And Mutation Intents`
-- `## Candidate Endpoint Drafts`
-- `## Request Field Draft`
-- `## Response Field Draft`
-- `## Error And Empty State Expectations`
-- `## Auth And Permission Expectations`
-- `## Idempotency And Concurrency Notes`
-
-# Report Must Include
-- Changed files
-- Validation commands run
-- Failures and unresolved risks
-- Final selected template used for implementation (`template_id` + `template_name`)
-- Responsive implementation summary by route/component
-- shadcn/ui usage summary and evidence
-- Per-route implemented component layout details
-- Primary theme file path for one-step palette switching
-- Generated API contract input artifact path and completeness result
-- Structure consistency script result
-- Frontend spec alignment evidence
-- Frontend quality command results (`pnpm type-check`, `pnpm build`)
-
-# Gate Rules
-- Missing `/user-requirements/frontend-api-contract-input.md` is `P1` and blocks stage completion.
-- Missing required sections in contract input artifact is `P1`.
-- Failing `scripts/check_structure_contracts.sh` is `P1`.
-- Missing frontend spec alignment evidence is `P1`.
-- Missing frontend quality command evidence is `P1`.
-- Failing frontend quality commands is `P1`.
-
-# Execution Status Schema
-Use these statuses in run logs or reports:
-- `not_started`
-- `in_progress`
-- `blocked`
-- `completed`
-- `completed_with_risk`
-
-# Artifact Contract
-- `artifact_path`: absolute or repo-relative output file path
-- `artifact_exists`: `true|false`
-- `artifact_non_empty`: `true|false`
-- `required_sections_ok`: `true|false`
-- `component_layout_section_ok`: `true|false`
-- `hex_palette_section_ok`: `true|false`
-- `frontend_api_contract_input_ok`: `true|false`
-- `structure_consistency_ok`: `true|false`
-- `frontend_spec_alignment_ok`: `true|false`
-- `frontend_quality_ok`: `true|false`
-- `confidence`: `high|medium|low`
-- `blocking_reason`: empty when not blocked
-
-## Professional Notes
-
-### Scope And Non-Goals
-- Implement frontend from approved planning artifacts and produce backend-facing contract input.
-- Do not implement backend in this stage.
-
-### Quality Gates
-- P0: Required outputs exist and pass required-section checks.
-- P1: Frontend structure/path compliance, frontend spec alignment, structure consistency script, and contract-input completeness are validated.
-- P2: Handoff is actionable for `api-contract-design` stage.
+# Skill-Specific Gates
+- Must run `scripts/check_structure_contracts.sh`.
+- Must run `pnpm type-check` and `pnpm build` in `frontend/`.
+- Missing `/user-requirements/frontend-api-contract-input.md` or required sections is `P1`.
