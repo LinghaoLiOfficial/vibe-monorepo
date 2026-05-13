@@ -24,6 +24,7 @@ description: Generate or modify backend code based on approved API contracts for
 # Skill-Specific Gates
 - Must run `scripts/check_structure_contracts.sh`.
 - Must run `uv run ruff check .`, `uv run ruff format --check .`, `uv run mypy app tests`, `uv run pytest -q` in `backend/`.
+- Must keep backend runtime/config compatible with root one-command fullstack startup via `docker compose up --build` (including database connectivity assumptions).
 - Contract/backend mismatch, missing NFR snapshot, or missing rollback summary is `P1`.
 
 # Validation Modes

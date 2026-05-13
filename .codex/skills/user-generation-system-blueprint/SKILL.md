@@ -20,6 +20,7 @@ description: Convert product requirements into an implementation-grade multi-pag
 - `## Core Flows`
 - `## Responsive Strategy`
 - `## Backend Domain/API Assumptions`
+- `## Runtime And Delivery Contract`
 - `## Open Decisions`
 - `## Risks`
 
@@ -33,7 +34,8 @@ description: Convert product requirements into an implementation-grade multi-pag
 1. define scope, actors, route map, and core flows
 2. define responsive strategy and frontend assumptions
 3. define backend domains and API assumptions for current slice
-4. annotate risks and open decisions
+4. define runtime and delivery contract with one-command fullstack startup (`docker compose up --build`)
+5. annotate risks and open decisions
 
 # Skill-Specific Gates
 - Missing route/flow scope or missing backend assumption block is `P1`.

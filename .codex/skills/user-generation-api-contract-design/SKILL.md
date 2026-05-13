@@ -20,6 +20,7 @@ description: Convert frontend-derived API intent into an implementation-grade ba
 - `## Error Model`
 - `## Auth Policy`
 - `## Compatibility And Versioning`
+- `## Runtime Verification Notes`
 
 # Compatibility Matrix
 - include at minimum:
@@ -33,6 +34,7 @@ description: Convert frontend-derived API intent into an implementation-grade ba
 2. define request/response schemas
 3. define error model and auth policy
 4. capture compatibility and versioning notes
+5. include runtime verification notes aligned with root `docker compose up --build` fullstack startup contract
 
 # Skill-Specific Gates
 - Missing schema/error/auth sections is `P1`.

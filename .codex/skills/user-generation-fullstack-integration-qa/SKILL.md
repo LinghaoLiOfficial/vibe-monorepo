@@ -27,8 +27,10 @@ description: Validate frontend-backend integration for the current requirement s
 2. run core flow checks
 3. apply minimal fix
 4. rerun until pass or blocker
+5. verify one-command fullstack startup path is valid (`docker compose up --build`) for frontend + backend + database
 
 # Skill-Specific Gates
 - Must run `scripts/check_structure_contracts.sh`.
 - Must run baseline backend integration checks (`test_health`, `test_exception_handlers`, `test_metrics`).
+- Missing or broken root-level fullstack startup command `docker compose up --build` is `P1`.
 - Missing e2e evidence, conformance failure, or missing NFR snapshot is `P1`.

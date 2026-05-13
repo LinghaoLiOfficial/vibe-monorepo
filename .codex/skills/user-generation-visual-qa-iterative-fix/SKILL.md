@@ -14,6 +14,7 @@ description: Run iterative visual QA after fullstack integration acceptance and 
 # Outputs
 - minimal frontend visual fixes
 - `/user-requirements/visual-qa-report.md`
+- final user-facing run reminder including: `使用 docker compose up --build 一键运行全栈程序。`
 
 # Visual Severity Rubric
 - `P1`: layout break, unreadable content, blocked interaction, mobile unusable issue
@@ -34,3 +35,4 @@ description: Run iterative visual QA after fullstack integration acceptance and 
 # Skill-Specific Gates
 - Missing mobile adaptation evidence is `P1` unless user requested desktop-only.
 - Missing before/after validation evidence is `P1`.
+- Missing final one-command fullstack reminder (`docker compose up --build`) is `P1`.

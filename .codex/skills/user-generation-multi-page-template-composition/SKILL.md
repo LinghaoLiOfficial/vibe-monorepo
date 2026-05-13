@@ -30,3 +30,4 @@ description: Compose a multi-page template strategy by matching system blueprint
 # Skill-Specific Gates
 - Missing explicit selected template disclosure is `P1`.
 - Missing per-page component layout mapping is `P1`.
+- Output must not introduce deployment assumptions that conflict with root one-command fullstack startup (`docker compose up --build`).

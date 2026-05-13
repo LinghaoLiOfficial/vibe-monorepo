@@ -31,4 +31,5 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 # Skill-Specific Gates
 - Must run `scripts/check_structure_contracts.sh`.
 - Must run `pnpm type-check` and `pnpm build` in `frontend/`.
+- Must keep frontend environment wiring compatible with root one-command fullstack startup via `docker compose up --build`.
 - Missing `/user-requirements/frontend-api-contract-input.md` or required sections is `P1`.

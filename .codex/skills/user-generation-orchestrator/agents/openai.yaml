@@ -2,4 +2,4 @@ version: 1
 interface:
   display_name: "User Generation Orchestrator"
   short_description: "Orchestrate frontend-first fullstack generation with contract-first backend follow-up and integration gates."
-  default_prompt: "Use this skill when teams need a single-focus frontend-first Vibe Coding pipeline: blueprint, template composition, frontend implementation, API contract design, backend implementation, integration QA, then visual QA."
+  default_prompt: "Use this skill when teams need a single-focus frontend-first Vibe Coding pipeline: blueprint, template composition, frontend implementation, API contract design, backend implementation, integration QA, then visual QA; enforce root one-command fullstack startup contract via docker compose up --build and include a final user reminder to run it."

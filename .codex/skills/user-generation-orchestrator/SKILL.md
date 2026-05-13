@@ -19,6 +19,7 @@ description: Orchestrate a frontend-first fullstack user-generation pipeline wit
 - User requirement slice and scope.
 - `docs/FRONTEND_SPEC.md` for stages 1-3 and 7.
 - `docs/BACKEND_SPEC.md` for stages 4-6.
+- root `docker-compose.yml` must exist and support fullstack one-command startup.
 
 # Outputs
 - `/user-requirements/user-generation-orchestration-report.md`
@@ -31,6 +32,11 @@ description: Orchestrate a frontend-first fullstack user-generation pipeline wit
 cd frontend && pnpm type-check && pnpm build
 cd backend && uv run ruff check . && uv run ruff format --check . && uv run mypy app tests && uv run pytest -q
 ```
+- Require one-command fullstack run contract:
+```bash
+docker compose up --build
+```
+- If `docker-compose.yml` missing or cannot start frontend/backend/database together, mark run as blocked (`P1`) and fix before final completion.
 - Missing API contract, contract/backend mismatch, or missing integration evidence is `P1`.
 
 # Validation Mode Policy
@@ -56,3 +62,4 @@ cd backend && uv run ruff check . && uv run ruff format --check . && uv run mypy
 - stage status table
 - gate pass/fail summary
 - produced artifacts and blocker/next action
+- mandatory final user reminder line: `使用 docker compose up --build 一键运行全栈程序。`
