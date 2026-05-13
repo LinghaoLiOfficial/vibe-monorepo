@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "User Generation Backend Code Generation"
+  short_description: "Generate backend implementation from approved API contracts with strict backend path and boundary compliance."
+  default_prompt: "Use this skill when frontend-first fullstack runs need backend code generated from the current api-contract artifact under backend/ boundaries."

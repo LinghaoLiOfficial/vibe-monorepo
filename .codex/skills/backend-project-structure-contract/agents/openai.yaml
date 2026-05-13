@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "Backend Structure Contract"
+  short_description: "Define and enforce a canonical backend project directory structure for fullstack iterative runs."
+  default_prompt: "Use this skill when backend-related stages must keep consistent module boundaries, migration layout, contract ownership, and test structure under backend/."

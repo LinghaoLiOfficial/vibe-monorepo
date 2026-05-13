@@ -1,50 +1,58 @@
 ---
 name: user-generation-orchestrator
-description: Orchestrate the complete user-generation pipeline from requirements to QA-verified delivery with gate controls and resume support. Use when teams need reliable stage-by-stage execution across blueprinting, template composition, code generation, and iterative visual QA. 适用于用户生成全链路编排、恢复与交付控制。
+description: Orchestrate a frontend-first fullstack user-generation pipeline with strict gates, resumable state, and iterative requirement slicing. Use when teams need single-focus Vibe Coding execution that builds frontend first, derives API contracts from implemented frontend behavior, then implements backend and runs integration + visual QA. 适用于前端优先的全栈编排、恢复执行与渐进式需求闭环。
 ---
 
-
-# Pipeline
+# Pipeline (Frontend-first Linear Loop)
 1. system-blueprint
 2. multi-page-template-composition
 3. nextjs-react-code-generation
-4. visual-qa-iterative-fix
+4. api-contract-design
+5. backend-code-generation
+6. fullstack-integration-qa
+7. visual-qa-iterative-fix
 
-# Required Companion Tool Skill
-- Use `frontend-project-structure-contract` as a companion tool skill across stages 1-3.
-- Ensure structure contract is produced in stage 1, aligned in stage 2, and validated in stage 3 before stage completion.
+# Required Companion Tool Skills
+- Use `frontend-project-structure-contract` across stages 1-3.
+- Use `backend-project-structure-contract` across stages 4-6.
+- Stage completion must include companion contract evidence.
 
 # Output
 - `/user-requirements/user-generation-orchestration-report.md`
 
 # Global Path Contract
-- Frontend code outputs from this orchestrator pipeline must be generated under `frontend/` only.
-- User-requirement artifacts (input requirement docs, blueprint/composition/reports) must be generated under a fixed requirements folder:
-- Fixed requirements folder: `/user-requirements/`
-- Gate failure: any artifact path violating this contract is `P1` and blocks stage completion.
+- Frontend code outputs must be generated under `frontend/` only.
+- Backend code outputs must be generated under `backend/` only.
+- Requirement artifacts must be generated under `/user-requirements/`.
+- Gate failure: any path contract violation is `P1` and blocks stage completion.
 
-# Default Delivery Mode
-- Deliver responsive web by default for both:
-- PC desktop baseline (`>=1200px`)
-- Mobile baseline (`<=767px`)
-- Recommended additional checkpoint: tablet (`768-1199px`)
-- Default frontend stack:
-- Next.js + React + TypeScript + Tailwind CSS + shadcn/ui
+# Orchestration Mode Contract
+- Default execution mode is single-focus linear orchestration.
+- Build frontend behavior first, then derive formal API contract from frontend data requirements.
+- Backend implementation must follow the API contract generated in this run.
+- Do not mark backend stage completed if contract-backend mismatch exists.
+
+# Requirement Slice Contract
+- Process one requirement slice at a time by default.
+- Each run must identify a slice id/name and scope boundary.
+- If requirement is broad, split into smaller slices and complete in separate loop runs.
 
 # Gate Rules
 - Validate each stage artifact before moving on.
 - Stop and report blockers if required artifact/check fails.
 - Support `resume_from` with prior artifact validation.
 - Treat missing mobile adaptation evidence as gate failure (P1), unless user explicitly requests desktop-only.
-- Treat desktop non-full-width shell/layout (visible left-right blank gutters caused by fixed/max container constraints) as gate failure (P1), unless user explicitly requires centered narrow layout.
+- Treat desktop non-full-width shell/layout as gate failure (P1), unless user explicitly requires centered narrow layout.
 - Treat missing explicit final-template disclosure to user as gate failure (P1).
 - Treat missing explicit per-page component layout details in required markdown artifacts as gate failure (P1).
 - Treat missing explicit global hex color palette in required markdown artifacts as gate failure (P1).
 - Treat inability to switch global palette by editing one primary theme file as gate failure (P1).
 - Treat missing shadcn/ui evaluation evidence as gate failure (P1).
-- Treat missing shadcn/ui adoption on suitable interactive components as gate failure (P1), unless user explicitly overrides stack constraints.
-- If a page has no suitable interactive components, shadcn/ui is optional for that page but exemption evidence is required.
 - Treat missing frontend structure contract production/alignment/validation evidence as gate failure (P1).
+- Treat missing API contract artifact as gate failure (P1).
+- Treat backend output generated before API contract stage completion as orchestration violation (`P1`).
+- Treat contract/backend mismatch on route, schema, error model, or auth policy as gate failure (P1).
+- Treat missing integration QA evidence for at least one core flow as gate failure (P1).
 
 # Orchestration State Schema
 Track each stage with:
@@ -55,16 +63,18 @@ Track each stage with:
 - `blocking_reason`
 - `next_action`
 
+Run-level fields:
+- `orchestrator`
+- `run_mode`: `fresh|resume`
+- `resume_from`
+- `slice_id`
+- `slice_scope`
+- `final_status`: `completed|completed_with_risk|blocked|failed`
+
 # Resume Contract
 - `resume_from` must match a known stage name.
 - Prior stages must have validated artifacts before resume.
 - If prior artifacts are invalid, reset resume point to earliest invalid stage.
-
-# Standard Detail Depth Template Contract
-- All required markdown artifacts in this orchestration must follow the same minimum detail depth for:
-- `## Per-page Component Layout`
-- `## Global Hex Color Palette`
-- If any required depth item is missing, treat as `P1` gate failure.
 
 # Standard Orchestration Report Template
 ```markdown
@@ -74,6 +84,8 @@ Track each stage with:
 - orchestrator:
 - run_mode: fresh|resume
 - resume_from:
+- slice_id:
+- slice_scope:
 - final_status:
 
 ## 2. Stage Status Table
@@ -84,11 +96,12 @@ Track each stage with:
 - passed_gates:
 - failed_gates:
 - blocked_stage:
-- shadcn_ui_gate:
-- shadcn_ui_evaluation_gate:
-- component_layout_markdown_gate:
-- hex_palette_markdown_gate:
-- one_step_theme_switch_gate:
+- frontend_structure_contract_gate:
+- backend_structure_contract_gate:
+- api_contract_gate:
+- contract_backend_consistency_gate:
+- integration_qa_gate:
+- visual_qa_gate:
 
 ## 4. Outputs
 - report_path:
@@ -112,24 +125,11 @@ Track each stage with:
 ## Professional Notes
 
 ### Orchestration Principles
-- Coordinate stages 9->10->6->7 with strict artifact gate enforcement.
-- Never claim completion without verified stage outputs.
-- Support `resume_from` only when prior artifacts are validated.
-
-### Stage Contract
-- Stage outputs must include required depth fields for layout and palette contracts.
-- Treat missing required markdown structure as P1 gate failure.
-- Record stage status, blockers, and next action in orchestration report.
-
-### Recovery Policy
-- If any stage fails validation, halt and report earliest invalid stage.
-- Resume from earliest invalid stage after remediation, not from later stage.
+- Enforce frontend-first, contract-driven, fullstack loop execution.
+- Never claim completion without verified stage outputs and integration evidence.
+- Optimize for single-focus Vibe Coding on one slice at a time.
 
 ### Quality Gates
 - P0: Every stage produces required artifacts and passes stage-level validation before progression.
-- P1: Cross-stage consistency (naming, path contracts, responsive assumptions) is validated.
+- P1: Cross-stage consistency (path contracts, frontend-backend contract alignment, responsive assumptions) is validated.
 - P2: Orchestration report includes blocker context, next action, and resume readiness.
-
-### Downstream Handoff
-- Provide only actionable artifacts required by the immediate next stage.
-- Keep assumptions, confidence, and risk flags explicit for downstream validation.

@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: "User Generation Fullstack Integration QA"
+  short_description: "Run contract and core-flow integration QA across frontend and backend for current requirement slice."
+  default_prompt: "Use this skill when frontend-first pipelines need fullstack acceptance checks and minimal fixes before final visual QA delivery."

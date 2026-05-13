@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation Visual QA Iterative Fix"
-  short_description: "Run iterative visual and code QA on generated multi-page frontend output, then apply minimal scoped fixes until acceptance gates pass."
-  default_prompt: "Use this skill when validating desktop/mobile behavior, detecting regressions, and producing risk-prioritized remediation evidence. 适用于多页前端验收与最小修复闭环。"
+  short_description: "Run post-integration visual QA and minimal frontend fixes until responsive/presentation gates pass."
+  default_prompt: "Use this skill after fullstack integration QA passes, when the run needs final visual and responsive quality closure with minimal scoped fixes."

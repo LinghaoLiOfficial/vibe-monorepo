@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation Nextjs React Code Generation"
-  short_description: "Generate or modify frontend code under Next.js + React + TypeScript + Tailwind + shadcn/ui based on blueprint and composition artifacts."
-  default_prompt: "Use this skill when converting approved planning outputs into production-style responsive implementation under strict path and tokenization contracts. 适用于依据上游产物进行前端代码落地。"
+  short_description: "Generate frontend code first, then emit frontend-derived API contract input for downstream backend stages."
+  default_prompt: "Use this skill when frontend-first fullstack runs need responsive Next.js implementation plus a structured frontend-api-contract-input artifact for API contract design."

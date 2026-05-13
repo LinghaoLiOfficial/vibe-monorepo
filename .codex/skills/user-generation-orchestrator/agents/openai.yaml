@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation Orchestrator"
-  short_description: "Orchestrate the complete user-generation pipeline from requirements to QA-verified delivery with gate controls and resume support."
-  default_prompt: "Use this skill when teams need reliable stage-by-stage execution across blueprinting, template composition, code generation, and iterative visual QA. 适用于用户生成全链路编排、恢复与交付控制。"
+  short_description: "Orchestrate frontend-first fullstack generation with contract-first backend follow-up and integration gates."
+  default_prompt: "Use this skill when teams need a single-focus frontend-first Vibe Coding pipeline: blueprint, template composition, frontend implementation, API contract design, backend implementation, integration QA, then visual QA."

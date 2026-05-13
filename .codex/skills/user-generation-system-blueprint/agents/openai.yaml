@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: "User Generation System Blueprint"
-  short_description: "Convert product requirements into an implementation-grade multi-page system blueprint."
-  default_prompt: "Use this skill when a project needs scoped routes, roles, core flows, cross-page consistency, responsive strategy, and stack contracts before template composition or coding begins. 适用于从需求到系统蓝图的结构化建模。"
+  short_description: "Build a slice-oriented system blueprint for frontend-first fullstack execution."
+  default_prompt: "Use this skill when requirements must be translated into a route/flow blueprint with requirement-slice definition, frontend contracts, and backend-readiness assumptions."
