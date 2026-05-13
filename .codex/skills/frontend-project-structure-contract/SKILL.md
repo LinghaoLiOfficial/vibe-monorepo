@@ -18,10 +18,10 @@ description: Define and enforce a canonical frontend project directory contract 
 - Baseline directories:
 - `frontend/src/app/`
 - `frontend/src/lib/`
-- `frontend/src/styles/`
 - `frontend/public/` (optional when no static assets yet)
 
 # Extendable Directories (Optional, Add When Needed)
+- `frontend/src/styles/`
 - `frontend/src/components/`
 - `frontend/src/components/ui/`
 - `frontend/src/features/`
@@ -31,13 +31,19 @@ description: Define and enforce a canonical frontend project directory contract 
 # Placement Rules
 - Route files and route-level layouts must be placed under `frontend/src/app/`.
 - Shared infra utilities (api client, providers, env helpers) must be placed under `frontend/src/lib/`.
-- Global theme and style entrypoints must be placed under `frontend/src/styles/`.
+- Frontend HTTP client wrappers should be placed under `frontend/src/lib/api/`; do not create `frontend/src/api/` to avoid ambiguity with App Router `app/api`.
+- The single global style entrypoint must be `frontend/src/app/globals.css` and must be imported by root layout.
+- `frontend/src/styles/` may be used for split theme tokens or modular style files, but must not replace the global entrypoint.
 - If `components`/`features` are introduced, domain-specific logic must stay in `features`, shared UI in `components`.
+
+# Good/Bad Examples
+- Good: `frontend/src/app/dashboard/page.tsx` (route page), `frontend/src/lib/api/users.ts` (client wrapper), `frontend/src/features/auth/login-form.tsx` (domain UI logic).
+- Bad: `frontend/src/components/dashboard/page.tsx` (route misplaced), `frontend/src/api/users.ts` (ambiguous with App Router API routes), `frontend/src/styles/theme.css` as global entrypoint replacement.
 
 # Theme Single-Source Rule
 - Require one primary global theme file for one-step palette switching.
-- Default path: `frontend/src/styles/theme.css`.
-- If a different path is used, document the exact alternative path and rationale.
+- Fixed path for this repository: `frontend/src/app/globals.css`.
+- Alternative global entrypoint paths are not allowed to avoid drift from the minimal skeleton.
 
 # Required Contract Fields
 When emitting the contract, include:
@@ -45,18 +51,20 @@ When emitting the contract, include:
 - `route_placement_rules`
 - `shared_vs_feature_boundary_rules`
 - `theme_entrypoint_path`
-- `allowed_alternatives_and_rationale`
+- `allowed_alternatives_and_rationale` (must state `none` for global style entrypoint path)
 
 # Validation Checklist
 - Current-repo baseline directories are present in the contract.
 - Route placement rule is explicit and unambiguous.
-- Theme single-source path is explicit.
+- Theme single-source path is explicit and equals `frontend/src/app/globals.css`.
 - Any optional structure extensions are documented and justified.
+- API wrapper placement rule explicitly distinguishes `src/lib/api` from App Router `src/app/api`.
 
 # Failure Policy
 - Missing required contract fields is `P1`.
 - Route placement undefined/conflicting with App Router baseline is `P1`.
 - Theme single-source path missing is `P1`.
+- Defining frontend HTTP wrappers under `frontend/src/api/` is `P2`.
 
 # Execution Status Schema
 - `not_started`
