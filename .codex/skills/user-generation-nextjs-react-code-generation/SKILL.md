@@ -30,6 +30,7 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - Centralize global color theme in one primary theme file and support one-step palette replacement.
 - Evaluate each route for suitable interactive components; adopt shadcn/ui for suitable interactive components.
 - Derive API intent from implemented frontend behavior and persist as contract input artifact.
+- Run `scripts/check_structure_contracts.sh` before stage completion.
 
 # Frontend API Contract Input Contract
 `/user-requirements/frontend-api-contract-input.md` must include:
@@ -53,10 +54,12 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 - Per-route implemented component layout details
 - Primary theme file path for one-step palette switching
 - Generated API contract input artifact path and completeness result
+- Structure consistency script result
 
 # Gate Rules
 - Missing `/user-requirements/frontend-api-contract-input.md` is `P1` and blocks stage completion.
 - Missing required sections in contract input artifact is `P1`.
+- Failing `scripts/check_structure_contracts.sh` is `P1`.
 
 # Execution Status Schema
 Use these statuses in run logs or reports:
@@ -74,6 +77,7 @@ Use these statuses in run logs or reports:
 - `component_layout_section_ok`: `true|false`
 - `hex_palette_section_ok`: `true|false`
 - `frontend_api_contract_input_ok`: `true|false`
+- `structure_consistency_ok`: `true|false`
 - `confidence`: `high|medium|low`
 - `blocking_reason`: empty when not blocked
 
@@ -85,5 +89,5 @@ Use these statuses in run logs or reports:
 
 ### Quality Gates
 - P0: Required outputs exist and pass required-section checks.
-- P1: Frontend structure/path compliance and contract-input completeness are validated.
+- P1: Frontend structure/path compliance, structure consistency script, and contract-input completeness are validated.
 - P2: Handoff is actionable for `api-contract-design` stage.

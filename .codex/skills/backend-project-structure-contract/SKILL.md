@@ -1,6 +1,6 @@
 ---
 name: backend-project-structure-contract
-description: Define and enforce a canonical backend project directory contract for iterative fullstack delivery. Use when API-contract, backend code-generation, and integration QA stages must share stable backend boundaries for modules, migrations, shared contracts, and test layout. 适用于后端目录与边界契约统一。
+description: Define and enforce a canonical backend project directory contract aligned to this repository's FastAPI minimal skeleton under backend/app. Use when API-contract, backend code-generation, and integration QA stages must keep stable module boundaries and migration/test layout. 适用于对齐当前仓库后端最小骨架的目录契约。
 ---
 
 # Inputs
@@ -12,40 +12,50 @@ description: Define and enforce a canonical backend project directory contract f
 # Output
 - Contract section(s) inserted into current stage artifact(s), or explicit contract block for downstream handoff.
 
-# Canonical Structure Baseline
+# Canonical Structure Baseline (Current Repo)
 - Use `backend/` as root for backend code.
 - Baseline directories:
-- `backend/src/modules/`
-- `backend/src/shared/`
-- `backend/src/contracts/`
-- `backend/src/app/`
-- `backend/migrations/` (or documented ORM migration directory)
+- `backend/app/api/`
+- `backend/app/application/`
+- `backend/app/domain/`
+- `backend/app/infrastructure/`
+- `backend/app/core/`
+- `backend/app/schemas/`
+- `backend/alembic/`
 - `backend/tests/`
 
+# Extendable Directories (Optional, Add When Needed)
+- `backend/app/utils/`
+- `backend/app/infrastructure/cache/`
+- `backend/app/infrastructure/queue/`
+- `backend/app/infrastructure/storage/`
+
 # Placement Rules
-- Domain modules must be placed under `backend/src/modules/<domain>/`.
-- Cross-domain utilities (errors, logger, config, auth core) must be under `backend/src/shared/`.
-- API contracts and DTO schemas must be under `backend/src/contracts/`.
-- App bootstrap and server wiring must be under `backend/src/app/`.
-- Migration files must be generated under migration directory only.
-- Integration/e2e tests must be under `backend/tests/`.
+- HTTP route handlers and router wiring must be under `backend/app/api/`.
+- Use case orchestration, ports, services, and DTOs must be under `backend/app/application/`.
+- Business entities/rules/policies must be under `backend/app/domain/`.
+- DB repositories and external adapters must be under `backend/app/infrastructure/`.
+- App bootstrap/config/logging/middleware/security/observability must be under `backend/app/core/`.
+- API request/response schemas must be under `backend/app/schemas/`.
+- Migration files must be generated under `backend/alembic/`.
+- Unit/integration tests must be under `backend/tests/`.
 
 # Required Contract Fields
 - `canonical_directory_tree`
-- `module_boundary_rules`
-- `contract_ownership_rules`
+- `layer_boundary_rules`
+- `contract_schema_ownership_rules`
 - `migration_policy`
 - `test_layout_rules`
 - `allowed_alternatives_and_rationale`
 
 # Validation Checklist
-- Canonical directories are present in contract (or alternatives documented).
-- Module/shared boundaries are explicit.
-- Contract ownership and migration policy are explicit.
+- Current-repo baseline directories are present in contract.
+- Layer boundaries are explicit and enforceable.
+- Migration and test policy are explicit.
 
 # Failure Policy
 - Missing required contract fields is `P1`.
-- Missing module boundary or migration policy is `P1`.
+- Missing layer boundary or migration policy is `P1`.
 
 # Execution Status Schema
 - `not_started`

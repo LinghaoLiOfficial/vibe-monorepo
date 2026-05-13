@@ -26,6 +26,7 @@ description: Generate or modify backend code based on approved API contracts for
 - Implement minimal backend behavior needed for slice acceptance.
 - Add migration changes only through migration mechanism.
 - Preserve module boundaries from backend structure contract.
+- Run `scripts/check_structure_contracts.sh` before stage completion.
 
 # Report Must Include
 - Changed files
@@ -34,11 +35,13 @@ description: Generate or modify backend code based on approved API contracts for
 - Auth and permission implementation summary
 - Migration summary
 - Failures and unresolved risks
+- Structure consistency script result
 
 # Gate Rules
 - Contract/backend mismatch is `P1`.
 - Backend code outside `backend/` is `P1`.
 - Missing report contract-code mapping is `P1`.
+- Failing `scripts/check_structure_contracts.sh` is `P1`.
 
 # Execution Status Schema
 - `not_started`
@@ -53,5 +56,6 @@ description: Generate or modify backend code based on approved API contracts for
 - `artifact_non_empty`
 - `required_sections_ok`
 - `contract_alignment_ok`
+- `structure_consistency_ok`
 - `confidence`
 - `blocking_reason`

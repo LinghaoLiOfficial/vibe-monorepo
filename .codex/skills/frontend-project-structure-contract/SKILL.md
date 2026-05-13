@@ -1,6 +1,6 @@
 ---
 name: frontend-project-structure-contract
-description: Define and enforce a canonical frontend project directory contract for Next.js + React + TypeScript + Tailwind + shadcn/ui outputs. Use when multiple template-preparation or user-generation runs must keep a consistent frontend structure (for example frontend/src/app, components, features, styles), route-to-file placement rules, and shared-vs-feature ownership boundaries.
+description: Define and enforce a canonical frontend project directory contract for Next.js + React + TypeScript + Tailwind outputs in this repository. Use when template-preparation or user-generation runs must keep generated frontend code aligned to the actual minimal skeleton under frontend/src. 适用于对齐当前仓库前端最小骨架的目录契约。
 ---
 
 # Inputs
@@ -13,28 +13,26 @@ description: Define and enforce a canonical frontend project directory contract 
 # Output
 - Contract section(s) inserted into current stage artifact(s), or explicit contract block for downstream handoff.
 
-# Canonical Structure Baseline
+# Canonical Structure Baseline (Current Repo)
 - Use `frontend/` as root for all frontend code.
-- Baseline directories (unless repository conventions require a documented alternative):
+- Baseline directories:
 - `frontend/src/app/`
+- `frontend/src/lib/`
+- `frontend/src/styles/`
+- `frontend/public/` (optional when no static assets yet)
+
+# Extendable Directories (Optional, Add When Needed)
 - `frontend/src/components/`
 - `frontend/src/components/ui/`
 - `frontend/src/features/`
-- `frontend/src/lib/`
 - `frontend/src/hooks/`
-- `frontend/src/styles/`
 - `frontend/src/types/`
-- `frontend/public/`
 
 # Placement Rules
 - Route files and route-level layouts must be placed under `frontend/src/app/`.
-- Cross-route reusable components must be placed under `frontend/src/components/`.
-- shadcn/ui primitives must be placed under `frontend/src/components/ui/` (or documented alias).
-- Domain-specific UI and logic must be placed under `frontend/src/features/<domain>/`.
-- Shared utilities and clients must be placed under `frontend/src/lib/`.
-- Cross-feature reusable hooks must be placed under `frontend/src/hooks/`.
-- Shared type contracts must be placed under `frontend/src/types/`.
+- Shared infra utilities (api client, providers, env helpers) must be placed under `frontend/src/lib/`.
 - Global theme and style entrypoints must be placed under `frontend/src/styles/`.
+- If `components`/`features` are introduced, domain-specific logic must stay in `features`, shared UI in `components`.
 
 # Theme Single-Source Rule
 - Require one primary global theme file for one-step palette switching.
@@ -50,19 +48,17 @@ When emitting the contract, include:
 - `allowed_alternatives_and_rationale`
 
 # Validation Checklist
-- All canonical directories are present in the contract (or alternatives documented).
+- Current-repo baseline directories are present in the contract.
 - Route placement rule is explicit and unambiguous.
-- Shared-vs-feature ownership boundaries are explicit.
 - Theme single-source path is explicit.
-- Any deviations from baseline structure are justified and mapped.
+- Any optional structure extensions are documented and justified.
 
 # Failure Policy
-- If required contract fields are missing, mark validation failure (`P1`).
-- If route placement is undefined or conflicts with App Router baseline, mark validation failure (`P1`).
-- If theme single-source path is missing, mark validation failure (`P1`).
+- Missing required contract fields is `P1`.
+- Route placement undefined/conflicting with App Router baseline is `P1`.
+- Theme single-source path missing is `P1`.
 
 # Execution Status Schema
-Use these statuses in run logs or reports:
 - `not_started`
 - `in_progress`
 - `blocked`
@@ -70,26 +66,10 @@ Use these statuses in run logs or reports:
 - `completed_with_risk`
 
 # Artifact Contract
-- `artifact_path`: absolute or repo-relative output file path
-- `artifact_exists`: `true|false`
-- `artifact_non_empty`: `true|false`
-- `required_sections_ok`: `true|false`
-- `structure_contract_ok`: `true|false`
-- `confidence`: `high|medium|low`
-- `blocking_reason`: empty when not blocked
-
-## Professional Notes
-
-### Scope And Non-Goals
-- Define/enforce project structure contract; do not generate full frontend runtime code by itself.
-- Preserve repository conventions while maintaining enforceable structure boundaries.
-
-### Execution Workflow
-1. Read available upstream artifact(s).
-2. Emit or validate canonical structure contract fields.
-3. Report deviations and acceptance conditions for downstream stages.
-
-### Quality Gates
-- P0: Contract block exists and is non-empty.
-- P1: Structure contract fields are complete and enforceable.
-- P2: Deviations and alternatives are traceable and actionable.
+- `artifact_path`
+- `artifact_exists`
+- `artifact_non_empty`
+- `required_sections_ok`
+- `structure_contract_ok`
+- `confidence`
+- `blocking_reason`

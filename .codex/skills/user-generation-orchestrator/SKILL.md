@@ -37,6 +37,10 @@ description: Orchestrate a frontend-first fullstack user-generation pipeline wit
 - Each run must identify a slice id/name and scope boundary.
 - If requirement is broad, split into smaller slices and complete in separate loop runs.
 
+# Structure Consistency Gate (Mandatory)
+- Run `scripts/check_structure_contracts.sh` before marking stages 3, 5, and 6 as completed.
+- If structure check fails, stage status must be `blocked`.
+
 # Gate Rules
 - Validate each stage artifact before moving on.
 - Stop and report blockers if required artifact/check fails.
@@ -53,6 +57,7 @@ description: Orchestrate a frontend-first fullstack user-generation pipeline wit
 - Treat backend output generated before API contract stage completion as orchestration violation (`P1`).
 - Treat contract/backend mismatch on route, schema, error model, or auth policy as gate failure (P1).
 - Treat missing integration QA evidence for at least one core flow as gate failure (P1).
+- Treat structure consistency check failure as gate failure (P1).
 
 # Orchestration State Schema
 Track each stage with:
@@ -98,6 +103,7 @@ Run-level fields:
 - blocked_stage:
 - frontend_structure_contract_gate:
 - backend_structure_contract_gate:
+- structure_consistency_script_gate:
 - api_contract_gate:
 - contract_backend_consistency_gate:
 - integration_qa_gate:
@@ -131,5 +137,5 @@ Run-level fields:
 
 ### Quality Gates
 - P0: Every stage produces required artifacts and passes stage-level validation before progression.
-- P1: Cross-stage consistency (path contracts, frontend-backend contract alignment, responsive assumptions) is validated.
+- P1: Cross-stage consistency (path contracts, frontend-backend contract alignment, responsive assumptions, structure consistency script) is validated.
 - P2: Orchestration report includes blocker context, next action, and resume readiness.
