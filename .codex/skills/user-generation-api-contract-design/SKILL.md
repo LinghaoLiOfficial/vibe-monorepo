@@ -13,6 +13,21 @@ description: Convert frontend-derived API intent into an implementation-grade ba
 # Outputs
 - `/user-requirements/api-contract.md`
 
+# Required Sections
+- `## Endpoint Surface`
+- `## Request Schemas`
+- `## Response Schemas`
+- `## Error Model`
+- `## Auth Policy`
+- `## Compatibility And Versioning`
+
+# Compatibility Matrix
+- include at minimum:
+- `change_type`
+- `backward_compatible` (`yes|no`)
+- `client_impact`
+- `migration_action`
+
 # Execution
 1. normalize endpoint intents into concrete API surface
 2. define request/response schemas

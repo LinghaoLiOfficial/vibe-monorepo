@@ -24,3 +24,4 @@ description: Parse desktop/mobile webpage screenshots into a reusable, evidence-
 - No screenshot input or persist failure is blocking.
 - Hash/code-like naming for template slug is `P1`.
 - Missing mobile screenshot is `completed_with_risk`.
+- `completed_with_risk` must include `risk_owner`, `risk_acceptance`, and `recovery_plan`.

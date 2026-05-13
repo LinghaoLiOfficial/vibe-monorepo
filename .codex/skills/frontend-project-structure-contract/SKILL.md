@@ -17,5 +17,21 @@ Define canonical frontend structure boundaries and validate generated artifacts 
 - route and component placement aligned to project skeleton
 - enforce one-file global theme switch path when required
 
+# Theme Switch Contract
+- one-file switch location must be declared in report as `theme_switch_file`
+- report must include `theme_switch_file_exists` and `theme_switch_import_trace_ok`
+
+# Validation Evidence
+- include `validation_mode` (`quick|full`) in report
+- include executed commands and exit codes
+- include explicit placement check result for:
+- `frontend/src/app`
+- `frontend/src/components`
+- `frontend/src/lib`
+
+# Suggested Commands
+- `scripts/check_structure_contracts.sh`
+- `cd frontend && pnpm type-check && pnpm build`
+
 # Gate
 - Any placement or ownership violation is `P1`.

@@ -33,6 +33,20 @@ cd backend && uv run ruff check . && uv run ruff format --check . && uv run mypy
 ```
 - Missing API contract, contract/backend mismatch, or missing integration evidence is `P1`.
 
+# Validation Mode Policy
+- intermediate loop checks may use `validation_mode=quick` with explicit skipped checks
+- stage completion requires `validation_mode=full`
+
+# Cross-Stage Field Contract
+- each stage report must declare:
+- `stage_name`
+- `inputs`
+- `outputs`
+- `status`
+- `validation_mode`
+- `confidence`
+- orchestrator report must include an aggregated stage contract table
+
 # Resume Rules
 - `resume_from` must be a valid stage name.
 - Prior stages must have validated artifacts; otherwise resume resets to earliest invalid stage.

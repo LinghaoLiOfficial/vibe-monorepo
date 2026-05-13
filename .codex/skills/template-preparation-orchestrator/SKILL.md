@@ -14,6 +14,11 @@ description: Orchestrate the full template-preparation pipeline (01-05 + indexin
 5. nextjs-react-frontend-design-language
 6. template-indexing
 
+# Parallelization Rules
+- stages 1->5 are strict sequential stages
+- stage 6 can run only after stages 1..5 are validated
+- no stage may mutate a prior-stage artifact
+
 # Naming And Path Contract
 - Use `<template-name-slug>` (kebab-case, human-readable).
 - Never overwrite existing artifacts; allocate `-v2`, `-v3` when needed.
@@ -35,3 +40,4 @@ description: Orchestrate the full template-preparation pipeline (01-05 + indexin
 
 # Report Minimum
 - run metadata, stage table, gate summary, output list, risks, next step.
+- include stage-level `validation_mode` and command evidence when commands are used.

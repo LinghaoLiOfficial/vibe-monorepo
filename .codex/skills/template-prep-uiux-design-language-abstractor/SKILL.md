@@ -12,6 +12,13 @@ description: Abstract UX intent and interaction principles from visual-parse art
 # Outputs
 - `templates/<template-name-slug>/02-uiux-design-language.md`
 
+# Required Sections
+- `## Evidence Summary`
+- `## Information Architecture`
+- `## Interaction Rules`
+- `## Accessibility And Responsive Intent`
+- `## Facts vs Inferences`
+
 # Execution
 1. translate observed evidence into IA and interaction rules
 2. define accessibility and responsive intent

@@ -18,5 +18,15 @@ Define canonical backend structure boundaries and validate generated backend art
 - stable module boundaries under `backend/app`
 - migration/test layout consistency
 
+# Validation Evidence
+- include `validation_mode` (`quick|full`) in report
+- include executed commands and exit codes
+- include explicit boundary check result per directory group:
+- `backend/app`, `backend/tests`, `backend/migrations`
+
+# Suggested Commands
+- `scripts/check_structure_contracts.sh`
+- `cd backend && uv run pytest -q tests/test_health.py tests/test_exception_handlers.py tests/test_metrics.py`
+
 # Gate
 - Any boundary or ownership violation is `P1`.

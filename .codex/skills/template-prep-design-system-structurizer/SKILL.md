@@ -13,6 +13,19 @@ description: Convert visual and UI/UX abstractions into a template-level design 
 # Outputs
 - `templates/<template-name-slug>/03-design-system.md`
 
+# Required Sections
+- `## Token System`
+- `## Semantic Token Mapping`
+- `## Typography Scale`
+- `## Spacing/Radius/Shadow`
+- `## Component Baselines`
+- `## Responsive Token Behavior`
+
+# Token Naming Guidance
+- raw tokens use `raw-*`
+- semantic tokens use `semantic-*`
+- component aliases use `component-*`
+
 # Execution
 1. define tokens (color/type/spacing/radius/shadow)
 2. define component baselines and reuse constraints

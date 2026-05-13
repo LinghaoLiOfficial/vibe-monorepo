@@ -13,6 +13,14 @@ description: Compose a multi-page template strategy by matching system blueprint
 # Outputs
 - `/user-requirements/multi-page-template-composition.md`
 
+# Scoring Contract
+- use weighted score:
+- `layout_fit` (0.35)
+- `component_reuse_fit` (0.30)
+- `responsive_fit` (0.20)
+- `adaptation_cost` (0.15, lower cost higher score)
+- include per-candidate score table and final selected template
+
 # Execution
 1. score candidate templates against blueprint needs
 2. choose best-fit template and record rationale

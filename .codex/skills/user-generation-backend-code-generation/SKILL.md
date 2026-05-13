@@ -25,3 +25,7 @@ description: Generate or modify backend code based on approved API contracts for
 - Must run `scripts/check_structure_contracts.sh`.
 - Must run `uv run ruff check .`, `uv run ruff format --check .`, `uv run mypy app tests`, `uv run pytest -q` in `backend/`.
 - Contract/backend mismatch, missing NFR snapshot, or missing rollback summary is `P1`.
+
+# Validation Modes
+- `quick`: allow `uv run ruff check .` + targeted pytest for fast iteration, but cannot mark final stage as `completed`.
+- `full`: requires all listed gates and is required for final completion.

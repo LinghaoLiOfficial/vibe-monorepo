@@ -13,6 +13,15 @@ description: Index completed template-prep artifacts into searchable metadata fo
 - `templates/<template-name-slug>/index.json`
 - optional update to `templates/catalog.md`
 
+# Index Schema Minimum
+- `template_slug`
+- `source_artifacts` (01..05 paths)
+- `route_coverage`
+- `component_tags`
+- `responsive_coverage` (`desktop_only|desktop_mobile`)
+- `confidence`
+- `updated_at`
+
 # Execution
 1. extract identity and matching metadata
 2. record preserve/replace boundaries

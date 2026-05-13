@@ -13,6 +13,18 @@ description: Plan frontend component architecture from prep artifacts, including
 # Outputs
 - `templates/<template-name-slug>/04-frontend-component-plan.md`
 
+# Required Sections
+- `## Page To Component Tree`
+- `## Boundary Decisions`
+- `## Props/State Contracts`
+- `## Interaction Contracts`
+- `## Replaceable Regions`
+- `## Responsive Behavior`
+
+# Component Granularity Rules
+- avoid page-level god components; split when a component handles more than one independent interaction concern
+- each page must map to at least one layout component and one content component
+
 # Execution
 1. define component tree and boundaries
 2. define props/state/interaction contracts

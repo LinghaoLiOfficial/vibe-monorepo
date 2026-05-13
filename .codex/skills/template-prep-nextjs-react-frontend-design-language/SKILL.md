@@ -22,6 +22,11 @@ description: Produce implementation-oriented Next.js + React + TypeScript + Tail
 3. map components into Next.js implementation layout
 4. include structure-contract alignment section
 
+# Boundary Verification
+- for each route segment, declare `server_or_client` with a one-line reason
+- list any client components that require browser-only APIs
+- list cross-boundary data flow assumptions
+
 # Skill-Specific Gates
 - Missing structure-contract block is `P1`.
 - Missing one-file theme switch strategy is `P1`.

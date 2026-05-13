@@ -13,6 +13,22 @@ description: Convert product requirements into an implementation-grade multi-pag
 # Outputs
 - `/user-requirements/system-blueprint.md`
 
+# Required Sections
+- `## Slice Scope`
+- `## Actors`
+- `## Route Map`
+- `## Core Flows`
+- `## Responsive Strategy`
+- `## Backend Domain/API Assumptions`
+- `## Open Decisions`
+- `## Risks`
+
+# Open Decision Ownership
+- each open decision must include:
+- `owner`
+- `decision_due_stage`
+- `impact_if_unresolved`
+
 # Execution
 1. define scope, actors, route map, and core flows
 2. define responsive strategy and frontend assumptions

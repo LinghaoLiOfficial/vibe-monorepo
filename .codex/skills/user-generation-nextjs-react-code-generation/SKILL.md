@@ -23,6 +23,11 @@ description: Generate or modify frontend code under Next.js + React + TypeScript
 4. Derive API intent from implemented UI.
 5. Validate structure + quality commands.
 
+# Failure Recovery Priority
+- if `pnpm type-check` fails, fix type and contract errors first
+- if `pnpm build` fails after type-check passes, fix runtime/build pipeline issues next
+- rerun `scripts/check_structure_contracts.sh` after any structural refactor
+
 # Skill-Specific Gates
 - Must run `scripts/check_structure_contracts.sh`.
 - Must run `pnpm type-check` and `pnpm build` in `frontend/`.

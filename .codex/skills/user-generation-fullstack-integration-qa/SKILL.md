@@ -16,6 +16,12 @@ description: Validate frontend-backend integration for the current requirement s
 - minimal scoped fixes (frontend/backend)
 - `/user-requirements/fullstack-integration-qa-report.md`
 
+# E2E Evidence Minimum
+- include tested flow list with pass/fail
+- include request/response evidence summary for contract-critical endpoints
+- include timestamps and environment metadata
+- include final conformance statement
+
 # Execution Loop
 1. validate contract consistency
 2. run core flow checks
