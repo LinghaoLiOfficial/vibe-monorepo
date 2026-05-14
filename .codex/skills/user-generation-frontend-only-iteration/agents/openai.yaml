@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend-only Iteration"
+  short_description: "Implement UI-only changes with strict backend boundaries."
+  default_prompt: "Apply frontend-only changes, validate build quality, and escalate if backend changes are required."

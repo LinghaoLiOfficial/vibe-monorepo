@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fullstack Requirement Evolution"
+  short_description: "Implement new requirement slices across frontend backend and DB."
+  default_prompt: "Implement a new requirement slice across frontend, contract, backend, and database with validation evidence."

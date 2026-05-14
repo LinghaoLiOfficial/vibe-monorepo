@@ -1,0 +1,4 @@
+interface:
+  display_name: "Change Orchestrator"
+  short_description: "Route change requests to the right scoped workflow safely."
+  default_prompt: "Classify change intent, route to the right workflow, enforce gates, and produce a report."

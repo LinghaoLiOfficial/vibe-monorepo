@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backend-only Iteration"
+  short_description: "Implement backend-only logic and API updates safely."
+  default_prompt: "Apply backend-only changes, run backend validations, and escalate if frontend coordination is required."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data-only Change"
+  short_description: "Apply safe data-only updates with rollback-ready evidence."
+  default_prompt: "Execute a data-only change safely with precheck, backup evidence, and rollback plan."
